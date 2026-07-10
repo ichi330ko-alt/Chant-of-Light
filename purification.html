@@ -1,1 +1,37 @@
-file:///home/chronos/u-e18ad3934f2e7848d5aa13eceeb9de6ef666b6e2/MyFiles/%EF%BD%88%EF%BD%94%EF%BD%8D%EF%BD%8C%E3%82%B5%E3%82%A4%E3%83%88/purification%20(1).html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心の浄化｜光の詠唱</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#f7f1e7;color:#4f412f;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
+body{min-height:100vh;display:grid;place-items:center;padding:24px}
+main{width:min(680px,100%);padding:30px;text-align:center;background:rgba(255,255,255,.78);border:1px solid rgba(182,139,72,.35);border-radius:24px;box-shadow:0 12px 34px rgba(74,54,29,.11)}
+textarea{width:100%;min-height:240px;padding:16px;border:1px solid rgba(182,139,72,.5);border-radius:16px;background:rgba(255,255,255,.9);font:inherit;resize:vertical}
+.note{font-size:.9rem;line-height:1.8;color:#766650}
+.button{display:inline-block;margin:8px;padding:13px 24px;border:1px solid #b68b48;border-radius:999px;background:#d5ad62;color:#fff;text-decoration:none;font:inherit;cursor:pointer}
+.secondary{background:transparent;color:#71552e}
+</style>
+</head>
+<body>
+<main>
+<h1>心の浄化</h1>
+<p>今ここにある想いを、そのまま書いてください。</p>
+<form id="purificationForm">
+<textarea placeholder="誰にも見せない言葉として、自由に書いてください。"></textarea>
+<p class="note">入力した文章は保存も送信もされません。<br>この画面の中で消去されます。</p>
+<button class="button" type="submit">天へ還す</button>
+<a class="button secondary" href="index.html">ホームへ戻る</a>
+</form>
+</main>
+<script>
+document.getElementById("purificationForm").addEventListener("submit",function(e){
+e.preventDefault();
+e.target.reset();
+location.href="thanks.html";
+});
+</script>
+</body>
+</html>
