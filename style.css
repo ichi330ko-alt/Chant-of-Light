@@ -1,1 +1,25 @@
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#f6efe2;color:#4d3b28;font-family:"Noto Serif JP","Yu Mincho",serif}.home-page{display:grid;place-items:center}.home-wrap{position:relative;width:min(100vw,177.78vh);aspect-ratio:16/9;overflow:hidden;background:#f6efe2}.home-image{display:block;width:100%;height:100%;object-fit:contain}.hotspot{position:absolute;display:block;border:0;background:transparent;cursor:pointer}.draw-hotspot{left:23.7%;top:58.5%;width:25.5%;height:14.5%}.purify-hotspot{left:52%;top:58.5%;width:25.5%;height:14.5%}.hotspot:focus-visible{outline:4px solid rgba(139,95,28,.75);outline-offset:-4px;border-radius:24px}.page{min-height:100vh;padding:24px;display:grid;place-items:center;background:radial-gradient(circle at top,rgba(255,255,255,.9),rgba(246,239,226,.95)),#f6efe2}.panel{width:min(720px,100%);background:rgba(255,255,255,.82);border:1px solid rgba(180,140,80,.35);border-radius:24px;padding:28px;box-shadow:0 12px 40px rgba(90,65,35,.12);text-align:center}.card-image{width:min(100%,520px);height:auto;display:block;margin:0 auto 22px;border-radius:18px;box-shadow:0 10px 34px rgba(80,55,25,.16)}.button,button.button{display:inline-block;padding:14px 24px;margin:8px;border:1px solid #b88b45;border-radius:999px;background:linear-gradient(#e8c77e,#c99842);color:#fff;text-decoration:none;font:inherit;cursor:pointer}.button.secondary{background:transparent;color:#7a592e}textarea{width:100%;min-height:220px;padding:16px;border:1px solid rgba(150,110,55,.4);border-radius:16px;font:inherit;resize:vertical;background:rgba(255,255,255,.9)}.note{font-size:.9rem;color:#75634d;line-height:1.8}@media(max-width:700px){.home-wrap{width:100vw;aspect-ratio:16/9}.panel{padding:20px}}
+.container{
+  position:relative;
+}
+
+.button{
+  position:absolute;
+  display:block;
+}
+
+/* 今日の一枚 */
+.draw{
+  left:22%;
+  top:57%;
+  width:24%;
+  height:10%;
+}
+
+/* 心の浄化 */
+.purify{
+  left:54%;
+  top:57%;
+  width:24%;
+  height:10%;
+}
