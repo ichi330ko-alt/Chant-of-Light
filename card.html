@@ -3,33 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>今日の一枚｜光の詠唱</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#f7f1e7;color:#4f412f;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
-body{min-height:100vh;display:grid;place-items:center;padding:24px}
-main{width:min(680px,100%);text-align:center}
-img{display:block;max-width:100%;max-height:82vh;margin:0 auto 20px;object-fit:contain;border-radius:16px;box-shadow:0 12px 34px rgba(74,54,29,.16)}
-.button{display:inline-block;margin:6px;padding:13px 24px;border:1px solid #b68b48;border-radius:999px;background:#d5ad62;color:#fff;text-decoration:none;font:inherit;cursor:pointer}
-.secondary{background:transparent;color:#71552e}
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+    background:#f7f1e7;
+    color:#4f412f;
+    font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+}
+
+body{
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:24px;
+}
+
+main{
+    width:min(680px,100%);
+    text-align:center;
+}
+
+img{
+    display:block;
+    max-width:100%;
+    max-height:82vh;
+    margin:0 auto 20px;
+    object-fit:contain;
+    border-radius:16px;
+    box-shadow:0 12px 34px rgba(74,54,29,.16);
+}
+
+.button{
+    display:inline-block;
+    margin:6px;
+    padding:13px 24px;
+    border:1px solid #b68b48;
+    border-radius:999px;
+    background:#d5ad62;
+    color:white;
+    text-decoration:none;
+    font:inherit;
+    cursor:pointer;
+}
+
+.secondary{
+    background:transparent;
+    color:#71552e;
+}
 </style>
 </head>
+
 <body>
+
 <main>
+
 <img id="cardImage" alt="今日の一枚">
-<button class="button" id="againButton">もう一枚引く</button>
-<a class="button secondary" href="index.html">ホームへ戻る</a>
+
+<button class="button" id="againButton">
+もう一枚引く
+</button>
+
+<a class="button secondary" href="index.html">
+ホームへ戻る
+</a>
+
 </main>
+
 <script>
-const CARD_COUNT=4;
-const params=new URLSearchParams(location.search);
-const card=params.get("card")||"01";
-document.getElementById("cardImage").src="card"+card+".png";
+
+const CARD_COUNT = 44;
+
+const params = new URLSearchParams(location.search);
+
+const card = params.get("card") || "01";
+
+document.getElementById("cardImage").src =
+"Card" + card + ".png";
+
 document.getElementById("againButton").addEventListener("click",function(){
-const n=Math.floor(Math.random()*CARD_COUNT)+1;
-const next=String(n).padStart(2,"0");
-location.href="card.html?card="+next;
+
+    const n =
+    Math.floor(Math.random()*CARD_COUNT)+1;
+
+    const next =
+    String(n).padStart(2,"0");
+
+    location.href =
+    "card.html?card="+next;
+
 });
+
 </script>
+
 </body>
 </html>
