@@ -1,1 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>天から届いた手紙｜光の詠唱</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  padding:40px 18px;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,.9), transparent 45%),
+    linear-gradient(180deg,#f9f3e8 0%,#eee1cc 100%);
+  color:#554532;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+}
+
+.page{
+  width:min(720px,100%);
+  margin:0 auto;
+  text-align:center;
+}
+
+.page-title{
+  margin:0 0 28px;
+  color:#8a6a38;
+  font-size:clamp(22px,5vw,32px);
+  font-weight:normal;
+  letter-spacing:.15em;
+}
+
+/* 封筒全体 */
+.envelope{
+  position:relative;
+  width:min(640px,100%);
+  margin:0 auto;
+  padding:76px 22px 42px;
+}
+
+/* 封筒の本体 */
+.envelope-body{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:74%;
+  overflow:hidden;
+  border-radius:12px;
+  background:#d7ad63;
+  box-shadow:0 18px 45px rgba(83,56,24,.2);
+}
+
+.envelope-body::before,
+.envelope-body::after{
+  content:"";
+  position:absolute;
+  bottom:-2px;
+  width:72%;
+  height:100%;
+  background:#e6c487;
+}
+
+.envelope-body::before{
+  left:-22%;
+  transform:skewX(35deg);
+}
+
+.envelope-body::after{
+  right:-22%;
+  transform:skewX(-35deg);
+}
+
+/* 開いた封筒のふた */
+.envelope-flap{
+  position:absolute;
+  top:24px;
+  left:12%;
+  width:76%;
+  height:190px;
+  background:#c9923d;
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+  filter:drop-shadow(0 5px 5px rgba(86,54,18,.12));
+}
+
+/* 手紙 */
+.letter{
+  position:relative;
+  z-index:3;
+  width:94%;
+  margin:0 auto;
+  padding:54px clamp(24px,7vw,62px) 48px;
+  background:
+    linear-gradient(rgba(255,255,255,.78),rgba(255,255,255,.78)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 36px,
+      rgba(191,159,104,.1) 37px
+    );
+  border:1px solid #e5cf9e;
+  box-shadow:0 12px 32px rgba(80,57,26,.18);
+  transform:rotate(-1deg);
+}
+
+/* 便箋の金色飾り枠 */
+.letter::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  pointer-events:none;
+  border:1px solid #d5af61;
+}
+
+.letter::after{
+  content:"✦";
+  position:absolute;
+  top:3px;
+  left:50%;
+  padding:0 12px;
+  background:#fffdf8;
+  color:#c79a42;
+  font-size:20px;
+  transform:translateX(-50%);
+}
+
+.letter-heading{
+  margin:0 0 34px;
+  color:#9b7537;
+  font-size:clamp(20px,5vw,28px);
+  font-weight:normal;
+  letter-spacing:.16em;
+}
+
+.section{
+  margin:0 0 38px;
+  text-align:left;
+}
+
+.section-title{
+  margin:0 0 14px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(181,139,72,.45);
+  color:#a67a35;
+  font-size:18px;
+  font-weight:normal;
+  letter-spacing:.12em;
+}
+
+.keywords{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:0;
+}
+
+.keyword{
+  display:inline-block;
+  padding:8px 15px;
+  border:1px solid #d6b36d;
+  border-radius:999px;
+  background:rgba(255,250,238,.85);
+  color:#72562f;
+  font-size:15px;
+}
+
+.meaning{
+  margin:0;
+  color:#514535;
+  font-size:clamp(16px,3.8vw,18px);
+  line-height:2.15;
+  text-align:justify;
+  white-space:pre-wrap;
+}
+
+.signature{
+  margin:42px 0 0;
+  color:#9b7540;
+  font-size:17px;
+  letter-spacing:.18em;
+  text-align:right;
+}
+
+.buttons{
+  position:relative;
+  z-index:5;
+  margin-top:30px;
+}
+
+.button{
+  display:inline-block;
+  margin:6px;
+  padding:13px 23px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  background:#c89c51;
+  color:#fff;
+  font:inherit;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.secondary{
+  background:rgba(255,255,255,.55);
+  color:#71552e;
+}
+
+.status{
+  position:relative;
+  z-index:4;
+  padding:35px 20px;
+  color:#71552e;
+  background:#fffaf0;
+  border-radius:12px;
+}
+
+@media(max-width:520px){
+  body{
+    padding:26px 10px;
+  }
+
+  .envelope{
+    padding:54px 5px 28px;
+  }
+
+  .envelope-flap{
+    top:15px;
+    height:145px;
+  }
+
+  .letter{
+    width:96%;
+    padding:45px 27px 38px;
+  }
+
+  .meaning{
+    text-align:left;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <h1 class="page-title">天から届いた手紙</h1>
+
+  <div class="envelope">
+
+    <div class="envelope-flap"></div>
+    <div class="envelope-body"></div>
+
+    <article class="letter" id="letter" hidden>
+
+      <h2 class="letter-heading">あなたへのメッセージ</h2>
+
+      <section class="section">
+        <h3 class="section-title">キーワード</h3>
+        <div class="keywords" id="keywords"></div>
+      </section>
+
+      <section class="section">
+        <h3 class="section-title">天からの詳しいメッセージ</h3>
+        <p class="meaning" id="meaning"></p>
+      </section>
+
+      <p class="signature">光より</p>
+
+    </article>
+
+    <p class="status" id="status">
+      手紙を開いています……
+    </p>
+
+  </div>
+
+  <div class="buttons">
+    <a class="button" id="backToCard" href="card.html">
+      カードへ戻る
+    </a>
+
+    <a class="button secondary" href="index.html">
+      ホームへ戻る
+    </a>
+  </div>
+
+</main>
+
+<script>
+const params = new URLSearchParams(location.search);
+const card = params.get("card") || "01";
+
+const cardNumber = String(card).padStart(2, "0");
+
+const letter = document.getElementById("letter");
+const status = document.getElementById("status");
+const keywordsElement = document.getElementById("keywords");
+const meaningElement = document.getElementById("meaning");
+const backToCard = document.getElementById("backToCard");
+
+backToCard.href = "card.html?card=" + cardNumber;
+
+fetch("cards.json")
+  .then(function(response){
+    if(!response.ok){
+      throw new Error("cards.jsonを読み込めませんでした");
+    }
+
+    return response.json();
+  })
+  .then(function(cards){
+    const data = cards[cardNumber];
+
+    if(!data){
+      throw new Error("このカードの解説がまだ登録されていません");
+    }
+
+    keywordsElement.innerHTML = "";
+
+    data.keywords.forEach(function(keyword){
+      const span = document.createElement("span");
+      span.className = "keyword";
+      span.textContent = keyword;
+      keywordsElement.appendChild(span);
+    });
+
+    meaningElement.textContent = data.meaning;
+
+    status.hidden = true;
+    letter.hidden = false;
+  })
+  .catch(function(error){
+    status.textContent = error.message;
+  });
+</script>
+
+</body>
+</html>
