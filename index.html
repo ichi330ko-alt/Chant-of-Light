@@ -3,32 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>光の詠唱</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#f7f1e7}
-body{display:grid;place-items:center}
-.home{position:relative;width:min(100vw,150vh);aspect-ratio:3/2;overflow:hidden}
-.home img{display:block;width:100%;height:100%;object-fit:contain}
-.hotspot{position:absolute;display:block;border:0;background:transparent;cursor:pointer;padding:0}
-.draw{left:25%;top:63%;width:23%;height:15%}
-.purify{left:52%;top:63%;width:23%;height:15%}
-.hotspot:focus-visible{outline:4px solid rgba(138,94,31,.75);outline-offset:-4px;border-radius:24px}
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #f7f1e7;
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+
+.home {
+  position: relative;
+  width: min(100vw, 150vh);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.home img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hotspot {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.draw {
+  left: 25%;
+  top: 63%;
+  width: 23%;
+  height: 15%;
+}
+
+.purify {
+  left: 52%;
+  top: 63%;
+  width: 23%;
+  height: 15%;
+}
+
+.hotspot:focus-visible {
+  outline: 4px solid rgba(138, 94, 31, 0.75);
+  outline-offset: -4px;
+  border-radius: 24px;
+}
 </style>
 </head>
+
 <body>
+
 <main class="home">
-<img src="home2.png" alt="光の詠唱">
-<button class="hotspot draw" id="drawButton" aria-label="今日の一枚を引く"></button>
-<a class="hotspot purify" href="purification.html" aria-label="心の浄化をする"></a>
+
+  <img src="home2.png" alt="光の詠唱 ホーム画面">
+
+  <button
+    class="hotspot draw"
+    id="drawButton"
+    type="button"
+    aria-label="今日の一枚を引く">
+  </button>
+
+  <a
+    class="hotspot purify"
+    href="purification.html"
+    aria-label="心の浄化をする">
+  </a>
+
 </main>
+
 <script>
-const CARD_COUNT=4;
-document.getElementById("drawButton").addEventListener("click",function(){
-const n=Math.floor(Math.random()*CARD_COUNT)+1;
-const card=String(n).padStart(2,"0");
-location.href="card.html?card="+card;
-});
+const CARD_COUNT = 44;
+
+document
+  .getElementById("drawButton")
+  .addEventListener("click", function () {
+
+    const randomNumber =
+      Math.floor(Math.random() * CARD_COUNT) + 1;
+
+    const cardNumber =
+      String(randomNumber).padStart(2, "0");
+
+    location.href =
+      "card.html?card=" + cardNumber;
+  });
 </script>
+
 </body>
 </html>
