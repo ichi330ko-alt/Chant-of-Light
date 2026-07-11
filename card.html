@@ -3,12 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>今日の一枚｜光の詠唱</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
   margin:0;
   min-height:100%;
   background:#f7f1e7;
@@ -21,6 +25,7 @@ body{
   display:grid;
   place-items:center;
   padding:24px;
+  overflow-x:hidden;
 }
 
 main{
@@ -28,14 +33,214 @@ main{
   text-align:center;
 }
 
-img{
+/* 最初に表示される光の画面 */
+.receiving-screen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,.98) 0%,
+      rgba(250,242,224,.96) 48%,
+      rgba(239,223,193,.97) 100%
+    );
+  transition:
+    opacity .9s ease,
+    visibility .9s ease;
+}
+
+.receiving-screen.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.receiving-light{
+  width:90px;
+  height:90px;
+  margin-bottom:28px;
+  border-radius:50%;
+  background:rgba(255,250,221,.8);
+  box-shadow:
+    0 0 25px rgba(255,226,142,.8),
+    0 0 65px rgba(255,217,120,.55),
+    0 0 110px rgba(255,235,187,.5);
+  animation:lightPulse 1.8s ease-in-out infinite;
+}
+
+.receiving-text{
+  margin:0;
+  color:#80643b;
+  font-size:clamp(17px,4vw,22px);
+  line-height:1.9;
+  letter-spacing:.12em;
+  animation:textFloat 1.8s ease-in-out infinite;
+}
+
+@keyframes lightPulse{
+  0%,100%{
+    transform:scale(.92);
+    opacity:.65;
+  }
+
+  50%{
+    transform:scale(1.08);
+    opacity:1;
+  }
+}
+
+@keyframes textFloat{
+  0%,100%{
+    transform:translateY(3px);
+    opacity:.72;
+  }
+
+  50%{
+    transform:translateY(-3px);
+    opacity:1;
+  }
+}
+
+/* カードを包む場所 */
+.card-area{
+  perspective:1400px;
+  margin:0 auto 22px;
+}
+
+/* カード本体 */
+.card-flip{
+  position:relative;
+  width:min(100%,520px);
+  margin:0 auto;
+  transform-style:preserve-3d;
+  opacity:0;
+  transform:
+    translateY(34px)
+    scale(.94)
+    rotateY(180deg);
+
+  transition:
+    transform 1.35s cubic-bezier(.22,.78,.26,1),
+    opacity .65s ease;
+}
+
+/* めくる動き */
+.card-flip.reveal{
+  opacity:1;
+  transform:
+    translateY(0)
+    scale(1)
+    rotateY(0deg);
+}
+
+/* カード裏面 */
+.card-back{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  border-radius:16px;
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,.95) 0 4%,
+      transparent 5% 13%,
+      rgba(218,181,105,.55) 14% 15%,
+      transparent 16% 25%,
+      rgba(218,181,105,.34) 26% 27%,
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #fdf8eb,
+      #ead3a0,
+      #fffaf0
+    );
+  border:1px solid rgba(184,140,66,.55);
+  box-shadow:0 12px 34px rgba(74,54,29,.16);
+  backface-visibility:hidden;
+  transform:rotateY(180deg);
+}
+
+/* 裏面の光の紋章 */
+.card-back::before,
+.card-back::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  border:1px solid rgba(161,117,51,.5);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+
+.card-back::before{
+  width:42%;
+  aspect-ratio:1;
+}
+
+.card-back::after{
+  width:26%;
+  aspect-ratio:1;
+}
+
+/* 表面画像 */
+.card-image{
+  position:relative;
+  z-index:3;
   display:block;
   max-width:100%;
   max-height:78vh;
-  margin:0 auto 20px;
+  margin:0 auto;
   object-fit:contain;
   border-radius:16px;
-  box-shadow:0 12px 34px rgba(74,54,29,.16);
+  box-shadow:
+    0 12px 34px rgba(74,54,29,.16),
+    0 0 0 rgba(255,230,165,0);
+  backface-visibility:hidden;
+}
+
+/* めくれた瞬間の淡い光 */
+.card-flip.reveal .card-image{
+  animation:cardGlow 1.8s ease .9s both;
+}
+
+@keyframes cardGlow{
+  0%{
+    box-shadow:
+      0 12px 34px rgba(74,54,29,.16),
+      0 0 0 rgba(255,230,165,0);
+  }
+
+  45%{
+    box-shadow:
+      0 16px 42px rgba(74,54,29,.18),
+      0 0 55px rgba(255,222,137,.72);
+  }
+
+  100%{
+    box-shadow:
+      0 12px 34px rgba(74,54,29,.16),
+      0 0 12px rgba(255,230,165,.16);
+  }
+}
+
+/* ボタン部分 */
+.actions{
+  opacity:0;
+  transform:translateY(15px);
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.actions.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .button{
@@ -57,35 +262,98 @@ img{
   margin:18px auto 12px;
   background:#b88a43;
   font-size:17px;
+  letter-spacing:.05em;
 }
 
 .secondary{
   background:transparent;
   color:#71552e;
 }
+
+@media(max-width:520px){
+  body{
+    padding:15px;
+  }
+
+  .card-image{
+    max-height:72vh;
+  }
+
+  .button{
+    padding:12px 19px;
+  }
+
+  .message-button{
+    width:100%;
+    font-size:16px;
+  }
+}
+
+/* 動きを減らす設定の人への対応 */
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- カードを受け取る前の演出 -->
+<div class="receiving-screen" id="receivingScreen">
+  <div class="receiving-light"></div>
+
+  <p class="receiving-text">
+    あなたへ必要な一枚を<br>
+    お届けしています……
+  </p>
+</div>
+
 <main>
 
-  <img id="cardImage" alt="今日の一枚">
+  <div class="card-area">
 
-  <a
-    class="button message-button"
-    id="detailButton"
-    href="#">
-    天からの詳しいメッセージを見る
-  </a>
+    <div class="card-flip" id="cardFlip">
 
-  <button class="button" id="againButton">
-    もう一枚引く
-  </button>
+      <div class="card-back"></div>
 
-  <a class="button secondary" href="index.html">
-    ホームへ戻る
-  </a>
+      <img
+        class="card-image"
+        id="cardImage"
+        alt="今日の一枚">
+
+    </div>
+
+  </div>
+
+  <div class="actions" id="actions">
+
+    <a
+      class="button message-button"
+      id="detailButton"
+      href="#">
+      天から届いた手紙を開く
+    </a>
+
+    <button
+      class="button"
+      id="againButton"
+      type="button">
+      もう一枚引く
+    </button>
+
+    <a
+      class="button secondary"
+      href="index.html">
+      ホームへ戻る
+    </a>
+
+  </div>
 
 </main>
 
@@ -93,21 +361,81 @@ img{
 const CARD_COUNT = 44;
 
 const params = new URLSearchParams(location.search);
-const card = params.get("card") || "01";
+const requestedCard = params.get("card") || "01";
 
-document.getElementById("cardImage").src =
-  "Card" + card + ".png";
+const number = Number(requestedCard);
 
-document.getElementById("detailButton").href =
+const card =
+  Number.isInteger(number) &&
+  number >= 1 &&
+  number <= CARD_COUNT
+    ? String(number).padStart(2, "0")
+    : "01";
+
+const cardImage = document.getElementById("cardImage");
+const cardFlip = document.getElementById("cardFlip");
+const receivingScreen =
+  document.getElementById("receivingScreen");
+const actions = document.getElementById("actions");
+const detailButton =
+  document.getElementById("detailButton");
+
+cardImage.src = "Card" + card + ".png";
+
+detailButton.href =
   "detail.html?card=" + card;
 
-document.getElementById("againButton")
-  .addEventListener("click", function(){
+/* 画像が読み込まれたあとに演出を開始 */
+function revealCard(){
 
-    const n = Math.floor(Math.random() * CARD_COUNT) + 1;
-    const next = String(n).padStart(2,"0");
+  setTimeout(function(){
+    receivingScreen.classList.add("hide");
+  },900);
 
-    location.href = "card.html?card=" + next;
+  setTimeout(function(){
+    cardFlip.classList.add("reveal");
+  },1050);
+
+  setTimeout(function(){
+    actions.classList.add("show");
+  },2250);
+}
+
+if(cardImage.complete){
+  revealCard();
+}else{
+  cardImage.addEventListener("load",revealCard);
+}
+
+/* 画像が読めなかった場合 */
+cardImage.addEventListener("error",function(){
+  receivingScreen.classList.add("hide");
+
+  alert(
+    "カード画像を読み込めませんでした。画像名を確認してください。"
+  );
+});
+
+/* もう一枚引く */
+document
+  .getElementById("againButton")
+  .addEventListener("click",function(){
+
+    let nextNumber;
+
+    do{
+      nextNumber =
+        Math.floor(Math.random() * CARD_COUNT) + 1;
+    }while(
+      CARD_COUNT > 1 &&
+      nextNumber === Number(card)
+    );
+
+    const next =
+      String(nextNumber).padStart(2,"0");
+
+    location.href =
+      "card.html?card=" + next;
   });
 </script>
 
