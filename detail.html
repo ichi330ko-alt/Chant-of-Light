@@ -1001,7 +1001,7 @@ const buttons =
 backToCard.href =
   "card.html?card=" + cardNumber;
 
-fetch("cards.json?v=3")
+fetch("cards.json?v=4")
 
   .then(function(response){
 
@@ -1027,9 +1027,19 @@ fetch("cards.json?v=3")
       );
     }
 
+    const keywords =
+      Array.isArray(data.keywords)
+        ? data.keywords
+        : data["キーワード"];
+
+    const meaning =
+      typeof data.meaning === "string"
+        ? data.meaning
+        : data["意味"];
+
     if(
-      !Array.isArray(data.keywords) ||
-      typeof data.meaning !== "string"
+      !Array.isArray(keywords) ||
+      typeof meaning !== "string"
     ){
 
       throw new Error(
@@ -1039,7 +1049,7 @@ fetch("cards.json?v=3")
 
     keywordsElement.innerHTML = "";
 
-    data.keywords.forEach(function(keyword){
+    keywords.forEach(function(keyword){
 
       const span =
         document.createElement("span");
@@ -1054,7 +1064,7 @@ fetch("cards.json?v=3")
     });
 
     meaningElement.textContent =
-      data.meaning;
+      meaning;
 
     status.classList.add("hide");
 
