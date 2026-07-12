@@ -3,35 +3,813 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>心の浄化｜光の詠唱</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#f7f1e7;color:#4f412f;font-family:"Yu Mincho","Hiragino Mincho ProN",serif}
-body{min-height:100vh;display:grid;place-items:center;padding:24px}
-main{width:min(680px,100%);padding:30px;text-align:center;background:rgba(255,255,255,.78);border:1px solid rgba(182,139,72,.35);border-radius:24px;box-shadow:0 12px 34px rgba(74,54,29,.11)}
-textarea{width:100%;min-height:240px;padding:16px;border:1px solid rgba(182,139,72,.5);border-radius:16px;background:rgba(255,255,255,.9);font:inherit;resize:vertical}
-.note{font-size:.9rem;line-height:1.8;color:#766650}
-.button{display:inline-block;margin:8px;padding:13px 24px;border:1px solid #b68b48;border-radius:999px;background:#d5ad62;color:#fff;text-decoration:none;font:inherit;cursor:pointer}
-.secondary{background:transparent;color:#71552e}
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  padding:28px 14px 44px;
+
+  color:#554735;
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(255,244,206,.72) 0%,
+      rgba(255,249,231,.42) 30%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      #fbf7ef 0%,
+      #f2e6d3 60%,
+      #ead8bd 100%
+    );
+
+  transition:background 2.2s ease;
+}
+
+body.released{
+  background:
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(255,231,153,.78) 0%,
+      rgba(255,245,214,.46) 32%,
+      transparent 64%
+    ),
+    linear-gradient(
+      180deg,
+      #fffaf1 0%,
+      #f4e8d4 60%,
+      #ead6b7 100%
+    );
+}
+
+.page{
+  position:relative;
+  z-index:2;
+
+  width:min(720px,100%);
+  margin:0 auto;
+
+  text-align:center;
+}
+
+.page-title{
+  margin:0 0 12px;
+
+  color:#896938;
+  font-size:clamp(24px,5vw,34px);
+  font-weight:normal;
+  letter-spacing:.16em;
+}
+
+.lead{
+  margin:0 auto 28px;
+
+  color:#756044;
+  font-size:clamp(15px,3.5vw,18px);
+  line-height:1.95;
+  letter-spacing:.04em;
+}
+
+/* 背景のやわらかな光 */
+.heavenly-light{
+  position:fixed;
+  top:4%;
+  left:50%;
+  z-index:0;
+
+  width:min(680px,100vw);
+  aspect-ratio:1;
+
+  pointer-events:none;
+  border-radius:50%;
+
+  opacity:.55;
+  transform:translateX(-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,246,202,.82) 0%,
+      rgba(255,224,128,.24) 38%,
+      transparent 72%
+    );
+
+  filter:blur(18px);
+
+  animation:lightBreath 5s ease-in-out infinite;
+}
+
+@keyframes lightBreath{
+  0%,100%{
+    opacity:.46;
+    transform:translateX(-50%) scale(.96);
+  }
+
+  50%{
+    opacity:.78;
+    transform:translateX(-50%) scale(1.05);
+  }
+}
+
+/* 全体の舞台 */
+.ritual-stage{
+  position:relative;
+
+  width:min(660px,100%);
+  min-height:650px;
+
+  margin:0 auto;
+
+  display:grid;
+  place-items:center;
+}
+
+/* 便箋 */
+.paper{
+  position:relative;
+  z-index:3;
+
+  width:min(590px,96%);
+  min-height:430px;
+
+  padding:
+    54px
+    clamp(24px,6vw,54px)
+    44px;
+
+  border:1px solid #e4cc98;
+
+  background:
+    linear-gradient(
+      rgba(255,254,248,.97),
+      rgba(255,252,242,.97)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 38px,
+      rgba(184,151,91,.08) 39px
+    );
+
+  box-shadow:
+    0 18px 46px rgba(84,59,25,.18);
+
+  transform:rotate(-.4deg);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.5s cubic-bezier(.22,.78,.25,1),
+    filter 1.1s ease;
+}
+
+.paper::before{
+  content:"";
+
+  position:absolute;
+  inset:14px;
+
+  pointer-events:none;
+
+  border:1px solid rgba(205,161,76,.78);
+}
+
+.paper::after{
+  content:"✦";
+
+  position:absolute;
+  top:3px;
+  left:50%;
+
+  padding:0 12px;
+
+  color:#c18d35;
+  font-size:19px;
+
+  background:#fffdf7;
+
+  transform:translateX(-50%);
+}
+
+.paper.returning{
+  opacity:0;
+
+  filter:blur(3px);
+
+  transform:
+    translateY(-80px)
+    scale(.96)
+    rotate(-.2deg);
+}
+
+.paper-title{
+  margin:0 0 24px;
+
+  color:#9b7537;
+  font-size:clamp(20px,4.5vw,27px);
+  font-weight:normal;
+  letter-spacing:.12em;
+}
+
+textarea{
+  position:relative;
+  z-index:2;
+
+  display:block;
+
+  width:100%;
+  min-height:230px;
+
+  padding:20px 18px;
+
+  resize:vertical;
+
+  border:1px solid rgba(183,142,75,.42);
+  border-radius:10px;
+
+  outline:none;
+
+  color:#4f4436;
+  font:inherit;
+  font-size:17px;
+  line-height:1.9;
+
+  background:rgba(255,252,244,.7);
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    opacity .8s ease;
+}
+
+textarea:focus{
+  border-color:#c59b50;
+
+  box-shadow:
+    0 0 0 4px rgba(197,155,80,.10);
+}
+
+textarea::placeholder{
+  color:#a8977e;
+}
+
+.returning textarea{
+  opacity:0;
+}
+
+/* ボタン */
+.actions{
+  position:relative;
+  z-index:4;
+
+  margin-top:24px;
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.actions.hide{
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(12px);
+}
+
+.button{
+  display:inline-block;
+
+  min-width:170px;
+
+  margin:6px;
+  padding:13px 24px;
+
+  border:1px solid #b68b48;
+  border-radius:999px;
+
+  color:#fff;
+  font:inherit;
+  text-decoration:none;
+
+  background:#c4994e;
+
+  cursor:pointer;
+}
+
+.button:disabled{
+  opacity:.65;
+  cursor:default;
+}
+
+.secondary{
+  color:#71552e;
+  background:rgba(255,255,255,.62);
+}
+
+/* 還している最中の表示 */
+.returning-message{
+  position:absolute;
+  top:50%;
+  left:50%;
+  z-index:8;
+
+  width:90%;
+
+  margin:0;
+
+  color:#80643b;
+  font-size:clamp(18px,4vw,24px);
+  line-height:1.9;
+  letter-spacing:.10em;
+
+  opacity:0;
+
+  transform:
+    translate(-50%,-42%)
+    scale(.96);
+
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.returning-message.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1);
+}
+
+/* 光の粒 */
+.particles{
+  position:absolute;
+  inset:0;
+  z-index:7;
+
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.particle{
+  position:absolute;
+  left:50%;
+  top:58%;
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  opacity:0;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff9d7 0%,
+      #e6b958 60%,
+      transparent 70%
+    );
+
+  box-shadow:
+    0 0 12px rgba(236,188,88,.75);
+
+  animation:rise 2.8s ease-out forwards;
+}
+
+@keyframes rise{
+  0%{
+    opacity:0;
+
+    transform:
+      translate(
+        calc(var(--x) * .2),
+        20px
+      )
+      scale(.5);
+  }
+
+  18%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+
+    transform:
+      translate(
+        var(--x),
+        var(--y)
+      )
+      scale(1.15);
+  }
+}
+
+/* 白い羽 */
+.feather{
+  position:absolute;
+  left:52%;
+  top:58%;
+  z-index:9;
+
+  color:rgba(255,255,255,.95);
+  font-size:48px;
+
+  opacity:0;
+
+  text-shadow:
+    0 0 16px rgba(255,231,161,.75);
+
+  pointer-events:none;
+}
+
+.feather.fly{
+  animation:featherFly 3.8s ease-out forwards;
+}
+
+@keyframes featherFly{
+  0%{
+    opacity:0;
+
+    transform:
+      translate(-50%,10px)
+      rotate(-14deg)
+      scale(.82);
+  }
+
+  16%{
+    opacity:.96;
+  }
+
+  100%{
+    opacity:0;
+
+    transform:
+      translate(48px,-260px)
+      rotate(18deg)
+      scale(1.05);
+  }
+}
+
+/* 完了画面 */
+.complete{
+  position:absolute;
+  inset:0;
+  z-index:12;
+
+  display:grid;
+  place-items:center;
+
+  padding:32px;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:opacity 1.2s ease;
+}
+
+.complete.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.complete-inner{
+  width:min(500px,100%);
+
+  padding:48px 28px;
+
+  border:1px solid rgba(197,155,80,.35);
+  border-radius:18px;
+
+  background:rgba(255,252,244,.58);
+
+  box-shadow:
+    0 14px 40px rgba(92,63,26,.10);
+
+  backdrop-filter:blur(4px);
+}
+
+.complete h2{
+  margin:0 0 30px;
+
+  color:#8d6a35;
+  font-size:clamp(22px,5vw,31px);
+  font-weight:normal;
+  line-height:1.8;
+  letter-spacing:.10em;
+}
+
+/* スマホ */
+@media(max-width:520px){
+
+  body{
+    padding:22px 8px 34px;
+  }
+
+  .lead{
+    margin-bottom:20px;
+  }
+
+  .ritual-stage{
+    min-height:620px;
+  }
+
+  .paper{
+    width:98%;
+    min-height:420px;
+
+    padding:
+      46px
+      25px
+      38px;
+  }
+
+  textarea{
+    min-height:225px;
+    font-size:16px;
+  }
+
+  .button{
+    min-width:145px;
+    padding:12px 19px;
+  }
+
+  .complete-inner{
+    padding:42px 22px;
+  }
+}
+
+/* 動きを減らす設定 */
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<main>
-<h1>心の浄化</h1>
-<p>今ここにある想いを、そのまま書いてください。</p>
-<form id="purificationForm">
-<textarea placeholder="誰にも見せない言葉として、自由に書いてください。"></textarea>
-<p class="note">入力した文章は保存も送信もされません。<br>この画面の中で消去されます。</p>
-<button class="button" type="submit">天へ還す</button>
-<a class="button secondary" href="index.html">ホームへ戻る</a>
-</form>
+
+<div class="heavenly-light"></div>
+
+<main class="page">
+
+  <h1 class="page-title">
+    心の浄化
+  </h1>
+
+  <p class="lead">
+    心にある想いを、静かに書いてください。<br>
+    書き終えたら、天へ還しましょう。
+  </p>
+
+  <div class="ritual-stage">
+
+    <section class="paper" id="paper">
+
+      <h2 class="paper-title">
+        心にあるもの
+      </h2>
+
+      <textarea
+        id="thoughts"
+        maxlength="3000"
+        placeholder="ここに、今の想いを書いてください。"></textarea>
+
+      <div class="actions" id="actions">
+
+        <button
+          class="button"
+          id="releaseButton"
+          type="button">
+          天へ還す
+        </button>
+
+        <a
+          class="button secondary"
+          href="index.html">
+          Home
+        </a>
+
+      </div>
+
+    </section>
+
+    <p
+      class="returning-message"
+      id="returningMessage">
+      還しています……
+    </p>
+
+    <div
+      class="particles"
+      id="particles"
+      aria-hidden="true">
+    </div>
+
+    <div
+      class="feather"
+      id="feather"
+      aria-hidden="true">
+      𓆩♡𓆪
+    </div>
+
+    <section
+      class="complete"
+      id="complete">
+
+      <div class="complete-inner">
+
+        <h2>
+          あなたの想いを<br>
+          天へ還しました。
+        </h2>
+
+        <a
+          class="button secondary"
+          href="index.html">
+          Home
+        </a>
+
+      </div>
+
+    </section>
+
+  </div>
+
 </main>
+
 <script>
-document.getElementById("purificationForm").addEventListener("submit",function(e){
-e.preventDefault();
-e.target.reset();
-location.href="thanks.html";
-});
+const thoughts =
+  document.getElementById("thoughts");
+
+const releaseButton =
+  document.getElementById("releaseButton");
+
+const paper =
+  document.getElementById("paper");
+
+const actions =
+  document.getElementById("actions");
+
+const returningMessage =
+  document.getElementById("returningMessage");
+
+const particles =
+  document.getElementById("particles");
+
+const feather =
+  document.getElementById("feather");
+
+const complete =
+  document.getElementById("complete");
+
+let isReturning = false;
+
+function createParticles(){
+
+  particles.innerHTML = "";
+
+  for(let i = 0; i < 34; i++){
+
+    const particle =
+      document.createElement("span");
+
+    particle.className =
+      "particle";
+
+    const x =
+      Math.round(
+        Math.random() * 260 - 130
+      ) + "px";
+
+    const y =
+      Math.round(
+        -170 - Math.random() * 230
+      ) + "px";
+
+    particle.style.setProperty(
+      "--x",
+      x
+    );
+
+    particle.style.setProperty(
+      "--y",
+      y
+    );
+
+    particle.style.animationDelay =
+      (Math.random() * .7) + "s";
+
+    particle.style.width =
+      (4 + Math.random() * 6) + "px";
+
+    particle.style.height =
+      particle.style.width;
+
+    particles.appendChild(
+      particle
+    );
+  }
+}
+
+releaseButton.addEventListener(
+  "click",
+  function(){
+
+    if(isReturning){
+      return;
+    }
+
+    const value =
+      thoughts.value.trim();
+
+    if(!value){
+
+      thoughts.focus();
+
+      thoughts.placeholder =
+        "ひとことだけでも大丈夫です。";
+
+      return;
+    }
+
+    isReturning = true;
+
+    releaseButton.disabled = true;
+    releaseButton.textContent =
+      "還しています……";
+
+    actions.classList.add("hide");
+
+    setTimeout(function(){
+
+      returningMessage.classList.add(
+        "show"
+      );
+
+      createParticles();
+
+      feather.classList.add("fly");
+
+    },450);
+
+    setTimeout(function(){
+
+      paper.classList.add(
+        "returning"
+      );
+
+      document.body.classList.add(
+        "released"
+      );
+
+    },900);
+
+    setTimeout(function(){
+
+      returningMessage.classList.remove(
+        "show"
+      );
+
+    },2600);
+
+    setTimeout(function(){
+
+      thoughts.value = "";
+
+      complete.classList.add(
+        "show"
+      );
+
+    },3300);
+  }
+);
 </script>
+
 </body>
 </html>
