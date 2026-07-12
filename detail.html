@@ -20,8 +20,10 @@ body{
 body{
   min-height:100vh;
   overflow-x:hidden;
-  padding:28px 14px 48px;
+  padding:28px 12px 48px;
+
   color:#554735;
+
   font-family:
     "Yu Mincho",
     "Hiragino Mincho ProN",
@@ -31,9 +33,9 @@ body{
   background:
     radial-gradient(
       circle at 50% 25%,
-      rgba(255,247,208,.8) 0%,
-      rgba(255,249,229,.45) 22%,
-      transparent 52%
+      rgba(255,239,183,.7) 0%,
+      rgba(255,248,220,.42) 27%,
+      transparent 57%
     ),
     linear-gradient(
       180deg,
@@ -42,16 +44,16 @@ body{
       #ead8bd 100%
     );
 
-  transition:background 2.5s ease;
+  transition:background 2.2s ease;
 }
 
 body.warm{
   background:
     radial-gradient(
       circle at 50% 28%,
-      rgba(255,232,158,.88) 0%,
-      rgba(255,245,213,.58) 28%,
-      transparent 57%
+      rgba(255,226,137,.82) 0%,
+      rgba(255,243,203,.52) 29%,
+      transparent 60%
     ),
     linear-gradient(
       180deg,
@@ -71,13 +73,16 @@ body.warm{
 }
 
 .page-title{
-  margin:0 0 20px;
+  margin:0 0 18px;
+
   color:#896938;
   font-size:clamp(22px,5vw,32px);
   font-weight:normal;
   letter-spacing:.16em;
+
   opacity:0;
   transform:translateY(10px);
+
   animation:titleIn 1s ease .15s forwards;
 }
 
@@ -91,29 +96,35 @@ body.warm{
 /* 背景の暖かな光 */
 .heavenly-light{
   position:fixed;
-  top:8%;
+  top:7%;
   left:50%;
   z-index:0;
-  width:min(620px,96vw);
+
+  width:min(650px,98vw);
   aspect-ratio:1;
+
   pointer-events:none;
   border-radius:50%;
-  opacity:.62;
+
+  opacity:.55;
   transform:translateX(-50%);
+
   background:
     radial-gradient(
       circle,
-      rgba(255,244,191,.75) 0%,
-      rgba(255,231,151,.28) 35%,
-      transparent 70%
+      rgba(255,244,191,.78) 0%,
+      rgba(255,227,135,.28) 38%,
+      transparent 72%
     );
-  filter:blur(12px);
+
+  filter:blur(15px);
+
   animation:lightBreath 4.5s ease-in-out infinite;
 }
 
 @keyframes lightBreath{
   0%,100%{
-    opacity:.48;
+    opacity:.45;
     transform:translateX(-50%) scale(.96);
   }
 
@@ -123,171 +134,224 @@ body.warm{
   }
 }
 
-/* キラキラ */
+/* 周囲のきらめき */
 .sparkles{
   position:fixed;
   inset:0;
   z-index:1;
+
   overflow:hidden;
   pointer-events:none;
 }
 
 .sparkle{
   position:absolute;
-  color:rgba(201,153,65,.72);
-  font-size:18px;
+
+  color:rgba(198,146,50,.72);
+  font-size:17px;
+
   opacity:0;
-  animation:sparkle 4.8s ease-in-out infinite;
+
+  animation:sparkleFloat 4.8s ease-in-out infinite;
 }
 
 .sparkle:nth-child(1){
-  top:18%;
-  left:12%;
+  top:16%;
+  left:11%;
   animation-delay:.2s;
 }
 
 .sparkle:nth-child(2){
-  top:30%;
-  right:11%;
-  font-size:13px;
+  top:29%;
+  right:10%;
+  font-size:12px;
   animation-delay:1.1s;
 }
 
 .sparkle:nth-child(3){
-  top:53%;
-  left:8%;
-  font-size:12px;
-  animation-delay:2.2s;
+  top:48%;
+  left:7%;
+  font-size:10px;
+  animation-delay:2.1s;
 }
 
 .sparkle:nth-child(4){
-  top:61%;
-  right:9%;
-  font-size:17px;
+  top:58%;
+  right:8%;
+  font-size:16px;
   animation-delay:.7s;
 }
 
 .sparkle:nth-child(5){
-  top:77%;
-  left:18%;
-  font-size:11px;
+  top:76%;
+  left:17%;
+  font-size:10px;
   animation-delay:3s;
 }
 
 .sparkle:nth-child(6){
-  top:14%;
-  right:26%;
-  font-size:10px;
-  animation-delay:2.7s;
+  top:13%;
+  right:25%;
+  font-size:9px;
+  animation-delay:2.6s;
 }
 
 .sparkle:nth-child(7){
-  top:43%;
-  left:22%;
-  font-size:9px;
-  animation-delay:1.7s;
+  top:42%;
+  left:21%;
+  font-size:8px;
+  animation-delay:1.6s;
 }
 
-@keyframes sparkle{
+@keyframes sparkleFloat{
   0%,100%{
     opacity:0;
-    transform:translateY(8px) scale(.65) rotate(0deg);
+    transform:
+      translateY(8px)
+      scale(.65)
+      rotate(0deg);
   }
 
-  38%{
-    opacity:.78;
+  40%{
+    opacity:.7;
   }
 
   55%{
     opacity:1;
-    transform:translateY(-8px) scale(1.08) rotate(18deg);
+    transform:
+      translateY(-9px)
+      scale(1.08)
+      rotate(20deg);
   }
 
-  76%{
-    opacity:.2;
+  78%{
+    opacity:.18;
   }
 }
 
-/* 封筒と便箋の舞台 */
+/* 封筒と手紙を置く場所 */
 .envelope-stage{
   position:relative;
-  width:min(670px,100%);
-  min-height:710px;
+
+  width:min(680px,100%);
+  min-height:820px;
+
   margin:0 auto;
+
   perspective:1600px;
 }
 
-/* 便箋の後ろから広がる光 */
+/* 便箋の後ろの光 */
 .letter-glow{
   position:absolute;
-  top:135px;
+  top:78px;
   left:50%;
-  z-index:0;
-  width:78%;
-  height:420px;
+  z-index:1;
+
+  width:86%;
+  height:570px;
+
   opacity:0;
+
   border-radius:50%;
-  transform:translateX(-50%) scale(.76);
+
+  transform:
+    translateX(-50%)
+    scale(.78);
+
   background:
     radial-gradient(
       ellipse,
-      rgba(255,227,145,.85) 0%,
-      rgba(255,239,191,.4) 40%,
-      transparent 72%
+      rgba(255,223,125,.8) 0%,
+      rgba(255,239,187,.42) 42%,
+      transparent 74%
     );
-  filter:blur(20px);
+
+  filter:blur(24px);
+
   transition:
     opacity 1.4s ease,
     transform 1.5s ease;
 }
 
-.envelope.open + .letter-glow{
-  opacity:.9;
-  transform:translateX(-50%) scale(1.08);
+.envelope-stage.opened .letter-glow{
+  opacity:.92;
+
+  transform:
+    translateX(-50%)
+    scale(1.08);
 }
 
 /* 封筒全体 */
 .envelope{
   position:absolute;
-  top:205px;
+  top:230px;
   left:50%;
-  width:84%;
-  height:285px;
+  z-index:3;
+
+  width:82%;
+  height:275px;
+
   transform:translateX(-50%);
+
+  transition:
+    transform 1.2s ease,
+    opacity 1.2s ease;
 }
 
-/* 封筒の後ろ */
+/* 開封後は封筒全体を下へ沈める */
+.envelope-stage.opened .envelope{
+  transform:
+    translateX(-50%)
+    translateY(235px)
+    scale(.88);
+
+  opacity:.82;
+}
+
+/* 封筒の後ろ側 */
 .envelope-back{
   position:absolute;
   inset:0;
   z-index:1;
+
   overflow:hidden;
-  border:1px solid rgba(177,130,57,.45);
+
+  border:
+    1px solid
+    rgba(177,130,57,.42);
+
   border-radius:12px;
+
   background:
     linear-gradient(
       145deg,
-      #f3dfb4 0%,
+      #f2ddb0 0%,
       #dfbd78 55%,
-      #d5a75b 100%
+      #d4a65a 100%
     );
+
   box-shadow:
-    0 18px 45px rgba(94,62,23,.22);
+    0 18px 45px
+    rgba(94,62,23,.22);
 }
 
-/* 封筒左右の折り目 */
+/* 封筒の折り目 */
 .envelope-back::before,
 .envelope-back::after{
   content:"";
+
   position:absolute;
   bottom:-58px;
+
   width:76%;
   height:128%;
+
   background:
     linear-gradient(
       145deg,
-      #f4deb0,
-      #e0bb75
+      #f4dfb3,
+      #dfbb73
     );
 }
 
@@ -301,25 +365,33 @@ body.warm{
   transform:rotate(-35deg);
 }
 
-/* 封筒前面 */
+/* 封筒の前面 */
 .envelope-front{
   position:absolute;
   left:0;
   right:0;
   bottom:0;
-  z-index:6;
-  height:57%;
+  z-index:4;
+
+  height:58%;
+
   overflow:hidden;
+
   border-radius:0 0 12px 12px;
+
+  transition:opacity .8s ease;
 }
 
 .envelope-front::before,
 .envelope-front::after{
   content:"";
+
   position:absolute;
   bottom:-76px;
+
   width:77%;
   height:180%;
+
   background:
     linear-gradient(
       155deg,
@@ -338,94 +410,134 @@ body.warm{
   transform:rotate(-36deg);
 }
 
+/* 開封後は前面を少し薄くする */
+.envelope-stage.opened .envelope-front{
+  opacity:.78;
+}
+
 /* 封筒のふた */
 .envelope-flap{
   position:absolute;
   top:0;
   left:6%;
-  z-index:8;
+  z-index:6;
+
   width:88%;
-  height:166px;
-  clip-path:polygon(0 0,100% 0,50% 100%);
+  height:160px;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 100%
+    );
+
   transform-origin:top center;
   transform:rotateX(0deg);
+
   background:
     linear-gradient(
       180deg,
       #efd7a5 0%,
-      #d8ad63 100%
+      #d7aa5f 100%
     );
-  filter:drop-shadow(
-    0 6px 8px rgba(83,51,15,.15)
-  );
+
+  filter:
+    drop-shadow(
+      0 6px 8px
+      rgba(83,51,15,.15)
+    );
+
   transition:
-    transform 1.15s cubic-bezier(.28,.72,.25,1),
+    transform 1.15s
+    cubic-bezier(.28,.72,.25,1),
     z-index 0s linear .55s;
 }
 
-/* 封筒中央の小さな光の印 */
+.envelope-stage.opened .envelope-flap{
+  z-index:0;
+  transform:rotateX(180deg);
+}
+
+/* 封筒中央の印 */
 .envelope-seal{
   position:absolute;
-  top:80px;
+  top:76px;
   left:50%;
-  z-index:10;
+  z-index:8;
+
   display:grid;
   place-items:center;
-  width:54px;
-  height:54px;
-  border:1px solid rgba(150,105,41,.65);
+
+  width:52px;
+  height:52px;
+
+  border:
+    1px solid
+    rgba(150,105,41,.65);
+
   border-radius:50%;
+
   color:#9d7135;
-  font-size:22px;
+  font-size:21px;
+
   background:
     radial-gradient(
       circle,
       #fff8de 0%,
       #e7c985 72%
     );
+
   box-shadow:
-    0 3px 12px rgba(91,55,16,.18);
+    0 3px 12px
+    rgba(91,55,16,.18);
+
   transform:translateX(-50%);
+
   transition:
     opacity .45s ease,
     transform .6s ease;
 }
 
-.envelope.open .envelope-seal{
+.envelope-stage.opened .envelope-seal{
   opacity:0;
-  transform:translateX(-50%) scale(.65);
-}
 
-.envelope.open .envelope-flap{
-  z-index:0;
-  transform:rotateX(180deg);
+  transform:
+    translateX(-50%)
+    scale(.65);
 }
 
 /* 便箋 */
 .letter{
   position:absolute;
-  top:118px;
+  top:165px;
   left:50%;
-  z-index:3;
-  width:94%;
-  min-height:540px;
+  z-index:2;
+
+  width:92%;
+  min-height:580px;
+
   padding:
-    57px
+    58px
     clamp(27px,7vw,66px)
-    50px;
+    52px;
 
   opacity:0;
+
   transform:
     translateX(-50%)
-    translateY(125px)
-    rotate(-.7deg)
+    translateY(155px)
+    rotate(-.6deg)
     scale(.95);
 
-  border:1px solid #e5cd98;
+  border:
+    1px solid
+    #e5cd98;
+
   background:
     linear-gradient(
-      rgba(255,254,248,.94),
-      rgba(255,252,242,.94)
+      rgba(255,254,248,.97),
+      rgba(255,252,242,.97)
     ),
     repeating-linear-gradient(
       0deg,
@@ -435,60 +547,81 @@ body.warm{
     );
 
   box-shadow:
-    0 18px 46px rgba(84,59,25,.21);
+    0 18px 46px
+    rgba(84,59,25,.21);
 
   transition:
     opacity .8s ease,
-    transform 1.4s cubic-bezier(.2,.78,.25,1);
+    transform 1.45s
+    cubic-bezier(.2,.78,.25,1);
 }
 
-.envelope.open .letter{
-  z-index:5;
+/*
+  重要：
+  開封後は便箋を最前面へ出す
+*/
+.envelope-stage.opened .letter{
+  z-index:20;
+
   opacity:1;
+
   transform:
     translateX(-50%)
-    translateY(-165px)
-    rotate(-.7deg)
+    translateY(-105px)
+    rotate(-.4deg)
     scale(1);
 }
 
-/* 便箋の二重金枠 */
+/* 便箋の金色枠 */
 .letter::before{
   content:"";
+
   position:absolute;
   inset:14px;
+
   pointer-events:none;
-  border:1px solid rgba(205,161,76,.8);
+
+  border:
+    1px solid
+    rgba(205,161,76,.8);
 }
 
 .letter::after{
   content:"✦";
+
   position:absolute;
   top:3px;
   left:50%;
+
   padding:0 13px;
+
   color:#c18d35;
   font-size:19px;
+
   background:#fffdf7;
+
   transform:translateX(-50%);
 }
 
-/* 手紙の内容 */
+/* 手紙の中身 */
 .letter-content{
   opacity:0;
   transform:translateY(16px);
+
   transition:
     opacity 1.1s ease,
     transform 1.1s ease;
 }
 
-.envelope.show-content .letter-content{
+.envelope-stage.show-content
+.letter-content{
   opacity:1;
   transform:translateY(0);
 }
 
 .letter-heading{
   margin:0 0 34px;
+
   color:#977038;
   font-size:clamp(20px,5vw,28px);
   font-weight:normal;
@@ -503,8 +636,11 @@ body.warm{
 .section-title{
   margin:0 0 15px;
   padding-bottom:8px;
+
   border-bottom:
-    1px solid rgba(181,139,72,.4);
+    1px solid
+    rgba(181,139,72,.4);
+
   color:#a37634;
   font-size:17px;
   font-weight:normal;
@@ -519,42 +655,58 @@ body.warm{
 
 .keyword{
   display:inline-block;
+
   padding:8px 15px;
-  border:1px solid #d5b16a;
+
+  border:
+    1px solid
+    #d5b16a;
+
   border-radius:999px;
+
   color:#71542d;
   font-size:15px;
-  background:rgba(255,249,234,.9);
+
+  background:
+    rgba(255,249,234,.92);
 }
 
 .meaning{
   margin:0;
+
   color:#514536;
   font-size:clamp(16px,3.8vw,18px);
   line-height:2.18;
+
   text-align:left;
+
   white-space:pre-wrap;
 }
 
 .signature{
   margin:42px 0 0;
+
   color:#96713e;
   font-size:17px;
   letter-spacing:.18em;
+
   text-align:right;
 }
 
-/* 読み込み中表示 */
+/* 読み込み中 */
 .status{
   position:absolute;
   top:50%;
   left:50%;
-  z-index:20;
+  z-index:30;
+
   width:90%;
   margin:0;
+
   color:#775a31;
   font-size:16px;
   line-height:1.9;
+
   transform:translate(-50%,-50%);
 }
 
@@ -565,10 +717,13 @@ body.warm{
 /* ボタン */
 .buttons{
   position:relative;
-  z-index:10;
-  margin-top:26px;
+  z-index:30;
+
+  margin-top:4px;
+
   opacity:0;
   transform:translateY(15px);
+
   transition:
     opacity .8s ease,
     transform .8s ease;
@@ -581,69 +736,90 @@ body.warm{
 
 .button{
   display:inline-block;
+
   min-width:150px;
+
   margin:6px;
   padding:13px 23px;
-  border:1px solid #b68b48;
+
+  border:
+    1px solid
+    #b68b48;
+
   border-radius:999px;
+
   color:#fff;
   font:inherit;
   text-decoration:none;
+
   background:#c4994e;
+
   cursor:pointer;
 }
 
 .secondary{
   color:#71552e;
-  background:rgba(255,255,255,.58);
+  background:
+    rgba(255,255,255,.62);
 }
 
 /* スマホ */
 @media(max-width:520px){
 
   body{
-    padding:24px 8px 38px;
+    padding:
+      22px
+      7px
+      38px;
   }
 
   .page-title{
-    margin-bottom:12px;
+    margin-bottom:8px;
   }
 
   .envelope-stage{
-    min-height:700px;
+    min-height:790px;
   }
 
   .envelope{
-    top:205px;
-    width:96%;
-    height:270px;
+    top:235px;
+    width:94%;
+    height:255px;
+  }
+
+  .envelope-stage.opened .envelope{
+    transform:
+      translateX(-50%)
+      translateY(245px)
+      scale(.86);
   }
 
   .envelope-flap{
-    height:150px;
+    height:142px;
   }
 
   .envelope-seal{
-    top:70px;
-    width:48px;
-    height:48px;
+    top:66px;
+    width:47px;
+    height:47px;
   }
 
   .letter{
-    top:115px;
+    top:165px;
     width:96%;
-    min-height:535px;
+    min-height:565px;
+
     padding:
       49px
-      27px
-      42px;
+      26px
+      43px;
   }
 
-  .envelope.open .letter{
+  .envelope-stage.opened .letter{
     transform:
       translateX(-50%)
-      translateY(-165px)
-      rotate(-.5deg)
+      translateY(-110px)
+      rotate(-.3deg)
       scale(1);
   }
 
@@ -696,55 +872,18 @@ body.warm{
     天から届いた手紙
   </h1>
 
-  <div class="envelope-stage">
+  <div
+    class="envelope-stage"
+    id="envelopeStage">
 
-    <div class="envelope" id="envelope">
+    <div class="letter-glow"></div>
+
+    <div class="envelope">
 
       <div class="envelope-back"></div>
 
-      <article class="letter">
-
-        <div class="letter-content">
-
-          <h2 class="letter-heading">
-            あなたへのメッセージ
-          </h2>
-
-          <section class="section">
-
-            <h3 class="section-title">
-              キーワード
-            </h3>
-
-            <div
-              class="keywords"
-              id="keywords">
-            </div>
-
-          </section>
-
-          <section class="section">
-
-            <h3 class="section-title">
-              天からの詳しいメッセージ
-            </h3>
-
-            <p
-              class="meaning"
-              id="meaning">
-            </p>
-
-          </section>
-
-          <p class="signature">
-            光より
-          </p>
-
-        </div>
-
-      </article>
-
       <div class="envelope-front"></div>
+
       <div class="envelope-flap"></div>
 
       <div
@@ -753,13 +892,53 @@ body.warm{
         ✦
       </div>
 
-      <p class="status" id="status">
-        天からの手紙を受け取っています……
-      </p>
-
     </div>
 
-    <div class="letter-glow"></div>
+    <article class="letter">
+
+      <div class="letter-content">
+
+        <h2 class="letter-heading">
+          あなたへのメッセージ
+        </h2>
+
+        <section class="section">
+
+          <h3 class="section-title">
+            キーワード
+          </h3>
+
+          <div
+            class="keywords"
+            id="keywords">
+          </div>
+
+        </section>
+
+        <section class="section">
+
+          <h3 class="section-title">
+            天からの詳しいメッセージ
+          </h3>
+
+          <p
+            class="meaning"
+            id="meaning">
+          </p>
+
+        </section>
+
+        <p class="signature">
+          光より
+        </p>
+
+      </div>
+
+    </article>
+
+    <p class="status" id="status">
+      天からの手紙を受け取っています……
+    </p>
 
   </div>
 
@@ -801,8 +980,8 @@ const cardNumber =
     ? String(number).padStart(2,"0")
     : "01";
 
-const envelope =
-  document.getElementById("envelope");
+const envelopeStage =
+  document.getElementById("envelopeStage");
 
 const status =
   document.getElementById("status");
@@ -822,10 +1001,12 @@ const buttons =
 backToCard.href =
   "card.html?card=" + cardNumber;
 
-fetch("cards.json")
+fetch("cards.json?v=3")
+
   .then(function(response){
 
     if(!response.ok){
+
       throw new Error(
         "cards.jsonを読み込めませんでした"
       );
@@ -840,6 +1021,7 @@ fetch("cards.json")
       cards[cardNumber];
 
     if(!data){
+
       throw new Error(
         "このカードの解説は、まだ登録されていません"
       );
@@ -849,6 +1031,7 @@ fetch("cards.json")
       !Array.isArray(data.keywords) ||
       typeof data.meaning !== "string"
     ){
+
       throw new Error(
         "カードの登録内容を確認してください"
       );
@@ -861,8 +1044,11 @@ fetch("cards.json")
       const span =
         document.createElement("span");
 
-      span.className = "keyword";
-      span.textContent = keyword;
+      span.className =
+        "keyword";
+
+      span.textContent =
+        keyword;
 
       keywordsElement.appendChild(span);
     });
@@ -872,24 +1058,36 @@ fetch("cards.json")
 
     status.classList.add("hide");
 
-    /* 封が開く */
+    /* 封筒を開く */
     setTimeout(function(){
-      envelope.classList.add("open");
+
+      envelopeStage.classList.add(
+        "opened"
+      );
+
     },550);
 
-    /* 手紙の文字が現れる */
+    /* 手紙の文字を表示 */
     setTimeout(function(){
-      envelope.classList.add(
+
+      envelopeStage.classList.add(
         "show-content"
       );
 
-      document.body.classList.add("warm");
-    },1900);
+      document.body.classList.add(
+        "warm"
+      );
 
-    /* 最後に操作ボタンを表示 */
+    },1850);
+
+    /* 操作ボタンを表示 */
     setTimeout(function(){
-      buttons.classList.add("show");
-    },2450);
+
+      buttons.classList.add(
+        "show"
+      );
+
+    },2400);
   })
 
   .catch(function(error){
@@ -897,7 +1095,9 @@ fetch("cards.json")
     status.textContent =
       error.message;
 
-    buttons.classList.add("show");
+    buttons.classList.add(
+      "show"
+    );
   });
 </script>
 
