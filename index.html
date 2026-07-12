@@ -7,72 +7,194 @@
 <title>光の詠唱</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
 html,
-body {
-  margin: 0;
-  min-height: 100%;
-  background: #f7f1e7;
+body{
+  margin:0;
+  min-height:100%;
 }
 
-body {
-  display: grid;
-  place-items: center;
+body{
+  background:#07163f;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
 }
 
-.home {
-  position: relative;
-  width: min(100vw, 150vh);
-  aspect-ratio: 3 / 2;
-  overflow: hidden;
+/* ページ全体 */
+.home{
+  position:relative;
+  width:min(100%,1024px);
+  margin:0 auto;
+  overflow:hidden;
+  background:#f5ead4;
+  box-shadow:
+    0 0 50px rgba(0,0,0,.28);
 }
 
-.home img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+/* トップ画像 */
+.home-image{
+  display:block;
+  width:100%;
+  height:auto;
 }
 
-.hotspot {
-  position: absolute;
-  display: block;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
+/* 画像上のボタン */
+.hotspot{
+  position:absolute;
+  z-index:5;
+
+  display:block;
+
+  border:0;
+  border-radius:999px;
+
+  background:transparent;
+
+  cursor:pointer;
+  padding:0;
+
+  -webkit-tap-highlight-color:transparent;
 }
 
-.draw {
-  left: 25%;
-  top: 63%;
-  width: 23%;
-  height: 15%;
+/* 今日の一枚 */
+.draw{
+  left:20.5%;
+  top:37.25%;
+  width:28.7%;
+  height:5.6%;
 }
 
-.purify {
-  left: 52%;
-  top: 63%;
-  width: 23%;
-  height: 15%;
+/* 心の浄化 */
+.purify{
+  left:51%;
+  top:37.25%;
+  width:28.7%;
+  height:5.6%;
 }
 
-.hotspot:focus-visible {
-  outline: 4px solid rgba(138, 94, 31, 0.75);
-  outline-offset: -4px;
-  border-radius: 24px;
+/* キーボード操作時だけ枠を表示 */
+.hotspot:focus-visible{
+  outline:
+    4px solid
+    rgba(255,236,185,.95);
+
+  outline-offset:-4px;
+
+  box-shadow:
+    0 0 24px
+    rgba(255,226,147,.8);
+}
+
+/* 押した時のごく小さな反応 */
+.hotspot:active{
+  background:
+    rgba(255,255,255,.08);
+}
+
+/* 最初の静かなオープニング */
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:100;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #163d82 0%,
+      #0d285d 42%,
+      #06183e 100%
+    );
+
+  opacity:1;
+  visibility:visible;
+
+  transition:
+    opacity 1.15s ease,
+    visibility 1.15s ease;
+}
+
+.intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.intro-title{
+  margin:0;
+
+  color:#f4d693;
+  font-size:clamp(32px,8vw,58px);
+  font-weight:normal;
+  letter-spacing:.22em;
+
+  opacity:0;
+  transform:translateY(10px);
+
+  animation:
+    introTitle 1.3s ease .15s forwards;
+}
+
+@keyframes introTitle{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* スマホ */
+@media(max-width:620px){
+
+  .home{
+    width:100%;
+    box-shadow:none;
+  }
+
+  .hotspot:focus-visible{
+    outline-width:3px;
+  }
+}
+
+/* 動きを減らす設定 */
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<div
+  class="intro"
+  id="intro"
+  aria-hidden="true">
+
+  <h1 class="intro-title">
+    光の詠唱
+  </h1>
+
+</div>
+
 <main class="home">
 
-  <img src="home2.png" alt="光の詠唱 ホーム画面">
+  <img
+    class="home-image"
+    src="home3.png"
+    alt="光の詠唱。今日の一枚、心の浄化、使い方の案内。">
 
   <button
     class="hotspot draw"
@@ -84,7 +206,7 @@ body {
   <a
     class="hotspot purify"
     href="purification.html"
-    aria-label="心の浄化をする">
+    aria-label="心の浄化を開く">
   </a>
 
 </main>
@@ -92,18 +214,37 @@ body {
 <script>
 const CARD_COUNT = 44;
 
+const intro =
+  document.getElementById("intro");
+
+/* オープニングを静かに閉じる */
+window.addEventListener(
+  "load",
+  function(){
+
+    setTimeout(function(){
+
+      intro.classList.add("hide");
+
+    },1250);
+  }
+);
+
+/* 今日の一枚 */
 document
   .getElementById("drawButton")
-  .addEventListener("click", function () {
+  .addEventListener("click",function(){
 
-    const randomNumber =
-      Math.floor(Math.random() * CARD_COUNT) + 1;
+    const number =
+      Math.floor(
+        Math.random() * CARD_COUNT
+      ) + 1;
 
-    const cardNumber =
-      String(randomNumber).padStart(2, "0");
+    const card =
+      String(number).padStart(2,"0");
 
     location.href =
-      "card.html?card=" + cardNumber;
+      "card.html?card=" + card;
   });
 </script>
 
