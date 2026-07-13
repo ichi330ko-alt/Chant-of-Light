@@ -7,119 +7,86 @@
 <title>光の詠唱</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html,
-body{
+html,body{
   margin:0;
   min-height:100%;
 }
 
 body{
   background:#07163f;
-  font-family:
-    "Yu Mincho",
-    "Hiragino Mincho ProN",
-    "Noto Serif JP",
-    serif;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
 }
 
-/* ページ全体 */
-.home{
+.hotspot{
+  position:absolute;
+  z-index:5;
+  display:block;
+  border:0;
+  border-radius:999px;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.hotspot:focus-visible{
+  outline:4px solid rgba(255,236,185,.95);
+  outline-offset:-4px;
+  box-shadow:0 0 24px rgba(255,226,147,.8);
+}
+
+.hotspot:active{
+  background:rgba(255,255,255,.10);
+}
+
+/* PC・タブレット */
+.desktop-home{
   position:relative;
   width:min(100%,1024px);
   margin:0 auto;
   overflow:hidden;
   background:#f5ead4;
-  box-shadow:
-    0 0 50px rgba(0,0,0,.28);
+  box-shadow:0 0 50px rgba(0,0,0,.28);
 }
 
-/* トップ画像 */
-.home-image{
+.desktop-home img{
   display:block;
   width:100%;
   height:auto;
 }
 
-/* 画像上のボタン */
-.hotspot{
-  position:absolute;
-  z-index:5;
-
-  display:block;
-
-  border:0;
-  border-radius:999px;
-
-  background:transparent;
-
-  cursor:pointer;
-  padding:0;
-
-  -webkit-tap-highlight-color:transparent;
-}
-
-/* 今日の一枚 */
-.draw{
+.desktop-home .draw{
   left:20.5%;
   top:37.25%;
   width:28.7%;
   height:5.6%;
 }
 
-/* 心の浄化 */
-.purify{
+.desktop-home .purify{
   left:51%;
   top:37.25%;
   width:28.7%;
   height:5.6%;
 }
 
-/* キーボード操作時だけ枠を表示 */
-.hotspot:focus-visible{
-  outline:
-    4px solid
-    rgba(255,236,185,.95);
-
-  outline-offset:-4px;
-
-  box-shadow:
-    0 0 24px
-    rgba(255,226,147,.8);
+.mobile-home{
+  display:none;
 }
 
-/* 押した時のごく小さな反応 */
-.hotspot:active{
-  background:
-    rgba(255,255,255,.08);
-}
-
-/* 最初の静かなオープニング */
+/* オープニング */
 .intro{
   position:fixed;
   inset:0;
   z-index:100;
-
   display:grid;
   place-items:center;
-
   background:
-    radial-gradient(
-      circle at center,
-      #163d82 0%,
-      #0d285d 42%,
-      #06183e 100%
-    );
-
+    radial-gradient(circle at center,#163d82 0%,#0d285d 42%,#06183e 100%);
   opacity:1;
   visibility:visible;
-
-  transition:
-    opacity 1.15s ease,
-    visibility 1.15s ease;
+  transition:opacity 1.15s ease,visibility 1.15s ease;
 }
 
 .intro.hide{
@@ -129,17 +96,13 @@ body{
 
 .intro-title{
   margin:0;
-
   color:#f4d693;
   font-size:clamp(32px,8vw,58px);
   font-weight:normal;
   letter-spacing:.22em;
-
   opacity:0;
   transform:translateY(10px);
-
-  animation:
-    introTitle 1.3s ease .15s forwards;
+  animation:introTitle 1.3s ease .15s forwards;
 }
 
 @keyframes introTitle{
@@ -152,9 +115,104 @@ body{
 /* スマホ */
 @media(max-width:620px){
 
-  .home{
+  .desktop-home{
+    display:none;
+  }
+
+  .mobile-home{
+    display:block;
     width:100%;
-    box-shadow:none;
+    overflow:hidden;
+  }
+
+  .mobile-hero{
+    position:relative;
+    min-height:100svh;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 30%,rgba(35,78,150,.58) 0%,rgba(10,37,88,.32) 42%,transparent 70%),
+      linear-gradient(180deg,#041331 0%,#082154 52%,#0d2c66 100%);
+  }
+
+  /*
+    home3.pngの宇宙部分だけを、
+    画面の下側に少し拡大して表示します。
+  */
+  .mobile-hero-art{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:101.25vw;
+    overflow:hidden;
+  }
+
+  .mobile-hero-art img{
+    position:absolute;
+    top:0;
+    left:-17.5%;
+    display:block;
+    width:135%;
+    height:auto;
+    max-width:none;
+  }
+
+  .mobile-hero .draw{
+    left:10.2%;
+    top:74.5%;
+    width:38.7%;
+    height:11.2%;
+  }
+
+  .mobile-hero .purify{
+    left:51.35%;
+    top:74.5%;
+    width:38.7%;
+    height:11.2%;
+  }
+
+  .scroll-guide{
+    position:absolute;
+    left:50%;
+    bottom:16px;
+    z-index:8;
+    margin:0;
+    color:rgba(255,247,220,.82);
+    font-size:12px;
+    letter-spacing:.16em;
+    transform:translateX(-50%);
+    animation:scrollBreath 2.4s ease-in-out infinite;
+  }
+
+  @keyframes scrollBreath{
+    0%,100%{
+      opacity:.42;
+      transform:translate(-50%,0);
+    }
+    50%{
+      opacity:.92;
+      transform:translate(-50%,5px);
+    }
+  }
+
+  /*
+    2画面目以降はhome3.pngの下半分だけ表示します。
+  */
+  .mobile-information{
+    position:relative;
+    width:100%;
+    height:75vw;
+    overflow:hidden;
+    background:#f5ead4;
+  }
+
+  .mobile-information img{
+    position:absolute;
+    top:-75vw;
+    left:0;
+    display:block;
+    width:100%;
+    height:auto;
   }
 
   .hotspot:focus-visible{
@@ -162,9 +220,7 @@ body{
   }
 }
 
-/* 動きを減らす設定 */
 @media(prefers-reduced-motion:reduce){
-
   *,
   *::before,
   *::after{
@@ -178,27 +234,20 @@ body{
 
 <body>
 
-<div
-  class="intro"
-  id="intro"
-  aria-hidden="true">
-
-  <h1 class="intro-title">
-    光の詠唱
-  </h1>
-
+<div class="intro" id="intro" aria-hidden="true">
+  <h1 class="intro-title">光の詠唱</h1>
 </div>
 
-<main class="home">
+<!-- PC・タブレット -->
+<main class="desktop-home">
 
   <img
-    class="home-image"
     src="home3.png"
     alt="光の詠唱。今日の一枚、心の浄化、使い方の案内。">
 
   <button
     class="hotspot draw"
-    id="drawButton"
+    id="desktopDrawButton"
     type="button"
     aria-label="今日の一枚を引く">
   </button>
@@ -211,41 +260,74 @@ body{
 
 </main>
 
+<!-- スマホ -->
+<main class="mobile-home">
+
+  <section class="mobile-hero">
+
+    <div class="mobile-hero-art">
+
+      <img
+        src="home3.png"
+        alt="光の詠唱。宇宙の地平線と二つの入口。">
+
+      <button
+        class="hotspot draw"
+        id="mobileDrawButton"
+        type="button"
+        aria-label="今日の一枚を引く">
+      </button>
+
+      <a
+        class="hotspot purify"
+        href="purification.html"
+        aria-label="心の浄化を開く">
+      </a>
+
+    </div>
+
+    <p class="scroll-guide">scroll</p>
+
+  </section>
+
+  <section class="mobile-information">
+    <img
+      src="home3.png"
+      alt="光の詠唱の説明とはじめての方への使い方。">
+  </section>
+
+</main>
+
 <script>
 const CARD_COUNT = 44;
 
 const intro =
   document.getElementById("intro");
 
-/* オープニングを静かに閉じる */
-window.addEventListener(
-  "load",
-  function(){
+window.addEventListener("load",function(){
+  setTimeout(function(){
+    intro.classList.add("hide");
+  },1250);
+});
 
-    setTimeout(function(){
+function drawCard(){
+  const number =
+    Math.floor(Math.random()*CARD_COUNT)+1;
 
-      intro.classList.add("hide");
+  const card =
+    String(number).padStart(2,"0");
 
-    },1250);
-  }
-);
+  location.href =
+    "card.html?card="+card;
+}
 
-/* 今日の一枚 */
 document
-  .getElementById("drawButton")
-  .addEventListener("click",function(){
+  .getElementById("desktopDrawButton")
+  .addEventListener("click",drawCard);
 
-    const number =
-      Math.floor(
-        Math.random() * CARD_COUNT
-      ) + 1;
-
-    const card =
-      String(number).padStart(2,"0");
-
-    location.href =
-      "card.html?card=" + card;
-  });
+document
+  .getElementById("mobileDrawButton")
+  .addEventListener("click",drawCard);
 </script>
 
 </body>
