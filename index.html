@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>光の詠唱</title>
 
 <style>
@@ -15,33 +14,71 @@ html,body{
 }
 
 body{
-  background:#07163f;
+  background:#06163d;
   font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
 }
 
+/* 共通の透明リンク */
 .hotspot{
   position:absolute;
-  z-index:5;
+  z-index:10;
   display:block;
+  padding:0;
   border:0;
   border-radius:999px;
-  padding:0;
   background:transparent;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
 
 .hotspot:focus-visible{
-  outline:4px solid rgba(255,236,185,.95);
+  outline:4px solid rgba(255,238,194,.95);
   outline-offset:-4px;
-  box-shadow:0 0 24px rgba(255,226,147,.8);
+  box-shadow:0 0 25px rgba(255,224,145,.8);
 }
 
 .hotspot:active{
   background:rgba(255,255,255,.10);
 }
 
-/* PC・タブレット */
+/* 最初のオープニング */
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at center,#173f87 0%,#0d295f 45%,#06163d 100%);
+  opacity:1;
+  visibility:visible;
+  transition:opacity 1.05s ease,visibility 1.05s ease;
+}
+
+.intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.intro-title{
+  margin:0;
+  color:#f4d795;
+  font-size:clamp(32px,8vw,58px);
+  font-weight:normal;
+  letter-spacing:.22em;
+  opacity:0;
+  transform:translateY(10px);
+  animation:introTitle 1.2s ease .12s forwards;
+}
+
+@keyframes introTitle{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* ---------- PC・タブレット ---------- */
 .desktop-home{
   position:relative;
   width:min(100%,1024px);
@@ -71,48 +108,12 @@ body{
   height:5.6%;
 }
 
+/* スマホ版は通常非表示 */
 .mobile-home{
   display:none;
 }
 
-/* オープニング */
-.intro{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle at center,#163d82 0%,#0d285d 42%,#06183e 100%);
-  opacity:1;
-  visibility:visible;
-  transition:opacity 1.15s ease,visibility 1.15s ease;
-}
-
-.intro.hide{
-  opacity:0;
-  visibility:hidden;
-}
-
-.intro-title{
-  margin:0;
-  color:#f4d693;
-  font-size:clamp(32px,8vw,58px);
-  font-weight:normal;
-  letter-spacing:.22em;
-  opacity:0;
-  transform:translateY(10px);
-  animation:introTitle 1.3s ease .15s forwards;
-}
-
-@keyframes introTitle{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* スマホ */
+/* ---------- スマホ ---------- */
 @media(max-width:620px){
 
   .desktop-home{
@@ -123,80 +124,87 @@ body{
     display:block;
     width:100%;
     overflow:hidden;
-  }
-
-  .mobile-hero{
-    position:relative;
-    min-height:100svh;
-    overflow:hidden;
-    background:
-      radial-gradient(circle at 50% 30%,rgba(35,78,150,.58) 0%,rgba(10,37,88,.32) 42%,transparent 70%),
-      linear-gradient(180deg,#041331 0%,#082154 52%,#0d2c66 100%);
+    background:#f5ead4;
   }
 
   /*
-    home3.pngの宇宙部分だけを、
-    画面の下側に少し拡大して表示します。
+    1画面目：
+    home3-top.pngを画面いっぱいに表示。
+    画像の縦横比に多少差があっても、上下左右の余白を作りません。
   */
-  .mobile-hero-art{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:101.25vw;
+  .mobile-hero{
+    position:relative;
+    width:100%;
+    height:100svh;
+    min-height:620px;
     overflow:hidden;
+    background:#06163d;
   }
 
-  .mobile-hero-art img{
-    position:absolute;
-    top:0;
-    left:-17.5%;
+  .mobile-hero img{
     display:block;
-    width:135%;
-    height:auto;
-    max-width:none;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
   }
 
+  /*
+    home3-top.png内のボタン位置。
+    画像上の白いボタンを、そのまま押せる透明リンクです。
+  */
   .mobile-hero .draw{
-    left:10.2%;
-    top:74.5%;
-    width:38.7%;
-    height:11.2%;
+    left:7.2%;
+    top:72.1%;
+    width:41.4%;
+    height:8.1%;
   }
 
   .mobile-hero .purify{
-    left:51.35%;
-    top:74.5%;
-    width:38.7%;
-    height:11.2%;
+    left:51.2%;
+    top:72.1%;
+    width:41.4%;
+    height:8.1%;
   }
 
+  /* 下へ続くことを静かに示す */
   .scroll-guide{
     position:absolute;
     left:50%;
-    bottom:16px;
-    z-index:8;
+    bottom:14px;
+    z-index:12;
     margin:0;
-    color:rgba(255,247,220,.82);
+    color:rgba(255,248,225,.86);
     font-size:12px;
     letter-spacing:.16em;
     transform:translateX(-50%);
-    animation:scrollBreath 2.4s ease-in-out infinite;
+    text-shadow:0 1px 8px rgba(0,0,0,.45);
+    animation:scrollBreath 2.3s ease-in-out infinite;
+  }
+
+  .scroll-guide::before{
+    content:"⌄";
+    display:block;
+    margin-bottom:2px;
+    font-size:24px;
+    line-height:1;
   }
 
   @keyframes scrollBreath{
     0%,100%{
-      opacity:.42;
+      opacity:.45;
       transform:translate(-50%,0);
     }
     50%{
-      opacity:.92;
+      opacity:1;
       transform:translate(-50%,5px);
     }
   }
 
   /*
-    2画面目以降はhome3.pngの下半分だけ表示します。
+    2画面目：
+    PC用home3.pngの下半分だけを表示。
+    画像が1024×1536のため、下半分は高さ75vwになります。
   */
   .mobile-information{
     position:relative;
@@ -265,26 +273,22 @@ body{
 
   <section class="mobile-hero">
 
-    <div class="mobile-hero-art">
+    <img
+      src="home3-top.png"
+      alt="光の詠唱。宇宙の地平線と、今日の一枚・心の浄化への入口。">
 
-      <img
-        src="home3.png"
-        alt="光の詠唱。宇宙の地平線と二つの入口。">
+    <button
+      class="hotspot draw"
+      id="mobileDrawButton"
+      type="button"
+      aria-label="今日の一枚を引く">
+    </button>
 
-      <button
-        class="hotspot draw"
-        id="mobileDrawButton"
-        type="button"
-        aria-label="今日の一枚を引く">
-      </button>
-
-      <a
-        class="hotspot purify"
-        href="purification.html"
-        aria-label="心の浄化を開く">
-      </a>
-
-    </div>
+    <a
+      class="hotspot purify"
+      href="purification.html"
+      aria-label="心の浄化を開く">
+    </a>
 
     <p class="scroll-guide">scroll</p>
 
@@ -307,7 +311,7 @@ const intro =
 window.addEventListener("load",function(){
   setTimeout(function(){
     intro.classList.add("hide");
-  },1250);
+  },1200);
 });
 
 function drawCard(){
