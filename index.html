@@ -315,6 +315,66 @@ body{
   }
 }
 
+
+/* 心の天気予報：最初の画面で目立つ3つ目の入口 */
+.forecast-main-button{
+  position:absolute;
+  z-index:12;
+  left:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:12px 28px;
+  border:1px solid rgba(244,218,156,.92);
+  border-radius:999px;
+  color:#fff8e7;
+  font-size:clamp(15px,2.2vw,18px);
+  letter-spacing:.05em;
+  text-decoration:none;
+  white-space:nowrap;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,74,139,.94),
+      rgba(77,108,167,.94)
+    );
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.24),
+    inset 0 0 18px rgba(255,228,160,.10);
+  transform:translateX(-50%);
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    filter .22s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.forecast-main-button:hover{
+  transform:translateX(-50%) translateY(-2px);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.30),
+    0 0 18px rgba(255,223,151,.18);
+}
+
+.forecast-main-button:active{
+  transform:translateX(-50%);
+}
+
+.desktop-home .forecast-main-button{
+  top:44.3%;
+  width:34%;
+}
+
+@media(max-width:620px){
+  .mobile-hero .forecast-main-button{
+    top:83.2%;
+    width:76%;
+    min-height:52px;
+    font-size:16px;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
   *,
   *::before,
@@ -353,6 +413,12 @@ body{
     aria-label="心の浄化を開く">
   </a>
 
+  <a
+    class="forecast-main-button"
+    href="forecast.html">
+    🌤 心の天気予報を見る
+  </a>
+
 </main>
 
 <!-- スマホ -->
@@ -377,6 +443,12 @@ body{
       aria-label="心の浄化を開く">
     </a>
 
+    <a
+      class="forecast-main-button"
+      href="forecast.html">
+      🌤 心の天気予報を見る
+    </a>
+
     <p class="scroll-guide">scroll</p>
 
   </section>
@@ -390,24 +462,7 @@ body{
 </main>
 
 
-<section class="forecast-entry" aria-labelledby="forecastEntryTitle">
-  <div class="forecast-entry-inner">
 
-    <h2 class="forecast-entry-title" id="forecastEntryTitle">
-      🌤 心の天気予報
-    </h2>
-
-    <p class="forecast-entry-text">
-      今日の宇宙の空模様を、<br>
-      心の天気として受け取ってみませんか。
-    </p>
-
-    <a class="forecast-button" href="forecast.html">
-      心の天気予報を見る
-    </a>
-
-  </div>
-</section>
 
 <script>
 const CARD_COUNT = 44;
