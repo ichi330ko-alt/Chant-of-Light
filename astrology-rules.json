@@ -1,1 +1,10 @@
-
+{
+  "mars_uranus_hard": {
+    "weather": "thunder",
+    "score": 5
+  },
+  "sun_jupiter_soft": {
+    "weather": "clear",
+    "score": 5
+  }
+}
