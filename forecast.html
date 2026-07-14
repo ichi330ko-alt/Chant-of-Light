@@ -47,6 +47,12 @@ body{
   box-shadow:0 18px 48px rgba(19,31,63,.24);
 }
 
+.status{
+  margin:0 0 18px;
+  color:#8e7655;
+  font-size:14px;
+}
+
 .weather{
   margin:0 0 14px;
   color:#806039;
@@ -106,9 +112,32 @@ body{
   color:#71552e;
 }
 
+.details{
+  margin-top:26px;
+  text-align:left;
+}
+
+.details summary{
+  cursor:pointer;
+  color:#80603b;
+}
+
+.details-list{
+  margin:14px 0 0;
+  padding-left:20px;
+  color:#75644f;
+  line-height:1.8;
+  font-size:14px;
+}
+
+.test-area{
+  margin-top:28px;
+  padding-top:20px;
+  border-top:1px dashed rgba(184,139,71,.38);
+}
+
 .selector{
   width:min(330px,100%);
-  margin-top:24px;
   padding:11px 14px;
   border:1px solid #c8a463;
   border-radius:10px;
@@ -118,7 +147,7 @@ body{
 }
 
 .demo{
-  margin:14px 0 0;
+  margin:12px 0 0;
   color:#8d795f;
   font-size:13px;
   line-height:1.7;
@@ -144,6 +173,10 @@ body{
 
   <section class="forecast">
 
+    <p class="status" id="status">
+      今日の星回りを読み取っています……
+    </p>
+
     <h2 class="weather" id="weather">
       読み込み中……
     </h2>
@@ -166,16 +199,23 @@ body{
 
     </div>
 
-    <select
-      class="selector"
-      id="demoSelector"
-      aria-label="試作用の天気切り替え">
-    </select>
+    <details class="details" id="details" hidden>
+      <summary>今日の判定内容を見る</summary>
+      <ul class="details-list" id="detailsList"></ul>
+    </details>
 
-    <p class="demo">
-      現在は試作版です。天気を切り替えて、
-      コメントと対応カードを確認できます。
-    </p>
+    <div class="test-area">
+      <select
+        class="selector"
+        id="demoSelector"
+        aria-label="試作用の天気切り替え">
+        <option value="">自動判定に戻す</option>
+      </select>
+
+      <p class="demo">
+        確認用に、天気を手動で切り替えることもできます。
+      </p>
+    </div>
 
   </section>
 
@@ -184,6 +224,9 @@ body{
   </a>
 
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+<script src="forecast-engine.js?v=2"></script>
 
 <script>
 const weatherEl =
@@ -207,7 +250,17 @@ const cardLink =
 const selector =
   document.getElementById("demoSelector");
 
+const statusEl =
+  document.getElementById("status");
+
+const details =
+  document.getElementById("details");
+
+const detailsList =
+  document.getElementById("detailsList");
+
 let weatherData = {};
+let automaticResult = null;
 
 function hashString(text){
   let hash = 0;
@@ -241,7 +294,7 @@ function pickDaily(list,salt){
   return list[index];
 }
 
-function render(key){
+function renderWeather(key,mode){
 
   const data =
     weatherData[key];
@@ -277,91 +330,135 @@ function render(key){
 
   cardBox.hidden = false;
 
-  selector.value = key;
-
-  const url =
-    new URL(location.href);
-
-  url.searchParams.set(
-    "weather",
-    key
-  );
-
-  history.replaceState(
-    null,
-    "",
-    url
-  );
+  statusEl.textContent =
+    mode === "automatic"
+      ? "今日の惑星配置から自動判定しました。"
+      : "確認用の手動表示です。";
 }
 
-fetch("weather.json?v=1")
+function renderDetails(result){
 
-  .then(function(response){
+  detailsList.innerHTML = "";
 
-    if(!response.ok){
+  if(
+    !result ||
+    !result.matchedRules ||
+    result.matchedRules.length === 0
+  ){
+    details.hidden = true;
+    return;
+  }
+
+  result.matchedRules
+    .slice(0,8)
+    .forEach(function(rule){
+
+      const li =
+        document.createElement("li");
+
+      li.textContent =
+        rule.name +
+        "（" +
+        rule.aspect.label +
+        "／誤差 " +
+        rule.aspect.orb.toFixed(1) +
+        "°）";
+
+      detailsList.appendChild(li);
+    });
+
+  details.hidden = false;
+}
+
+async function start(){
+
+  try{
+
+    const weatherResponse =
+      await fetch(
+        "weather.json?v=2",
+        { cache:"no-store" }
+      );
+
+    if(!weatherResponse.ok){
       throw new Error(
         "weather.jsonを読み込めませんでした"
       );
     }
 
-    return response.json();
-  })
+    weatherData =
+      await weatherResponse.json();
 
-  .then(function(data){
+    Object.keys(weatherData)
+      .forEach(function(key){
 
-    weatherData = data;
+        const option =
+          document.createElement("option");
 
-    const keys =
-      Object.keys(data);
+        option.value = key;
 
-    keys.forEach(function(key){
+        option.textContent =
+          weatherData[key].label;
 
-      const option =
-        document.createElement("option");
+        selector.appendChild(option);
+      });
 
-      option.value = key;
+    automaticResult =
+      await ChantForecastEngine.calculate({
+        rulesUrl:
+          "astrology-rules.json?v=2"
+      });
 
-      option.textContent =
-        data[key].label;
+    renderWeather(
+      automaticResult.weather,
+      "automatic"
+    );
 
-      selector.appendChild(option);
-    });
-
-    const requested =
-      new URLSearchParams(
-        location.search
-      ).get("weather");
-
-    const firstKey =
-      requested &&
-      data[requested]
-        ? requested
-        : pickDaily(
-            keys,
-            "weather"
-          );
-
-    render(firstKey);
+    renderDetails(
+      automaticResult
+    );
 
     selector.addEventListener(
       "change",
       function(){
 
-        render(
-          selector.value
+        if(!selector.value){
+
+          renderWeather(
+            automaticResult.weather,
+            "automatic"
+          );
+
+          renderDetails(
+            automaticResult
+          );
+
+          return;
+        }
+
+        renderWeather(
+          selector.value,
+          "manual"
         );
+
+        details.hidden = true;
       }
     );
-  })
-
-  .catch(function(error){
+  }
+  catch(error){
 
     weatherEl.textContent =
       "表示できませんでした";
 
+    statusEl.textContent =
+      "読み込みに失敗しました。";
+
     commentEl.textContent =
       error.message;
-  });
+  }
+}
+
+start();
 </script>
 
 </body>
