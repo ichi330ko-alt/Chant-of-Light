@@ -130,6 +130,48 @@ body{
   font-size:14px;
 }
 
+.chart-title{
+  margin:26px 0 12px;
+  color:#80603b;
+  font-size:16px;
+  font-weight:normal;
+  text-align:center;
+}
+
+.chart-wrap{
+  width:min(430px,100%);
+  margin:0 auto 22px;
+  padding:12px;
+  border:1px solid rgba(184,139,71,.30);
+  border-radius:18px;
+  background:rgba(255,250,238,.72);
+}
+
+.chart-wrap svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.planet-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px 18px;
+  margin:18px 0 0;
+  padding:0;
+  list-style:none;
+  color:#6d5b43;
+  font-size:14px;
+}
+
+.planet-list li{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:6px;
+  border-bottom:1px dotted rgba(166,126,67,.28);
+}
+
 .test-area{
   margin-top:28px;
   padding-top:20px;
@@ -201,6 +243,15 @@ body{
 
     <details class="details" id="details" hidden>
       <summary>今日の判定内容を見る</summary>
+
+      <h3 class="chart-title">今日の宇宙ホロスコープ</h3>
+
+      <div class="chart-wrap" id="chartWrap"></div>
+
+      <ul class="planet-list" id="planetList"></ul>
+
+      <h3 class="chart-title">主な判定理由</h3>
+
       <ul class="details-list" id="detailsList"></ul>
     </details>
 
@@ -419,6 +470,12 @@ const details =
 const detailsList =
   document.getElementById("detailsList");
 
+const chartWrap =
+  document.getElementById("chartWrap");
+
+const planetList =
+  document.getElementById("planetList");
+
 let weatherData = {};
 let automaticResult = null;
 
@@ -496,9 +553,302 @@ function renderWeather(key,mode){
       : "確認用の手動表示です。";
 }
 
+
+const ZODIAC_SIGNS = [
+  {name:"牡羊座",symbol:"♈"},
+  {name:"牡牛座",symbol:"♉"},
+  {name:"双子座",symbol:"♊"},
+  {name:"蟹座",symbol:"♋"},
+  {name:"獅子座",symbol:"♌"},
+  {name:"乙女座",symbol:"♍"},
+  {name:"天秤座",symbol:"♎"},
+  {name:"蠍座",symbol:"♏"},
+  {name:"射手座",symbol:"♐"},
+  {name:"山羊座",symbol:"♑"},
+  {name:"水瓶座",symbol:"♒"},
+  {name:"魚座",symbol:"♓"}
+];
+
+const PLANET_SYMBOLS = {
+  Sun:"☉",
+  Moon:"☽",
+  Mercury:"☿",
+  Venus:"♀",
+  Mars:"♂",
+  Jupiter:"♃",
+  Saturn:"♄",
+  Uranus:"♅",
+  Neptune:"♆",
+  Pluto:"♇"
+};
+
+const PLANET_NAMES = {
+  Sun:"太陽",
+  Moon:"月",
+  Mercury:"水星",
+  Venus:"金星",
+  Mars:"火星",
+  Jupiter:"木星",
+  Saturn:"土星",
+  Uranus:"天王星",
+  Neptune:"海王星",
+  Pluto:"冥王星"
+};
+
+function zodiacPosition(longitude){
+  const normalized =
+    ((longitude % 360) + 360) % 360;
+
+  const signIndex =
+    Math.floor(normalized / 30);
+
+  return {
+    sign:ZODIAC_SIGNS[signIndex],
+    degree:normalized % 30
+  };
+}
+
+function polarPoint(cx,cy,radius,longitude){
+  const radians =
+    (-90 - longitude) *
+    Math.PI /
+    180;
+
+  return {
+    x:cx + radius * Math.cos(radians),
+    y:cy + radius * Math.sin(radians)
+  };
+}
+
+function createSvgElement(name,attributes){
+  const element =
+    document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      name
+    );
+
+  Object.entries(attributes || {})
+    .forEach(function(entry){
+      element.setAttribute(
+        entry[0],
+        entry[1]
+      );
+    });
+
+  return element;
+}
+
+function renderHoroscopeChart(result){
+
+  chartWrap.innerHTML = "";
+  planetList.innerHTML = "";
+
+  if(!result || !result.longitudes){
+    return;
+  }
+
+  const svg =
+    createSvgElement(
+      "svg",
+      {
+        viewBox:"0 0 420 420",
+        role:"img",
+        "aria-label":
+          "今日の惑星配置を表したシンプルなホロスコープ図"
+      }
+    );
+
+  const center = 210;
+
+  svg.appendChild(
+    createSvgElement(
+      "circle",
+      {
+        cx:center,
+        cy:center,
+        r:188,
+        fill:"#fffaf0",
+        stroke:"#b9914e",
+        "stroke-width":"2"
+      }
+    )
+  );
+
+  svg.appendChild(
+    createSvgElement(
+      "circle",
+      {
+        cx:center,
+        cy:center,
+        r:118,
+        fill:"rgba(255,255,255,.70)",
+        stroke:"#d5b87d",
+        "stroke-width":"1.4"
+      }
+    )
+  );
+
+  for(let i=0;i<12;i++){
+
+    const startLongitude =
+      i * 30;
+
+    const outer =
+      polarPoint(
+        center,
+        center,
+        188,
+        startLongitude
+      );
+
+    const inner =
+      polarPoint(
+        center,
+        center,
+        118,
+        startLongitude
+      );
+
+    svg.appendChild(
+      createSvgElement(
+        "line",
+        {
+          x1:inner.x,
+          y1:inner.y,
+          x2:outer.x,
+          y2:outer.y,
+          stroke:"#d9bf8a",
+          "stroke-width":"1"
+        }
+      )
+    );
+
+    const labelPoint =
+      polarPoint(
+        center,
+        center,
+        153,
+        startLongitude + 15
+      );
+
+    const label =
+      createSvgElement(
+        "text",
+        {
+          x:labelPoint.x,
+          y:labelPoint.y + 7,
+          "text-anchor":"middle",
+          "font-size":"22",
+          fill:"#8e6933"
+        }
+      );
+
+    label.textContent =
+      ZODIAC_SIGNS[i].symbol;
+
+    svg.appendChild(label);
+  }
+
+  const occupied = [];
+
+  Object.entries(result.longitudes)
+    .forEach(function(entry){
+
+      const bodyName = entry[0];
+      const longitude = entry[1];
+
+      let radius = 96;
+
+      occupied.forEach(function(previous){
+
+        const raw =
+          Math.abs(
+            previous -
+            longitude
+          );
+
+        const distance =
+          Math.min(
+            raw,
+            360 - raw
+          );
+
+        if(distance < 8){
+          radius -= 17;
+        }
+      });
+
+      occupied.push(longitude);
+
+      const point =
+        polarPoint(
+          center,
+          center,
+          radius,
+          longitude
+        );
+
+      const planet =
+        createSvgElement(
+          "text",
+          {
+            x:point.x,
+            y:point.y + 8,
+            "text-anchor":"middle",
+            "font-size":"27",
+            fill:"#5e4a2f"
+          }
+        );
+
+      planet.textContent =
+        PLANET_SYMBOLS[bodyName] ||
+        bodyName;
+
+      svg.appendChild(planet);
+
+      const position =
+        zodiacPosition(longitude);
+
+      const item =
+        document.createElement("li");
+
+      const name =
+        document.createElement("span");
+
+      name.textContent =
+        (
+          PLANET_SYMBOLS[bodyName] ||
+          ""
+        ) +
+        " " +
+        (
+          PLANET_NAMES[bodyName] ||
+          bodyName
+        );
+
+      const place =
+        document.createElement("span");
+
+      place.textContent =
+        position.sign.name +
+        " " +
+        position.degree.toFixed(1) +
+        "°";
+
+      item.appendChild(name);
+      item.appendChild(place);
+
+      planetList.appendChild(item);
+    });
+
+  chartWrap.appendChild(svg);
+}
+
 function renderDetails(result){
 
   detailsList.innerHTML = "";
+
+  renderHoroscopeChart(result);
 
   if(
     !result ||
