@@ -719,7 +719,7 @@ body.warm{
   position:relative;
   z-index:30;
 
-  margin-top:4px;
+  margin-top:48px;
 
   opacity:0;
   transform:translateY(15px);
@@ -983,6 +983,9 @@ const cardNumber =
 const envelopeStage =
   document.getElementById("envelopeStage");
 
+const letter =
+  document.querySelector(".letter");
+
 const status =
   document.getElementById("status");
 
@@ -1001,7 +1004,39 @@ const buttons =
 backToCard.href =
   "card.html?card=" + cardNumber;
 
-fetch("cards.json?v=4")
+/*
+  長いメッセージでも、手紙の下端とボタンが重ならないように
+  内容の長さに合わせて舞台の高さを自動調整します。
+*/
+function adjustStageHeight(){
+
+  const isMobile =
+    window.matchMedia(
+      "(max-width:520px)"
+    ).matches;
+
+  const letterTop =
+    isMobile ? 55 : 60;
+
+  const bottomSpace =
+    isMobile ? 230 : 210;
+
+  const minimumHeight =
+    isMobile ? 790 : 820;
+
+  const requiredHeight =
+    letterTop +
+    letter.offsetHeight +
+    bottomSpace;
+
+  envelopeStage.style.height =
+    Math.max(
+      minimumHeight,
+      requiredHeight
+    ) + "px";
+}
+
+fetch("cards.json?v=5")
 
   .then(function(response){
 
@@ -1066,6 +1101,8 @@ fetch("cards.json?v=4")
     meaningElement.textContent =
       meaning;
 
+    adjustStageHeight();
+
     status.classList.add("hide");
 
     /* 封筒を開く */
@@ -1088,6 +1125,8 @@ fetch("cards.json?v=4")
         "warm"
       );
 
+      adjustStageHeight();
+
     },1850);
 
     /* 操作ボタンを表示 */
@@ -1109,6 +1148,20 @@ fetch("cards.json?v=4")
       "show"
     );
   });
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    if(
+      !status.classList.contains("hide")
+    ){
+      return;
+    }
+
+    adjustStageHeight();
+  }
+);
 </script>
 
 </body>
