@@ -1,10 +1,345 @@
 {
-  "mars_uranus_hard": {
-    "weather": "thunder",
-    "score": 5
+  "version": 1,
+  "settings": {
+    "orb": {
+      "conjunction": 8,
+      "sextile": 5,
+      "square": 7,
+      "trine": 7,
+      "opposition": 8
+    },
+    "defaultWeather": "sunny"
   },
-  "sun_jupiter_soft": {
-    "weather": "clear",
-    "score": 5
-  }
+  "rules": [
+    {
+      "name": "太陽と木星の調和",
+      "a": "Sun",
+      "b": "Jupiter",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "clear": 6,
+        "rainbow": 3
+      }
+    },
+    {
+      "name": "太陽と金星の調和",
+      "a": "Sun",
+      "b": "Venus",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "sunny": 5,
+        "clear": 2
+      }
+    },
+    {
+      "name": "金星と木星の調和",
+      "a": "Venus",
+      "b": "Jupiter",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "sunny": 4,
+        "rainbow": 5
+      }
+    },
+    {
+      "name": "月と木星の調和",
+      "a": "Moon",
+      "b": "Jupiter",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "rainbow": 5,
+        "clear": 2
+      }
+    },
+    {
+      "name": "月と金星の調和",
+      "a": "Moon",
+      "b": "Venus",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "sunny": 4,
+        "rainbow": 2
+      }
+    },
+    {
+      "name": "月と土星の緊張",
+      "a": "Moon",
+      "b": "Saturn",
+      "aspects": [
+        "square",
+        "opposition",
+        "conjunction"
+      ],
+      "scores": {
+        "cloudy": 6,
+        "partly_cloudy": 3
+      }
+    },
+    {
+      "name": "太陽と土星の緊張",
+      "a": "Sun",
+      "b": "Saturn",
+      "aspects": [
+        "square",
+        "opposition",
+        "conjunction"
+      ],
+      "scores": {
+        "cloudy": 6
+      }
+    },
+    {
+      "name": "水星と土星の緊張",
+      "a": "Mercury",
+      "b": "Saturn",
+      "aspects": [
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "cloudy": 4,
+        "strong_wind": 2
+      }
+    },
+    {
+      "name": "月と海王星",
+      "a": "Moon",
+      "b": "Neptune",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "rain": 6,
+        "fog": 4
+      }
+    },
+    {
+      "name": "水星と海王星の緊張",
+      "a": "Mercury",
+      "b": "Neptune",
+      "aspects": [
+        "square",
+        "opposition",
+        "conjunction"
+      ],
+      "scores": {
+        "fog": 6
+      }
+    },
+    {
+      "name": "太陽と海王星の緊張",
+      "a": "Sun",
+      "b": "Neptune",
+      "aspects": [
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "fog": 4,
+        "rain": 2
+      }
+    },
+    {
+      "name": "水星と天王星",
+      "a": "Mercury",
+      "b": "Uranus",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "strong_wind": 6,
+        "wind": 2
+      }
+    },
+    {
+      "name": "月と天王星",
+      "a": "Moon",
+      "b": "Uranus",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "strong_wind": 4,
+        "partly_cloudy": 2
+      }
+    },
+    {
+      "name": "水星と木星の調和",
+      "a": "Mercury",
+      "b": "Jupiter",
+      "aspects": [
+        "sextile",
+        "trine"
+      ],
+      "scores": {
+        "wind": 5,
+        "clear": 2
+      }
+    },
+    {
+      "name": "水星と金星の調和",
+      "a": "Mercury",
+      "b": "Venus",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "wind": 4,
+        "sunny": 2
+      }
+    },
+    {
+      "name": "火星と天王星の緊張",
+      "a": "Mars",
+      "b": "Uranus",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "thunder": 8,
+        "strong_wind": 2
+      }
+    },
+    {
+      "name": "火星と冥王星の緊張",
+      "a": "Mars",
+      "b": "Pluto",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "volcanic": 8,
+        "thunder": 3
+      }
+    },
+    {
+      "name": "火星と土星の緊張",
+      "a": "Mars",
+      "b": "Saturn",
+      "aspects": [
+        "square",
+        "opposition",
+        "conjunction"
+      ],
+      "scores": {
+        "thunder": 5,
+        "cloudy": 3
+      }
+    },
+    {
+      "name": "火星と木星の調和",
+      "a": "Mars",
+      "b": "Jupiter",
+      "aspects": [
+        "sextile",
+        "trine",
+        "conjunction"
+      ],
+      "scores": {
+        "clear": 4,
+        "volcanic": 3
+      }
+    },
+    {
+      "name": "火星と金星の緊張",
+      "a": "Mars",
+      "b": "Venus",
+      "aspects": [
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "thunder": 4,
+        "partly_cloudy": 2
+      }
+    },
+    {
+      "name": "太陽と冥王星",
+      "a": "Sun",
+      "b": "Pluto",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "starry": 5,
+        "volcanic": 3
+      }
+    },
+    {
+      "name": "月と冥王星",
+      "a": "Moon",
+      "b": "Pluto",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "starry": 5,
+        "partly_cloudy": 2
+      }
+    },
+    {
+      "name": "木星と冥王星の調和",
+      "a": "Jupiter",
+      "b": "Pluto",
+      "aspects": [
+        "sextile",
+        "trine"
+      ],
+      "scores": {
+        "rainbow": 4,
+        "starry": 3
+      }
+    },
+    {
+      "name": "土星と海王星",
+      "a": "Saturn",
+      "b": "Neptune",
+      "aspects": [
+        "conjunction",
+        "square",
+        "opposition"
+      ],
+      "scores": {
+        "rain": 3,
+        "fog": 4,
+        "cloudy": 2
+      }
+    }
+  ]
 }
