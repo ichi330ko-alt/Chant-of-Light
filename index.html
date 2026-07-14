@@ -155,14 +155,14 @@ body{
   */
   .mobile-hero .draw{
     left:7.2%;
-    top:61.7%;
+    top:72.1%;
     width:41.4%;
     height:8.1%;
   }
 
   .mobile-hero .purify{
     left:51.2%;
-    top:61.7%;
+    top:72.1%;
     width:41.4%;
     height:8.1%;
   }
@@ -225,6 +225,93 @@ body{
 
   .hotspot:focus-visible{
     outline-width:3px;
+  }
+}
+
+
+/* 心の天気予報への追加導線 */
+.forecast-entry{
+  width:min(100%,1024px);
+  margin:0 auto;
+  padding:34px 18px 46px;
+  text-align:center;
+  background:
+    linear-gradient(
+      180deg,
+      #f5ead4 0%,
+      #ead8bd 100%
+    );
+}
+
+.forecast-entry-inner{
+  width:min(620px,100%);
+  margin:0 auto;
+  padding:30px 24px;
+  border:1px solid rgba(178,133,66,.38);
+  border-radius:22px;
+  background:rgba(255,252,245,.75);
+  box-shadow:0 14px 34px rgba(94,66,30,.10);
+}
+
+.forecast-entry-title{
+  margin:0 0 10px;
+  color:#806039;
+  font-size:clamp(23px,5vw,31px);
+  font-weight:normal;
+  letter-spacing:.08em;
+}
+
+.forecast-entry-text{
+  margin:0 0 22px;
+  color:#675946;
+  font-size:16px;
+  line-height:1.9;
+}
+
+.forecast-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  padding:13px 28px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  color:#fff;
+  font:inherit;
+  font-size:17px;
+  text-decoration:none;
+  background:
+    linear-gradient(
+      135deg,
+      #d1a75b,
+      #b9843a
+    );
+  box-shadow:0 10px 24px rgba(105,72,28,.16);
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease;
+}
+
+.forecast-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(105,72,28,.22);
+}
+
+.forecast-button:active{
+  transform:translateY(0);
+}
+
+@media(max-width:620px){
+  .forecast-entry{
+    padding:28px 12px 38px;
+  }
+
+  .forecast-entry-inner{
+    padding:27px 20px;
+  }
+
+  .forecast-button{
+    width:100%;
   }
 }
 
@@ -301,6 +388,26 @@ body{
   </section>
 
 </main>
+
+
+<section class="forecast-entry" aria-labelledby="forecastEntryTitle">
+  <div class="forecast-entry-inner">
+
+    <h2 class="forecast-entry-title" id="forecastEntryTitle">
+      🌤 心の天気予報
+    </h2>
+
+    <p class="forecast-entry-text">
+      今日の宇宙の空模様を、<br>
+      心の天気として受け取ってみませんか。
+    </p>
+
+    <a class="forecast-button" href="forecast.html">
+      心の天気予報を見る
+    </a>
+
+  </div>
+</section>
 
 <script>
 const CARD_COUNT = 44;
