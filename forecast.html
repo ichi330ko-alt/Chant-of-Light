@@ -1,1 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心の天気予報｜光の詠唱</title>
 
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+
+body{
+  min-height:100vh;
+  padding:30px 14px 46px;
+  color:#514737;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  background:
+    radial-gradient(circle at 50% 7%,rgba(95,139,210,.42),transparent 38%),
+    linear-gradient(180deg,#07183f 0%,#173b78 39%,#f3e8d5 39%,#ead8bd 100%);
+}
+
+.page{
+  width:min(720px,100%);
+  margin:0 auto;
+  text-align:center;
+}
+
+.title{
+  margin:0 0 8px;
+  color:#f3d592;
+  font-size:clamp(27px,6vw,40px);
+  font-weight:normal;
+  letter-spacing:.14em;
+}
+
+.subtitle{
+  margin:0 0 28px;
+  color:#f4ecdd;
+  line-height:1.8;
+}
+
+.forecast{
+  padding:42px clamp(22px,6vw,52px);
+  border:1px solid rgba(189,147,76,.45);
+  border-radius:22px;
+  background:rgba(255,253,247,.95);
+  box-shadow:0 18px 48px rgba(19,31,63,.24);
+}
+
+.weather{
+  margin:0 0 14px;
+  color:#806039;
+  font-size:clamp(30px,7vw,46px);
+  font-weight:normal;
+}
+
+.meta{
+  margin:0 0 28px;
+  color:#8b704b;
+  line-height:1.8;
+}
+
+.comment{
+  margin:0;
+  color:#524738;
+  font-size:clamp(16px,3.8vw,18px);
+  line-height:2.15;
+  text-align:left;
+}
+
+.card-box{
+  margin-top:34px;
+  padding-top:28px;
+  border-top:1px solid rgba(184,139,71,.35);
+}
+
+.card-label{
+  margin:0 0 10px;
+  color:#9b7337;
+  font-size:15px;
+  letter-spacing:.12em;
+}
+
+.card-name{
+  margin:0 0 20px;
+  color:#6d512b;
+  font-size:clamp(25px,6vw,36px);
+  font-weight:normal;
+}
+
+.button{
+  display:inline-block;
+  margin:6px;
+  padding:13px 24px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  background:#c4994e;
+  color:#fff;
+  text-decoration:none;
+  font:inherit;
+  cursor:pointer;
+}
+
+.secondary{
+  background:rgba(255,255,255,.72);
+  color:#71552e;
+}
+
+.selector{
+  width:min(330px,100%);
+  margin-top:24px;
+  padding:11px 14px;
+  border:1px solid #c8a463;
+  border-radius:10px;
+  background:#fffaf0;
+  color:#594a37;
+  font:inherit;
+}
+
+.demo{
+  margin:14px 0 0;
+  color:#8d795f;
+  font-size:13px;
+  line-height:1.7;
+}
+
+@media(max-width:520px){
+  body{padding:22px 8px 36px}
+  .forecast{padding:36px 24px}
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <h1 class="title">心の天気予報</h1>
+
+  <p class="subtitle">
+    今日の宇宙の空模様を、<br>
+    心の天気としてお届けします。
+  </p>
+
+  <section class="forecast">
+
+    <h2 class="weather" id="weather">
+      読み込み中……
+    </h2>
+
+    <p class="meta" id="meta"></p>
+
+    <p class="comment" id="comment"></p>
+
+    <div class="card-box" id="cardBox" hidden>
+
+      <p class="card-label">
+        今日のカード
+      </p>
+
+      <h3 class="card-name" id="cardName"></h3>
+
+      <a class="button" id="cardLink" href="#">
+        カードを見る
+      </a>
+
+    </div>
+
+    <select
+      class="selector"
+      id="demoSelector"
+      aria-label="試作用の天気切り替え">
+    </select>
+
+    <p class="demo">
+      現在は試作版です。天気を切り替えて、
+      コメントと対応カードを確認できます。
+    </p>
+
+  </section>
+
+  <a class="button secondary" href="index.html">
+    Home
+  </a>
+
+</main>
+
+<script>
+const weatherEl =
+  document.getElementById("weather");
+
+const metaEl =
+  document.getElementById("meta");
+
+const commentEl =
+  document.getElementById("comment");
+
+const cardBox =
+  document.getElementById("cardBox");
+
+const cardName =
+  document.getElementById("cardName");
+
+const cardLink =
+  document.getElementById("cardLink");
+
+const selector =
+  document.getElementById("demoSelector");
+
+let weatherData = {};
+
+function hashString(text){
+  let hash = 0;
+
+  for(let i = 0; i < text.length; i++){
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(i);
+
+    hash |= 0;
+  }
+
+  return Math.abs(hash);
+}
+
+function todayKey(){
+  const d = new Date();
+
+  return [
+    d.getFullYear(),
+    d.getMonth() + 1,
+    d.getDate()
+  ].join("-");
+}
+
+function pickDaily(list,salt){
+  const index =
+    hashString(todayKey() + salt) %
+    list.length;
+
+  return list[index];
+}
+
+function render(key){
+
+  const data =
+    weatherData[key];
+
+  if(!data){
+    return;
+  }
+
+  const card =
+    pickDaily(
+      data.cards,
+      key
+    );
+
+  weatherEl.textContent =
+    data.label;
+
+  metaEl.textContent =
+    "主な影響：" +
+    data.planets.join("・") +
+    "　｜　テーマ：" +
+    data.theme;
+
+  commentEl.textContent =
+    data.comment;
+
+  cardName.textContent =
+    card.title;
+
+  cardLink.href =
+    "card.html?card=" +
+    card.id;
+
+  cardBox.hidden = false;
+
+  selector.value = key;
+
+  const url =
+    new URL(location.href);
+
+  url.searchParams.set(
+    "weather",
+    key
+  );
+
+  history.replaceState(
+    null,
+    "",
+    url
+  );
+}
+
+fetch("weather.json?v=1")
+
+  .then(function(response){
+
+    if(!response.ok){
+      throw new Error(
+        "weather.jsonを読み込めませんでした"
+      );
+    }
+
+    return response.json();
+  })
+
+  .then(function(data){
+
+    weatherData = data;
+
+    const keys =
+      Object.keys(data);
+
+    keys.forEach(function(key){
+
+      const option =
+        document.createElement("option");
+
+      option.value = key;
+
+      option.textContent =
+        data[key].label;
+
+      selector.appendChild(option);
+    });
+
+    const requested =
+      new URLSearchParams(
+        location.search
+      ).get("weather");
+
+    const firstKey =
+      requested &&
+      data[requested]
+        ? requested
+        : pickDaily(
+            keys,
+            "weather"
+          );
+
+    render(firstKey);
+
+    selector.addEventListener(
+      "change",
+      function(){
+
+        render(
+          selector.value
+        );
+      }
+    );
+  })
+
+  .catch(function(error){
+
+    weatherEl.textContent =
+      "表示できませんでした";
+
+    commentEl.textContent =
+      error.message;
+  });
+</script>
+
+</body>
+</html>
