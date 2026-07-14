@@ -3,45 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>心の天気予報｜光の詠唱</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
-html,
-body{
-  margin:0;
-  min-height:100%;
-}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
 
 body{
   min-height:100vh;
   padding:30px 14px 46px;
-
   color:#514737;
-
-  font-family:
-    "Yu Mincho",
-    "Hiragino Mincho ProN",
-    "Noto Serif JP",
-    serif;
-
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
   background:
-    radial-gradient(
-      circle at 50% 7%,
-      rgba(95,139,210,.42),
-      transparent 38%
-    ),
-    linear-gradient(
-      180deg,
-      #07183f 0%,
-      #173b78 39%,
-      #f3e8d5 39%,
-      #ead8bd 100%
-    );
+    radial-gradient(circle at 50% 7%,rgba(95,139,210,.42),transparent 38%),
+    linear-gradient(180deg,#07183f 0%,#173b78 39%,#f3e8d5 39%,#ead8bd 100%);
 }
 
 .page{
@@ -52,7 +27,6 @@ body{
 
 .title{
   margin:0 0 8px;
-
   color:#f3d592;
   font-size:clamp(27px,6vw,40px);
   font-weight:normal;
@@ -61,40 +35,26 @@ body{
 
 .subtitle{
   margin:0 0 28px;
-
   color:#f4ecdd;
   line-height:1.8;
 }
 
 .forecast{
-  padding:
-    42px
-    clamp(22px,6vw,52px);
-
-  border:
-    1px solid
-    rgba(189,147,76,.45);
-
+  padding:42px clamp(22px,6vw,52px);
+  border:1px solid rgba(189,147,76,.45);
   border-radius:22px;
-
-  background:
-    rgba(255,253,247,.95);
-
-  box-shadow:
-    0 18px 48px
-    rgba(19,31,63,.24);
+  background:rgba(255,253,247,.95);
+  box-shadow:0 18px 48px rgba(19,31,63,.24);
 }
 
 .status{
   margin:0 0 18px;
-
   color:#8e7655;
   font-size:14px;
 }
 
 .weather{
   margin:0 0 14px;
-
   color:#806039;
   font-size:clamp(30px,7vw,46px);
   font-weight:normal;
@@ -102,14 +62,12 @@ body{
 
 .meta{
   margin:0 0 28px;
-
   color:#8b704b;
   line-height:1.8;
 }
 
 .comment{
   margin:0;
-
   color:#524738;
   font-size:clamp(16px,3.8vw,18px);
   line-height:2.15;
@@ -119,15 +77,11 @@ body{
 .card-box{
   margin-top:34px;
   padding-top:28px;
-
-  border-top:
-    1px solid
-    rgba(184,139,71,.35);
+  border-top:1px solid rgba(184,139,71,.35);
 }
 
 .card-label{
   margin:0 0 10px;
-
   color:#9b7337;
   font-size:15px;
   letter-spacing:.12em;
@@ -135,7 +89,6 @@ body{
 
 .card-name{
   margin:0 0 20px;
-
   color:#6d512b;
   font-size:clamp(25px,6vw,36px);
   font-weight:normal;
@@ -143,29 +96,19 @@ body{
 
 .button{
   display:inline-block;
-
   margin:6px;
   padding:13px 24px;
-
-  border:
-    1px solid
-    #b68b48;
-
+  border:1px solid #b68b48;
   border-radius:999px;
-
   background:#c4994e;
   color:#fff;
-
   text-decoration:none;
   font:inherit;
-
   cursor:pointer;
 }
 
 .secondary{
-  background:
-    rgba(255,255,255,.72);
-
+  background:rgba(255,255,255,.72);
   color:#71552e;
 }
 
@@ -175,62 +118,44 @@ body{
 }
 
 .details summary{
-  color:#80603b;
   cursor:pointer;
+  color:#80603b;
 }
 
 .details-list{
   margin:14px 0 0;
   padding-left:20px;
-
   color:#75644f;
-  font-size:14px;
   line-height:1.8;
+  font-size:14px;
 }
 
 .test-area{
   margin-top:28px;
   padding-top:20px;
-
-  border-top:
-    1px dashed
-    rgba(184,139,71,.38);
+  border-top:1px dashed rgba(184,139,71,.38);
 }
 
 .selector{
   width:min(330px,100%);
-
   padding:11px 14px;
-
-  border:
-    1px solid
-    #c8a463;
-
+  border:1px solid #c8a463;
   border-radius:10px;
-
   background:#fffaf0;
   color:#594a37;
-
   font:inherit;
 }
 
 .demo{
   margin:12px 0 0;
-
   color:#8d795f;
   font-size:13px;
   line-height:1.7;
 }
 
 @media(max-width:520px){
-
-  body{
-    padding:22px 8px 36px;
-  }
-
-  .forecast{
-    padding:36px 24px;
-  }
+  body{padding:22px 8px 36px}
+  .forecast{padding:36px 24px}
 }
 </style>
 </head>
@@ -239,9 +164,7 @@ body{
 
 <main class="page">
 
-  <h1 class="title">
-    心の天気予報
-  </h1>
+  <h1 class="title">心の天気予報</h1>
 
   <p class="subtitle">
     今日の宇宙の空模様を、<br>
@@ -262,486 +185,250 @@ body{
 
     <p class="comment" id="comment"></p>
 
-    <div
-      class="card-box"
-      id="cardBox"
-      hidden>
+    <div class="card-box" id="cardBox" hidden>
 
       <p class="card-label">
         今日のカード
       </p>
 
-      <h3
-        class="card-name"
-        id="cardName">
-      </h3>
+      <h3 class="card-name" id="cardName"></h3>
 
-      <a
-        class="button"
-        id="cardLink"
-        href="#">
+      <a class="button" id="cardLink" href="#">
         カードを見る
       </a>
 
     </div>
 
-    <details
-      class="details"
-      id="details"
-      hidden>
-
-      <summary>
-        今日の判定内容を見る
-      </summary>
-
-      <ul
-        class="details-list"
-        id="detailsList">
-      </ul>
-
+    <details class="details" id="details" hidden>
+      <summary>今日の判定内容を見る</summary>
+      <ul class="details-list" id="detailsList"></ul>
     </details>
 
     <div class="test-area">
-
       <select
         class="selector"
         id="demoSelector"
         aria-label="試作用の天気切り替え">
-
-        <option value="">
-          自動判定に戻す
-        </option>
-
+        <option value="">自動判定に戻す</option>
       </select>
 
       <p class="demo">
-        確認用に、天気を手動で
-        切り替えることもできます。
+        確認用に、天気を手動で切り替えることもできます。
       </p>
-
     </div>
 
   </section>
 
-  <a
-    class="button secondary"
-    href="index.html">
+  <a class="button secondary" href="index.html">
     Home
   </a>
 
 </main>
 
-<!-- 惑星位置を計算するライブラリ -->
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-
 <script>
 /*
-  心の天気予報
-  自動判定エンジン
+  光の詠唱・心の天気予報 自動判定エンジン
+  Astronomy Engineで、現在の地心黄経と主要アスペクトを計算します。
 */
+(function(global){
+  "use strict";
 
-const ASPECTS = {
+  const ASPECTS = {
+    conjunction: { angle: 0,   label: "コンジャンクション" },
+    sextile:     { angle: 60,  label: "セクスタイル" },
+    square:      { angle: 90,  label: "スクエア" },
+    trine:       { angle: 120, label: "トライン" },
+    opposition:  { angle: 180, label: "オポジション" }
+  };
 
-  conjunction:{
-    angle:0,
-    label:"コンジャンクション"
-  },
+  const BODIES = {
+    Sun: "Sun",
+    Moon: "Moon",
+    Mercury: "Mercury",
+    Venus: "Venus",
+    Mars: "Mars",
+    Jupiter: "Jupiter",
+    Saturn: "Saturn",
+    Uranus: "Uranus",
+    Neptune: "Neptune",
+    Pluto: "Pluto"
+  };
 
-  sextile:{
-    angle:60,
-    label:"セクスタイル"
-  },
-
-  square:{
-    angle:90,
-    label:"スクエア"
-  },
-
-  trine:{
-    angle:120,
-    label:"トライン"
-  },
-
-  opposition:{
-    angle:180,
-    label:"オポジション"
-  }
-};
-
-
-const BODY_NAMES = [
-  "Sun",
-  "Moon",
-  "Mercury",
-  "Venus",
-  "Mars",
-  "Jupiter",
-  "Saturn",
-  "Uranus",
-  "Neptune",
-  "Pluto"
-];
-
-
-function normalizeAngle(value){
-
-  return (
-    (value % 360) + 360
-  ) % 360;
-}
-
-
-function angularDistance(a,b){
-
-  const difference =
-    Math.abs(
-      normalizeAngle(a) -
-      normalizeAngle(b)
-    );
-
-  return Math.min(
-    difference,
-    360 - difference
-  );
-}
-
-
-function getBody(bodyName){
-
-  if(
-    typeof Astronomy === "undefined"
-  ){
-    throw new Error(
-      "惑星計算ライブラリを読み込めませんでした。"
-    );
+  function normalizeAngle(value){
+    return ((value % 360) + 360) % 360;
   }
 
-  const body =
-    Astronomy.Body[bodyName];
-
-  if(!body){
-    throw new Error(
-      "未対応の天体です：" +
-      bodyName
-    );
+  function angularDistance(a,b){
+    const diff = Math.abs(normalizeAngle(a) - normalizeAngle(b));
+    return Math.min(diff, 360 - diff);
   }
 
-  return body;
-}
+  function getBody(bodyName){
+    if(!global.Astronomy || !global.Astronomy.Body){
+      throw new Error("Astronomy Engineを読み込めませんでした。");
+    }
 
+    const key = BODIES[bodyName];
+    const body = global.Astronomy.Body[key];
 
-function getLongitude(bodyName,date){
+    if(!body){
+      throw new Error("未対応の天体です：" + bodyName);
+    }
 
-  return normalizeAngle(
+    return body;
+  }
 
-    Astronomy.EclipticLongitude(
+  function longitude(bodyName,date){
+    /*
+      太陽・月・惑星を共通の方法で地心黄経へ変換します。
+      EclipticLongitude は一部天体に使えないため、
+      GeoVector → Ecliptic を使います。
+    */
+    const vector = global.Astronomy.GeoVector(
       getBody(bodyName),
-      date
-    )
-  );
-}
-
-
-function findAspect(
-  longitudeA,
-  longitudeB,
-  orbSettings
-){
-
-  const distance =
-    angularDistance(
-      longitudeA,
-      longitudeB
+      date,
+      true
     );
 
-  let bestAspect = null;
+    const ecliptic = global.Astronomy.Ecliptic(vector);
 
-  Object
-    .entries(ASPECTS)
-    .forEach(function(entry){
+    return normalizeAngle(ecliptic.elon);
+  }
 
-      const name =
-        entry[0];
+  function findAspect(a,b,orbSettings){
+    const distance = angularDistance(a,b);
+    let best = null;
 
-      const information =
-        entry[1];
+    Object.entries(ASPECTS).forEach(([name,info])=>{
+      const orb = orbSettings[name];
+      const error = Math.abs(distance - info.angle);
 
-      const allowedOrb =
-        orbSettings[name];
-
-      const error =
-        Math.abs(
-          distance -
-          information.angle
-        );
-
-      if(
-        error <= allowedOrb &&
-        (
-          !bestAspect ||
-          error < bestAspect.error
-        )
-      ){
-
-        bestAspect = {
-
-          name:name,
-
-          label:
-            information.label,
-
-          exactAngle:
-            information.angle,
-
-          actualAngle:
-            distance,
-
-          orb:error
+      if(error <= orb && (!best || error < best.error)){
+        best = {
+          name,
+          label: info.label,
+          exactAngle: info.angle,
+          actualAngle: distance,
+          orb: error
         };
       }
     });
 
-  return bestAspect;
-}
-
-
-function addScores(
-  scoreBoard,
-  scores
-){
-
-  Object
-    .entries(scores || {})
-    .forEach(function(entry){
-
-      const weatherKey =
-        entry[0];
-
-      const points =
-        Number(entry[1] || 0);
-
-      scoreBoard[weatherKey] =
-        (
-          scoreBoard[weatherKey] ||
-          0
-        ) + points;
-    });
-}
-
-
-async function loadJson(url){
-
-  const response =
-    await fetch(
-      url,
-      {
-        cache:"no-store"
-      }
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-      url +
-      "を読み込めませんでした。"
-    );
+    return best;
   }
 
-  return response.json();
-}
+  function addScores(scoreBoard,scores){
+    Object.entries(scores || {}).forEach(([weather,points])=>{
+      scoreBoard[weather] = (scoreBoard[weather] || 0) + Number(points || 0);
+    });
+  }
 
-
-async function calculateForecast(){
-
-  const date =
-    new Date();
-
-  const ruleData =
-    await loadJson(
-      "astrology-rules.json?v=3"
-    );
-
-  const longitudes = {};
-
-  const scoreBoard = {};
-
-  const matchedRules = [];
-
-
-  BODY_NAMES.forEach(
-    function(bodyName){
-
-      longitudes[bodyName] =
-        getLongitude(
-          bodyName,
-          date
-        );
+  async function loadRules(url){
+    const response = await fetch(url, { cache: "no-store" });
+    if(!response.ok){
+      throw new Error("astrology-rules.jsonを読み込めませんでした。");
     }
-  );
+    return response.json();
+  }
 
+  async function calculate(options = {}){
+    const date = options.date || new Date();
+    const rulesUrl = options.rulesUrl || "astrology-rules.json?v=5";
+    const rulesData = await loadRules(rulesUrl);
+    const longitudes = {};
+    const scoreBoard = {};
+    const matchedRules = [];
 
-  ruleData.rules.forEach(
-    function(rule){
+    Object.keys(BODIES).forEach(name=>{
+      longitudes[name] = longitude(name,date);
+    });
 
-      const aspect =
-        findAspect(
-          longitudes[rule.a],
-          longitudes[rule.b],
-          ruleData.settings.orb
-        );
+    for(const rule of rulesData.rules){
+      const aspect = findAspect(
+        longitudes[rule.a],
+        longitudes[rule.b],
+        rulesData.settings.orb
+      );
 
-      if(
-        aspect &&
-        rule.aspects.includes(
-          aspect.name
-        )
-      ){
-
-        addScores(
-          scoreBoard,
-          rule.scores
-        );
+      if(aspect && rule.aspects.includes(aspect.name)){
+        addScores(scoreBoard,rule.scores);
 
         matchedRules.push({
-
-          name:
-            rule.name,
-
-          bodies:[
-            rule.a,
-            rule.b
-          ],
-
-          aspect:
-            aspect,
-
-          scores:
-            rule.scores
+          name: rule.name,
+          bodies: [rule.a,rule.b],
+          aspect,
+          scores: rule.scores
         });
       }
     }
-  );
 
+    const ranked = Object.entries(scoreBoard)
+      .sort((a,b)=>b[1]-a[1]);
 
-  const rankedScores =
-    Object
-      .entries(scoreBoard)
-      .sort(function(a,b){
+    const weather = ranked.length
+      ? ranked[0][0]
+      : rulesData.settings.defaultWeather;
 
-        return b[1] - a[1];
-      });
-
-
-  const selectedWeather =
-    rankedScores.length > 0
-
-      ? rankedScores[0][0]
-
-      : ruleData
-          .settings
-          .defaultWeather;
-
-
-  return {
-
-    weather:
-      selectedWeather,
-
-    scores:
-      Object.fromEntries(
-        rankedScores
-      ),
-
-    matchedRules:
+    return {
+      weather,
+      scores: Object.fromEntries(ranked),
       matchedRules,
-
-    longitudes:
       longitudes,
+      calculatedAt: date.toISOString()
+    };
+  }
 
-    calculatedAt:
-      date.toISOString()
+  global.ChantForecastEngine = {
+    calculate,
+    angularDistance,
+    findAspect
   };
-}
+})(window);
+
 </script>
 
-
 <script>
-/*
-  ページ表示
-*/
+const weatherEl =
+  document.getElementById("weather");
 
-const weatherElement =
-  document.getElementById(
-    "weather"
-  );
+const metaEl =
+  document.getElementById("meta");
 
-const metaElement =
-  document.getElementById(
-    "meta"
-  );
-
-const commentElement =
-  document.getElementById(
-    "comment"
-  );
+const commentEl =
+  document.getElementById("comment");
 
 const cardBox =
-  document.getElementById(
-    "cardBox"
-  );
+  document.getElementById("cardBox");
 
-const cardNameElement =
-  document.getElementById(
-    "cardName"
-  );
+const cardName =
+  document.getElementById("cardName");
 
 const cardLink =
-  document.getElementById(
-    "cardLink"
-  );
+  document.getElementById("cardLink");
 
 const selector =
-  document.getElementById(
-    "demoSelector"
-  );
+  document.getElementById("demoSelector");
 
-const statusElement =
-  document.getElementById(
-    "status"
-  );
+const statusEl =
+  document.getElementById("status");
 
 const details =
-  document.getElementById(
-    "details"
-  );
+  document.getElementById("details");
 
 const detailsList =
-  document.getElementById(
-    "detailsList"
-  );
-
+  document.getElementById("detailsList");
 
 let weatherData = {};
-
 let automaticResult = null;
 
-
 function hashString(text){
-
   let hash = 0;
 
-  for(
-    let index = 0;
-    index < text.length;
-    index++
-  ){
-
+  for(let i = 0; i < text.length; i++){
     hash =
-      (
-        (hash << 5) -
-        hash
-      ) +
-      text.charCodeAt(index);
+      ((hash << 5) - hash) +
+      text.charCodeAt(i);
 
     hash |= 0;
   }
@@ -749,91 +436,65 @@ function hashString(text){
   return Math.abs(hash);
 }
 
-
 function todayKey(){
-
-  const today =
-    new Date();
+  const d = new Date();
 
   return [
-    today.getFullYear(),
-    today.getMonth() + 1,
-    today.getDate()
+    d.getFullYear(),
+    d.getMonth() + 1,
+    d.getDate()
   ].join("-");
 }
 
-
-function pickDaily(
-  list,
-  salt
-){
-
+function pickDaily(list,salt){
   const index =
-    hashString(
-      todayKey() +
-      salt
-    ) %
+    hashString(todayKey() + salt) %
     list.length;
 
   return list[index];
 }
 
-
-function renderWeather(
-  weatherKey,
-  mode
-){
+function renderWeather(key,mode){
 
   const data =
-    weatherData[weatherKey];
+    weatherData[key];
 
   if(!data){
     return;
   }
 
-  const selectedCard =
+  const card =
     pickDaily(
       data.cards,
-      weatherKey
+      key
     );
 
-
-  weatherElement.textContent =
+  weatherEl.textContent =
     data.label;
 
-
-  metaElement.textContent =
+  metaEl.textContent =
     "主な影響：" +
     data.planets.join("・") +
     "　｜　テーマ：" +
     data.theme;
 
-
-  commentElement.textContent =
+  commentEl.textContent =
     data.comment;
 
-
-  cardNameElement.textContent =
-    selectedCard.title;
-
+  cardName.textContent =
+    card.title;
 
   cardLink.href =
     "card.html?card=" +
-    selectedCard.id;
-
+    card.id;
 
   cardBox.hidden = false;
 
-
-  statusElement.textContent =
-
+  statusEl.textContent =
     mode === "automatic"
-
       ? "今日の惑星配置から自動判定しました。"
-
       : "確認用の手動表示です。";
 }
-
 
 function renderDetails(result){
 
@@ -844,22 +505,18 @@ function renderDetails(result){
     !result.matchedRules ||
     result.matchedRules.length === 0
   ){
-
     details.hidden = true;
-
     return;
   }
 
-
-  result
-    .matchedRules
+  result.matchedRules
     .slice(0,8)
     .forEach(function(rule){
 
-      const listItem =
+      const li =
         document.createElement("li");
 
-      listItem.textContent =
+      li.textContent =
         rule.name +
         "（" +
         rule.aspect.label +
@@ -867,71 +524,65 @@ function renderDetails(result){
         rule.aspect.orb.toFixed(1) +
         "°）";
 
-      detailsList.appendChild(
-        listItem
-      );
+      detailsList.appendChild(li);
     });
-
 
   details.hidden = false;
 }
 
-
-async function startForecast(){
+async function start(){
 
   try{
 
-    weatherData =
-      await loadJson(
-        "weather.json?v=3"
+    const weatherResponse =
+      await fetch(
+        "weather.json?v=5",
+        { cache:"no-store" }
       );
 
+    if(!weatherResponse.ok){
+      throw new Error(
+        "weather.jsonを読み込めませんでした"
+      );
+    }
 
-    Object
-      .keys(weatherData)
-      .forEach(function(weatherKey){
+    weatherData =
+      await weatherResponse.json();
+
+    Object.keys(weatherData)
+      .forEach(function(key){
 
         const option =
-          document.createElement(
-            "option"
-          );
+          document.createElement("option");
 
-        option.value =
-          weatherKey;
+        option.value = key;
 
         option.textContent =
-          weatherData[
-            weatherKey
-          ].label;
+          weatherData[key].label;
 
-        selector.appendChild(
-          option
-        );
+        selector.appendChild(option);
       });
 
-
     automaticResult =
-      await calculateForecast();
-
+      await ChantForecastEngine.calculate({
+        rulesUrl:
+          "astrology-rules.json?v=5"
+      });
 
     renderWeather(
       automaticResult.weather,
       "automatic"
     );
 
-
     renderDetails(
       automaticResult
     );
-
 
     selector.addEventListener(
       "change",
       function(){
 
-        if(
-          selector.value === ""
-        ){
+        if(!selector.value){
 
           renderWeather(
             automaticResult.weather,
@@ -945,39 +596,29 @@ async function startForecast(){
           return;
         }
 
-
         renderWeather(
           selector.value,
           "manual"
         );
 
-
         details.hidden = true;
       }
     );
   }
-
-
   catch(error){
 
-    weatherElement.textContent =
+    weatherEl.textContent =
       "表示できませんでした";
 
-
-    statusElement.textContent =
+    statusEl.textContent =
       "読み込みに失敗しました。";
 
-
-    commentElement.textContent =
+    commentEl.textContent =
       error.message;
-
-
-    console.error(error);
   }
 }
 
-
-startForecast();
+start();
 </script>
 
 </body>
