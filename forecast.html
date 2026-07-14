@@ -255,18 +255,7 @@ body{
       <ul class="details-list" id="detailsList"></ul>
     </details>
 
-    <div class="test-area">
-      <select
-        class="selector"
-        id="demoSelector"
-        aria-label="試作用の天気切り替え">
-        <option value="">自動判定に戻す</option>
-      </select>
-
-      <p class="demo">
-        確認用に、天気を手動で切り替えることもできます。
-      </p>
-    </div>
+    
 
   </section>
 
@@ -457,9 +446,6 @@ const cardName =
 
 const cardLink =
   document.getElementById("cardLink");
-
-const selector =
-  document.getElementById("demoSelector");
 
 const statusEl =
   document.getElementById("status");
@@ -899,20 +885,6 @@ async function start(){
     weatherData =
       await weatherResponse.json();
 
-    Object.keys(weatherData)
-      .forEach(function(key){
-
-        const option =
-          document.createElement("option");
-
-        option.value = key;
-
-        option.textContent =
-          weatherData[key].label;
-
-        selector.appendChild(option);
-      });
-
     automaticResult =
       await ChantForecastEngine.calculate({
         rulesUrl:
@@ -928,32 +900,6 @@ async function start(){
       automaticResult
     );
 
-    selector.addEventListener(
-      "change",
-      function(){
-
-        if(!selector.value){
-
-          renderWeather(
-            automaticResult.weather,
-            "automatic"
-          );
-
-          renderDetails(
-            automaticResult
-          );
-
-          return;
-        }
-
-        renderWeather(
-          selector.value,
-          "manual"
-        );
-
-        details.hidden = true;
-      }
-    );
   }
   catch(error){
 
