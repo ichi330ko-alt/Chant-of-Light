@@ -1,1 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あなたの心の天気予報｜光の詠唱</title>
 
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  padding:30px 14px 46px;
+  color:#514737;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+  background:
+    radial-gradient(circle at 50% 7%,rgba(95,139,210,.42),transparent 38%),
+    linear-gradient(
+      180deg,
+      #07183f 0%,
+      #173b78 34%,
+      #f3e8d5 34%,
+      #ead8bd 100%
+    );
+}
+
+.page{
+  width:min(760px,100%);
+  margin:0 auto;
+  text-align:center;
+}
+
+.title{
+  margin:0 0 8px;
+  color:#f3d592;
+  font-size:clamp(27px,6vw,40px);
+  font-weight:normal;
+  letter-spacing:.12em;
+}
+
+.subtitle{
+  margin:0 0 28px;
+  color:#f4ecdd;
+  line-height:1.9;
+}
+
+.panel{
+  padding:38px clamp(20px,5vw,48px);
+  border:1px solid rgba(189,147,76,.45);
+  border-radius:22px;
+  background:rgba(255,253,247,.96);
+  box-shadow:0 18px 48px rgba(19,31,63,.24);
+  text-align:left;
+}
+
+.intro{
+  margin:0 0 28px;
+  color:#665946;
+  font-size:16px;
+  line-height:2;
+  text-align:center;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+label{
+  color:#765b35;
+  font-size:15px;
+}
+
+input{
+  width:100%;
+  min-height:48px;
+  padding:11px 13px;
+  border:1px solid rgba(161,119,57,.46);
+  border-radius:12px;
+  background:#fffdf8;
+  color:#514737;
+  font:inherit;
+}
+
+input:focus{
+  outline:2px solid rgba(72,108,174,.28);
+  border-color:#6f8fc5;
+}
+
+.check-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:2px;
+  color:#6e604d;
+  font-size:14px;
+}
+
+.check-row input{
+  width:20px;
+  min-height:auto;
+  height:20px;
+}
+
+.notice{
+  margin:20px 0 0;
+  padding:15px 17px;
+  border-radius:12px;
+  background:#f7efe1;
+  color:#7b684e;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.actions{
+  display:flex;
+  justify-content:center;
+  margin-top:28px;
+}
+
+.button{
+  min-width:230px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 24px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  background:linear-gradient(135deg,#244f9a,#4e73b8);
+  color:#fff;
+  text-decoration:none;
+  font:inherit;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(31,58,108,.18);
+}
+
+.button:disabled{
+  opacity:.58;
+  cursor:wait;
+}
+
+.button.secondary{
+  min-width:0;
+  margin-top:18px;
+  background:rgba(255,255,255,.75);
+  color:#71552e;
+}
+
+.error{
+  margin:20px 0 0;
+  padding:14px 16px;
+  border:1px solid rgba(169,80,74,.32);
+  border-radius:12px;
+  background:#fff1ee;
+  color:#8b433e;
+  line-height:1.8;
+  text-align:left;
+}
+
+.result{
+  margin-top:28px;
+  padding-top:30px;
+  border-top:1px solid rgba(184,139,71,.34);
+  text-align:center;
+}
+
+.result[hidden]{
+  display:none;
+}
+
+.status{
+  margin:0 0 15px;
+  color:#8e7655;
+  font-size:14px;
+}
+
+.weather{
+  margin:0 0 10px;
+  color:#806039;
+  font-size:clamp(30px,7vw,46px);
+  font-weight:normal;
+}
+
+.personal-message{
+  margin:22px 0 0;
+  color:#524738;
+  font-size:clamp(16px,3.8vw,18px);
+  line-height:2.15;
+  text-align:left;
+}
+
+.point-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:26px;
+}
+
+.point{
+  padding:18px;
+  border:1px solid rgba(174,132,67,.25);
+  border-radius:15px;
+  background:rgba(250,244,232,.72);
+  text-align:left;
+}
+
+.point h3{
+  margin:0 0 8px;
+  color:#806039;
+  font-size:17px;
+  font-weight:normal;
+}
+
+.point p{
+  margin:0;
+  color:#645744;
+  font-size:15px;
+  line-height:1.8;
+}
+
+.card-box{
+  margin-top:30px;
+  padding-top:26px;
+  border-top:1px solid rgba(184,139,71,.35);
+}
+
+.card-label{
+  margin:0 0 10px;
+  color:#9b7337;
+  font-size:14px;
+  letter-spacing:.12em;
+}
+
+.card-name{
+  margin:0 0 18px;
+  color:#6d512b;
+  font-size:clamp(24px,6vw,34px);
+  font-weight:normal;
+}
+
+.details{
+  margin-top:28px;
+  text-align:left;
+}
+
+.details summary{
+  cursor:pointer;
+  color:#80603b;
+}
+
+.details-list{
+  margin:16px 0 0;
+  padding-left:20px;
+  color:#75644f;
+  line-height:1.9;
+  font-size:14px;
+}
+
+.update-note{
+  margin:24px 0 0;
+  color:#8d795f;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.home-link{
+  text-align:center;
+}
+
+@media(max-width:620px){
+  body{
+    padding:22px 8px 36px;
+  }
+
+  .panel{
+    padding:32px 20px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .point-grid{
+    grid-template-columns:1fr;
+  }
+
+  .intro,
+  .personal-message{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <h1 class="title">あなたの心の天気予報</h1>
+
+  <p class="subtitle">
+    生まれた日の星と、今日の宇宙を重ねて、<br>
+    あなただけの心の空模様をお届けします。
+  </p>
+
+  <section class="panel">
+
+    <p class="intro">
+      生年月日と出生時間を入力してください。
+      入力内容は保存されず、このページを閉じると消去されます。
+    </p>
+
+    <form id="personalForm">
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="birthDate">生年月日</label>
+          <input
+            type="date"
+            id="birthDate"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="birthTime">出生時間</label>
+          <input
+            type="time"
+            id="birthTime"
+            value="12:00"
+            required>
+
+          <label class="check-row">
+            <input
+              type="checkbox"
+              id="unknownTime">
+            出生時間がわからない
+          </label>
+        </div>
+
+        <div class="field full">
+          <label for="birthPlace">
+            出生地（都道府県・市区町村）
+          </label>
+          <input
+            type="text"
+            id="birthPlace"
+            placeholder="例：千葉県木更津市"
+            autocomplete="address-level2">
+        </div>
+
+      </div>
+
+      <p class="notice">
+        簡易版は日本国内で生まれた方を対象に、日本時間で計算します。
+        出生時間がわからない場合は正午で計算するため、月の位置などに多少の幅が生じます。
+        出生地は将来の詳細版に備えた入力項目で、現在はハウスやアセンダントの計算には使用していません。
+      </p>
+
+      <div class="actions">
+        <button
+          class="button"
+          id="submitButton"
+          type="submit">
+          今日の予報を見る
+        </button>
+      </div>
+
+    </form>
+
+    <p class="error" id="error" hidden></p>
+
+    <section class="result" id="result" hidden>
+
+      <p class="status" id="status"></p>
+
+      <h2 class="weather" id="weather"></h2>
+
+      <p class="personal-message" id="personalMessage"></p>
+
+      <div class="point-grid">
+
+        <article class="point">
+          <h3>今日、意識したいこと</h3>
+          <p id="carePoint"></p>
+        </article>
+
+        <article class="point">
+          <h3>今日の追い風</h3>
+          <p id="supportPoint"></p>
+        </article>
+
+      </div>
+
+      <div class="card-box">
+
+        <p class="card-label">
+          今日のあなたへのカード
+        </p>
+
+        <h3 class="card-name" id="cardName"></h3>
+
+        <a
+          class="button"
+          id="cardLink"
+          href="#">
+          カードを見る
+        </a>
+
+      </div>
+
+      <details class="details">
+        <summary>今日の判定内容を見る</summary>
+        <ul class="details-list" id="detailsList"></ul>
+      </details>
+
+      <p class="update-note">
+        ※ 個人予報は、日本時間の午前3時時点の惑星配置と、
+        入力された出生時の惑星配置を重ねて判定しています。
+      </p>
+
+    </section>
+
+  </section>
+
+  <p class="home-link">
+    <a class="button secondary" href="index.html">
+      Home
+    </a>
+  </p>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+
+<script>
+"use strict";
+
+const BODIES = {
+  Sun:"Sun",
+  Moon:"Moon",
+  Mercury:"Mercury",
+  Venus:"Venus",
+  Mars:"Mars",
+  Jupiter:"Jupiter",
+  Saturn:"Saturn"
+};
+
+const BODY_LABELS = {
+  Sun:"太陽",
+  Moon:"月",
+  Mercury:"水星",
+  Venus:"金星",
+  Mars:"火星",
+  Jupiter:"木星",
+  Saturn:"土星"
+};
+
+const ASPECTS = [
+  {
+    name:"conjunction",
+    angle:0,
+    orb:7,
+    label:"重なる"
+  },
+  {
+    name:"sextile",
+    angle:60,
+    orb:5,
+    label:"調和する"
+  },
+  {
+    name:"square",
+    angle:90,
+    orb:6,
+    label:"緊張する"
+  },
+  {
+    name:"trine",
+    angle:120,
+    orb:6,
+    label:"強く調和する"
+  },
+  {
+    name:"opposition",
+    angle:180,
+    orb:7,
+    label:"向かい合う"
+  }
+];
+
+const WEATHER = {
+  clear:{
+    label:"☀ 快晴",
+    message:
+      "今日は、あなたの持っている力を素直に外へ向けやすい日です。迷いよりも可能性に目を向け、小さくても一歩を選んでみてください。",
+    care:
+      "勢いだけで進まず、自分の本当の望みと方向が合っているかを一度確かめましょう。",
+    support:
+      "自信、行動力、前向きな決断が追い風になります。",
+    cards:[
+      {id:"23",title:"一歩"},
+      {id:"24",title:"挑戦"},
+      {id:"40",title:"願い"},
+      {id:"37",title:"奇跡"}
+    ]
+  },
+
+  sunny:{
+    label:"🌤 晴れ",
+    message:
+      "今日は穏やかな明るさがあなたを支えています。無理に大きな成果を求めず、すでにある喜びやつながりを丁寧に受け取ることで流れが整います。",
+    care:
+      "周囲に合わせすぎず、自分が心地よいと感じる速度を守ってください。",
+    support:
+      "感謝、調和、人との温かな交流が力になります。",
+    cards:[
+      {id:"03",title:"喜び"},
+      {id:"07",title:"感謝"},
+      {id:"08",title:"調和"},
+      {id:"01",title:"信頼"}
+    ]
+  },
+
+  rainbow:{
+    label:"🌈 虹",
+    message:
+      "これまで積み重ねてきたことに、新しい意味や希望が見えやすい日です。すぐに形にならなくても、心に差した小さな光を大切にしてください。",
+    care:
+      "理想を急いで現実にしようとせず、育ち始めた可能性を見守りましょう。",
+    support:
+      "希望、創造性、素直な期待が新しい扉を開きます。",
+    cards:[
+      {id:"02",title:"希望"},
+      {id:"22",title:"再生"},
+      {id:"06",title:"祝福"},
+      {id:"29",title:"循環"}
+    ]
+  },
+
+  partly_cloudy:{
+    label:"⛅ 薄曇り",
+    message:
+      "今日は、進みたい気持ちと休みたい気持ちが同時に現れやすい日です。どちらかを否定せず、心の声を聞きながら配分を整えてください。",
+    care:
+      "すぐに結論を出さず、少し時間を置いてから決めることも大切です。",
+    support:
+      "本音を認めることと、適度な休息が心の視界を取り戻します。",
+    cards:[
+      {id:"14",title:"本音"},
+      {id:"21",title:"孤独"},
+      {id:"20",title:"悲しみ"},
+      {id:"17",title:"休息"}
+    ]
+  },
+
+  cloudy:{
+    label:"☁ 曇り",
+    message:
+      "今日は答えがはっきりしなくても大丈夫です。見えない時間の中でも、心は静かに整理を続けています。焦らず、今できることだけに目を向けてください。",
+    care:
+      "不安から答えを作り出さず、わからないものをわからないまま置いておきましょう。",
+    support:
+      "振り返り、学び、境界線を整えることが助けになります。",
+    cards:[
+      {id:"28",title:"学び"},
+      {id:"11",title:"目覚め"},
+      {id:"15",title:"境界線"},
+      {id:"36",title:"時"}
+    ]
+  },
+
+  rain:{
+    label:"🌧 雨",
+    message:
+      "今日は感情が表に出やすく、心の奥にしまっていたものが流れ始めるかもしれません。無理に明るく振る舞わず、感じることを許してください。",
+    care:
+      "自分を責める言葉を使わず、疲れているときは判断を先送りにしましょう。",
+    support:
+      "涙、休息、赦し、手放すことが心を軽くします。",
+    cards:[
+      {id:"18",title:"赦し"},
+      {id:"16",title:"癒し"},
+      {id:"13",title:"手放し"},
+      {id:"20",title:"悲しみ"}
+    ]
+  },
+
+  fog:{
+    label:"🌫 濃霧",
+    message:
+      "今日は先の見通しが立ちにくく、自分の気持ちさえ掴みにくいかもしれません。無理に方向を決めず、足元の確かな感覚を頼りに過ごしましょう。",
+    care:
+      "曖昧な情報や一時的な感情だけで、大きな決断をしないようにしてください。",
+    support:
+      "静けさ、信頼、流れに任せる姿勢が道を守ります。",
+    cards:[
+      {id:"14",title:"本音"},
+      {id:"34",title:"流れ"},
+      {id:"01",title:"信頼"},
+      {id:"09",title:"創造"}
+    ]
+  },
+
+  wind:{
+    label:"🌬 風",
+    message:
+      "今日は考えや予定が動きやすく、新しい選択肢が入ってきやすい日です。変化を恐れず、今の自分に合う方向へ軽やかに調整してください。",
+    care:
+      "周囲の声に流されすぎず、自分が選んだ理由を忘れないようにしましょう。",
+    support:
+      "柔軟さ、会話、発想の転換が追い風になります。",
+    cards:[
+      {id:"26",title:"選択"},
+      {id:"35",title:"縁"},
+      {id:"09",title:"創造"},
+      {id:"24",title:"挑戦"}
+    ]
+  },
+
+  strong_wind:{
+    label:"🌪 強風",
+    message:
+      "今日は外からの刺激が強く、予定や気持ちが揺さぶられやすい日です。すべてに対応しようとせず、自分の守るべきものを選んでください。",
+    care:
+      "衝動的な返答や、焦りからの決断を避け、一呼吸置きましょう。",
+    support:
+      "境界線、優先順位、流れを見極める力があなたを守ります。",
+    cards:[
+      {id:"34",title:"流れ"},
+      {id:"28",title:"学び"},
+      {id:"15",title:"境界線"},
+      {id:"26",title:"選択"}
+    ]
+  },
+
+  thunder:{
+    label:"⚡ 雷注意報",
+    message:
+      "今日は反応が強くなりやすく、思いがけない出来事に心を揺さぶられる可能性があります。すぐに戦わず、まず自分の内側を落ち着かせてください。",
+    care:
+      "怒りや焦りを感じたら、その場で答えを出さず距離と時間を取りましょう。",
+    support:
+      "冷静な決断、明確な境界線、小さな一歩が状況を整えます。",
+    cards:[
+      {id:"34",title:"流れ"},
+      {id:"31",title:"決断"},
+      {id:"23",title:"一歩"},
+      {id:"15",title:"境界線"}
+    ]
+  },
+
+  starry:{
+    label:"🌌 星空",
+    message:
+      "今日は外側の成果よりも、自分の深い部分とつながることに意味があります。静かな時間の中で、長い目で見た願いや生き方を思い出してください。",
+    care:
+      "現実から離れすぎず、心に浮かんだことを一つだけ日常へ持ち帰りましょう。",
+    support:
+      "祈り、内省、自然とのつながりが心の中心を整えます。",
+    cards:[
+      {id:"44",title:"宇宙"},
+      {id:"43",title:"根"},
+      {id:"39",title:"大地"},
+      {id:"41",title:"故郷"}
+    ]
+  }
+};
+
+const form =
+  document.getElementById("personalForm");
+
+const birthDateEl =
+  document.getElementById("birthDate");
+
+const birthTimeEl =
+  document.getElementById("birthTime");
+
+const unknownTimeEl =
+  document.getElementById("unknownTime");
+
+const submitButton =
+  document.getElementById("submitButton");
+
+const errorEl =
+  document.getElementById("error");
+
+const resultEl =
+  document.getElementById("result");
+
+const statusEl =
+  document.getElementById("status");
+
+const weatherEl =
+  document.getElementById("weather");
+
+const personalMessageEl =
+  document.getElementById("personalMessage");
+
+const carePointEl =
+  document.getElementById("carePoint");
+
+const supportPointEl =
+  document.getElementById("supportPoint");
+
+const cardNameEl =
+  document.getElementById("cardName");
+
+const cardLinkEl =
+  document.getElementById("cardLink");
+
+const detailsListEl =
+  document.getElementById("detailsList");
+
+unknownTimeEl.addEventListener("change",function(){
+  birthTimeEl.disabled = this.checked;
+
+  if(this.checked){
+    birthTimeEl.value = "12:00";
+  }
+});
+
+function normalizeAngle(value){
+  return ((value % 360) + 360) % 360;
+}
+
+function angularDistance(a,b){
+  const diff =
+    Math.abs(
+      normalizeAngle(a) -
+      normalizeAngle(b)
+    );
+
+  return Math.min(diff,360 - diff);
+}
+
+function longitude(bodyName,date){
+  if(!window.Astronomy){
+    throw new Error(
+      "星の計算機能を読み込めませんでした。通信状態をご確認ください。"
+    );
+  }
+
+  const vector =
+    Astronomy.GeoVector(
+      Astronomy.Body[BODIES[bodyName]],
+      date,
+      true
+    );
+
+  return normalizeAngle(
+    Astronomy.Ecliptic(vector).elon
+  );
+}
+
+function findAspect(a,b){
+  const distance =
+    angularDistance(a,b);
+
+  let best = null;
+
+  ASPECTS.forEach(function(aspect){
+
+    const error =
+      Math.abs(
+        distance -
+        aspect.angle
+      );
+
+    if(
+      error <= aspect.orb &&
+      (!best || error < best.error)
+    ){
+      best = {
+        ...aspect,
+        error,
+        actualAngle:distance
+      };
+    }
+  });
+
+  return best;
+}
+
+function getForecastBase(){
+  const now = new Date();
+
+  const japanNow =
+    new Date(
+      now.getTime() +
+      9 * 60 * 60 * 1000
+    );
+
+  if(japanNow.getUTCHours() < 3){
+    japanNow.setUTCDate(
+      japanNow.getUTCDate() - 1
+    );
+  }
+
+  const year =
+    japanNow.getUTCFullYear();
+
+  const month =
+    japanNow.getUTCMonth();
+
+  const day =
+    japanNow.getUTCDate();
+
+  return {
+    key:[
+      year,
+      month + 1,
+      day
+    ].join("-"),
+
+    date:new Date(
+      Date.UTC(
+        year,
+        month,
+        day - 1,
+        18,
+        0,
+        0
+      )
+    )
+  };
+}
+
+function createBirthDate(dateText,timeText){
+  const dateParts =
+    dateText.split("-").map(Number);
+
+  const timeParts =
+    timeText.split(":").map(Number);
+
+  const year = dateParts[0];
+  const month = dateParts[1];
+  const day = dateParts[2];
+  const hour = timeParts[0];
+  const minute = timeParts[1];
+
+  /*
+    入力は日本時間として扱う。
+    日本時間から9時間引いてUTCへ変換する。
+  */
+  return new Date(
+    Date.UTC(
+      year,
+      month - 1,
+      day,
+      hour - 9,
+      minute,
+      0
+    )
+  );
+}
+
+function hashString(text){
+  let hash = 0;
+
+  for(let i = 0; i < text.length; i++){
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(i);
+
+    hash |= 0;
+  }
+
+  return Math.abs(hash);
+}
+
+function pickDaily(list,key){
+  return list[
+    hashString(key) % list.length
+  ];
+}
+
+function addScore(board,key,points){
+  board[key] =
+    (board[key] || 0) +
+    points;
+}
+
+function interpretTransit(
+  transitBody,
+  natalBody,
+  aspect,
+  board,
+  reasons
+){
+  const hard =
+    aspect.name === "square" ||
+    aspect.name === "opposition";
+
+  const soft =
+    aspect.name === "trine" ||
+    aspect.name === "sextile";
+
+  const close =
+    aspect.name === "conjunction";
+
+  let score = null;
+  let meaning = "";
+
+  if(transitBody === "Mars"){
+    if(hard){
+      score = {thunder:7,strong_wind:4};
+      meaning =
+        "火星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を強く刺激しています。";
+    }else if(soft){
+      score = {clear:5,wind:2};
+      meaning =
+        "火星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を行動面から後押ししています。";
+    }else if(close){
+      score = {strong_wind:5,clear:3};
+      meaning =
+        "火星の力が出生時の" +
+        BODY_LABELS[natalBody] +
+        "に集中しています。";
+    }
+  }
+
+  if(transitBody === "Saturn"){
+    if(hard || close){
+      score = {cloudy:5,rain:3};
+      meaning =
+        "土星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "に慎重さと課題をもたらしています。";
+    }else if(soft){
+      score = {partly_cloudy:3,clear:2};
+      meaning =
+        "土星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を安定させています。";
+    }
+  }
+
+  if(transitBody === "Jupiter"){
+    if(soft || close){
+      score = {clear:6,rainbow:4};
+      meaning =
+        "木星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "に広がりと希望を与えています。";
+    }else if(hard){
+      score = {wind:3,partly_cloudy:2};
+      meaning =
+        "木星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を大きく動かそうとしています。";
+    }
+  }
+
+  if(transitBody === "Venus"){
+    if(soft || close){
+      score = {sunny:5,rainbow:2};
+      meaning =
+        "金星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "に調和と受容をもたらしています。";
+    }else if(hard){
+      score = {partly_cloudy:3,rain:1};
+      meaning =
+        "金星と出生時の" +
+        BODY_LABELS[natalBody] +
+        "の間で、望み方の調整が必要になっています。";
+    }
+  }
+
+  if(transitBody === "Mercury"){
+    if(soft || close){
+      score = {wind:4,sunny:2};
+      meaning =
+        "水星が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を刺激し、言葉や考えが動きやすくなっています。";
+    }else if(hard){
+      score = {fog:4,strong_wind:2};
+      meaning =
+        "水星と出生時の" +
+        BODY_LABELS[natalBody] +
+        "の間で、考えや伝え方が揺れやすくなっています。";
+    }
+  }
+
+  if(transitBody === "Moon"){
+    if(hard || close){
+      score = {rain:3,partly_cloudy:2};
+      meaning =
+        "月が出生時の" +
+        BODY_LABELS[natalBody] +
+        "に触れ、感情が表に出やすくなっています。";
+    }else if(soft){
+      score = {sunny:2,rainbow:2};
+      meaning =
+        "月が出生時の" +
+        BODY_LABELS[natalBody] +
+        "と調和し、心を受け止めやすくなっています。";
+    }
+  }
+
+  if(transitBody === "Sun"){
+    if(soft || close){
+      score = {clear:3,sunny:3};
+      meaning =
+        "太陽が出生時の" +
+        BODY_LABELS[natalBody] +
+        "を照らし、自分らしさを表しやすくしています。";
+    }else if(hard){
+      score = {partly_cloudy:3,strong_wind:1};
+      meaning =
+        "太陽と出生時の" +
+        BODY_LABELS[natalBody] +
+        "の間で、今の自分と本心の調整が求められています。";
+    }
+  }
+
+  if(!score){
+    return;
+  }
+
+  Object.entries(score)
+    .forEach(function(entry){
+      addScore(
+        board,
+        entry[0],
+        entry[1]
+      );
+    });
+
+  reasons.push({
+    strength:
+      Math.max(
+        ...Object.values(score)
+      ) - aspect.error / 10,
+
+    text:
+      BODY_LABELS[transitBody] +
+      "が出生時の" +
+      BODY_LABELS[natalBody] +
+      "と" +
+      aspect.label +
+      "（誤差" +
+      aspect.error.toFixed(1) +
+      "°）。" +
+      meaning
+  });
+}
+
+function calculatePersonalForecast(
+  birthDate,
+  forecastDate
+){
+  const natal = {};
+  const transit = {};
+
+  Object.keys(BODIES)
+    .forEach(function(body){
+      natal[body] =
+        longitude(body,birthDate);
+
+      transit[body] =
+        longitude(body,forecastDate);
+    });
+
+  const board = {};
+  const reasons = [];
+
+  const transitBodies = [
+    "Mars",
+    "Saturn",
+    "Jupiter",
+    "Venus",
+    "Mercury",
+    "Sun",
+    "Moon"
+  ];
+
+  const natalBodies = [
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars"
+  ];
+
+  transitBodies.forEach(function(tBody){
+
+    natalBodies.forEach(function(nBody){
+
+      const aspect =
+        findAspect(
+          transit[tBody],
+          natal[nBody]
+        );
+
+      if(aspect){
+        interpretTransit(
+          tBody,
+          nBody,
+          aspect,
+          board,
+          reasons
+        );
+      }
+    });
+  });
+
+  /*
+    強いアスペクトが少ない日は、
+    静かな星空を基本の天気にする。
+  */
+  if(Object.keys(board).length === 0){
+    board.starry = 2;
+  }
+
+  const ranked =
+    Object.entries(board)
+      .sort(function(a,b){
+        return b[1] - a[1];
+      });
+
+  return {
+    weatherKey:
+      ranked[0][0],
+
+    scores:
+      ranked,
+
+    reasons:
+      reasons.sort(function(a,b){
+        return b.strength - a.strength;
+      })
+  };
+}
+
+form.addEventListener("submit",function(event){
+  event.preventDefault();
+
+  errorEl.hidden = true;
+  resultEl.hidden = true;
+  submitButton.disabled = true;
+  submitButton.textContent =
+    "星を読み取っています……";
+
+  try{
+    if(!birthDateEl.value){
+      throw new Error(
+        "生年月日を入力してください。"
+      );
+    }
+
+    const selectedDate =
+      new Date(
+        birthDateEl.value +
+        "T00:00:00"
+      );
+
+    if(selectedDate > new Date()){
+      throw new Error(
+        "未来の日付は入力できません。"
+      );
+    }
+
+    const timeText =
+      unknownTimeEl.checked
+        ? "12:00"
+        : birthTimeEl.value;
+
+    if(!timeText){
+      throw new Error(
+        "出生時間を入力してください。"
+      );
+    }
+
+    const birthDate =
+      createBirthDate(
+        birthDateEl.value,
+        timeText
+      );
+
+    const forecastBase =
+      getForecastBase();
+
+    const personal =
+      calculatePersonalForecast(
+        birthDate,
+        forecastBase.date
+      );
+
+    const weather =
+      WEATHER[personal.weatherKey] ||
+      WEATHER.starry;
+
+    const card =
+      pickDaily(
+        weather.cards,
+        forecastBase.key +
+        birthDateEl.value +
+        timeText +
+        personal.weatherKey
+      );
+
+    statusEl.textContent =
+      unknownTimeEl.checked
+        ? "出生時間を正午として簡易判定しました。"
+        : "出生時の星と今日の星を重ねて判定しました。";
+
+    weatherEl.textContent =
+      weather.label;
+
+    personalMessageEl.textContent =
+      weather.message;
+
+    carePointEl.textContent =
+      weather.care;
+
+    supportPointEl.textContent =
+      weather.support;
+
+    cardNameEl.textContent =
+      card.title;
+
+    cardLinkEl.href =
+      "card.html?card=" +
+      card.id;
+
+    detailsListEl.innerHTML = "";
+
+    const visibleReasons =
+      personal.reasons.slice(0,6);
+
+    if(visibleReasons.length){
+      visibleReasons.forEach(function(reason){
+        const li =
+          document.createElement("li");
+
+        li.textContent =
+          reason.text;
+
+        detailsListEl.appendChild(li);
+      });
+    }else{
+      const li =
+        document.createElement("li");
+
+      li.textContent =
+        "今日は出生時の主要な惑星に強く重なる配置が少なく、比較的静かな星回りです。";
+
+      detailsListEl.appendChild(li);
+    }
+
+    resultEl.hidden = false;
+
+    resultEl.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }catch(error){
+    errorEl.textContent =
+      error.message ||
+      "予報を表示できませんでした。";
+
+    errorEl.hidden = false;
+
+  }finally{
+    submitButton.disabled = false;
+    submitButton.textContent =
+      "今日の予報を見る";
+  }
+});
+</script>
+
+</body>
+</html>
