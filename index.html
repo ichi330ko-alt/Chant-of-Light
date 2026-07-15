@@ -4,497 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>光の詠唱</title>
-
 <style>
 *{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  min-height:100%;
-}
-
+html,body{margin:0;min-height:100%}
 body{
-  background:#06163d;
+  color:#4f4638;
   font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  background:#efe2cd
 }
-
-/* 共通の透明リンク */
-.hotspot{
-  position:absolute;
-  z-index:10;
-  display:block;
-  padding:0;
-  border:0;
-  border-radius:999px;
-  background:transparent;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.hotspot:focus-visible{
-  outline:4px solid rgba(255,238,194,.95);
-  outline-offset:-4px;
-  box-shadow:0 0 25px rgba(255,224,145,.8);
-}
-
-.hotspot:active{
-  background:rgba(255,255,255,.10);
-}
-
-/* 最初のオープニング */
 .intro{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle at center,#173f87 0%,#0d295f 45%,#06163d 100%);
-  opacity:1;
-  visibility:visible;
-  transition:opacity 1.05s ease,visibility 1.05s ease;
+  position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+  background:radial-gradient(circle at center,#173f87 0%,#0d295f 45%,#06163d 100%);
+  opacity:1;visibility:visible;transition:opacity 1.05s ease,visibility 1.05s ease
 }
-
-.intro.hide{
-  opacity:0;
-  visibility:hidden;
-}
-
+.intro.hide{opacity:0;visibility:hidden}
 .intro-title{
-  margin:0;
-  color:#f4d795;
-  font-size:clamp(32px,8vw,58px);
-  font-weight:normal;
-  letter-spacing:.22em;
-  opacity:0;
-  transform:translateY(10px);
-  animation:introTitle 1.2s ease .12s forwards;
+  margin:0;color:#f4d795;font-size:clamp(32px,8vw,58px);font-weight:normal;
+  letter-spacing:.22em;opacity:0;transform:translateY(10px);
+  animation:introTitle 1.2s ease .12s forwards
 }
-
-@keyframes introTitle{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* ---------- PC・タブレット ---------- */
-.desktop-home{
-  position:relative;
-  width:min(100%,1024px);
-  margin:0 auto;
-  overflow:hidden;
-  background:#f5ead4;
-  box-shadow:0 0 50px rgba(0,0,0,.28);
-}
-
-.desktop-home img{
-  display:block;
-  width:100%;
-  height:auto;
-}
-
-.desktop-home .draw{
-  left:20.5%;
-  top:37.25%;
-  width:28.7%;
-  height:5.6%;
-}
-
-.desktop-home .purify{
-  left:51%;
-  top:37.25%;
-  width:28.7%;
-  height:5.6%;
-}
-
-/* スマホ版は通常非表示 */
-.mobile-home{
-  display:none;
-}
-
-/* ---------- スマホ ---------- */
-@media(max-width:620px){
-
-  .desktop-home{
-    display:none;
-  }
-
-  .mobile-home{
-    display:block;
-    width:100%;
-    overflow:hidden;
-    background:#f5ead4;
-  }
-
-  /*
-    1画面目：
-    home3-top.pngを画面いっぱいに表示。
-    画像の縦横比に多少差があっても、上下左右の余白を作りません。
-  */
-  .mobile-hero{
-    position:relative;
-    width:100%;
-    height:100svh;
-    min-height:620px;
-    overflow:hidden;
-    background:#06163d;
-  }
-
-  .mobile-hero img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center center;
-  }
-
-  /*
-    home3-top.png内のボタン位置。
-    画像上の白いボタンを、そのまま押せる透明リンクです。
-  */
-  .mobile-hero .draw{
-    left:7.2%;
-    top:72.1%;
-    width:41.4%;
-    height:8.1%;
-  }
-
-  .mobile-hero .purify{
-    left:51.2%;
-    top:72.1%;
-    width:41.4%;
-    height:8.1%;
-  }
-
-  /* 下へ続くことを静かに示す */
-  .scroll-guide{
-    position:absolute;
-    left:50%;
-    bottom:14px;
-    z-index:12;
-    margin:0;
-    color:rgba(255,248,225,.86);
-    font-size:12px;
-    letter-spacing:.16em;
-    transform:translateX(-50%);
-    text-shadow:0 1px 8px rgba(0,0,0,.45);
-    animation:scrollBreath 2.3s ease-in-out infinite;
-  }
-
-  .scroll-guide::before{
-    content:"⌄";
-    display:block;
-    margin-bottom:2px;
-    font-size:24px;
-    line-height:1;
-  }
-
-  @keyframes scrollBreath{
-    0%,100%{
-      opacity:.45;
-      transform:translate(-50%,0);
-    }
-    50%{
-      opacity:1;
-      transform:translate(-50%,5px);
-    }
-  }
-
-  /*
-    2画面目：
-    PC用home3.pngの下半分だけを表示。
-    画像が1024×1536のため、下半分は高さ75vwになります。
-  */
-  .mobile-information{
-    position:relative;
-    width:100%;
-    height:75vw;
-    overflow:hidden;
-    background:#f5ead4;
-  }
-
-  .mobile-information img{
-    position:absolute;
-    top:-75vw;
-    left:0;
-    display:block;
-    width:100%;
-    height:auto;
-  }
-
-  .hotspot:focus-visible{
-    outline-width:3px;
-  }
-}
-
-
-/* 心の天気予報への追加導線 */
-.forecast-entry{
-  width:min(100%,1024px);
-  margin:0 auto;
-  padding:34px 18px 46px;
-  text-align:center;
+@keyframes introTitle{to{opacity:1;transform:translateY(0)}}
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:38px 18px 54px;overflow:hidden;text-align:center;
   background:
-    linear-gradient(
-      180deg,
-      #f5ead4 0%,
-      #ead8bd 100%
-    );
+    linear-gradient(180deg,rgba(4,16,48,.18),rgba(5,21,55,.26)),
+    url("home4-bg.png") center center/cover no-repeat
 }
-
-.forecast-entry-inner{
-  width:min(620px,100%);
-  margin:0 auto;
-  padding:30px 24px;
-  border:1px solid rgba(178,133,66,.38);
-  border-radius:22px;
-  background:rgba(255,252,245,.75);
-  box-shadow:0 14px 34px rgba(94,66,30,.10);
+.hero::after{
+  content:"";position:absolute;inset:auto 0 0;height:30%;
+  background:linear-gradient(180deg,transparent,rgba(5,18,46,.20));pointer-events:none
 }
-
-.forecast-entry-title{
-  margin:0 0 10px;
-  color:#806039;
-  font-size:clamp(23px,5vw,31px);
-  font-weight:normal;
-  letter-spacing:.08em;
+.hero-content{position:relative;z-index:2;width:min(760px,100%);margin:auto}
+.logo{
+  display:block;width:clamp(92px,19vw,145px);height:auto;margin:0 auto 16px;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.22))
 }
-
-.forecast-entry-text{
-  margin:0 0 22px;
-  color:#675946;
-  font-size:16px;
-  line-height:1.9;
+.site-title{
+  margin:0;color:#f2d28c;font-size:clamp(38px,8vw,68px);font-weight:normal;
+  letter-spacing:.17em;text-shadow:0 3px 18px rgba(0,0,0,.28)
 }
-
-.forecast-button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:54px;
-  padding:13px 28px;
-  border:1px solid #b68b48;
-  border-radius:999px;
-  color:#fff;
-  font:inherit;
-  font-size:17px;
-  text-decoration:none;
-  background:
-    linear-gradient(
-      135deg,
-      #d1a75b,
-      #b9843a
-    );
-  box-shadow:0 10px 24px rgba(105,72,28,.16);
-  transition:
-    transform .22s ease,
-    box-shadow .22s ease;
+.site-copy{
+  margin:18px auto 30px;color:#fff9e9;font-size:clamp(16px,3.6vw,21px);
+  line-height:1.9;text-shadow:0 2px 12px rgba(0,0,0,.36)
 }
-
-.forecast-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(105,72,28,.22);
+.main-actions{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+  width:min(760px,100%);margin:0 auto
 }
-
-.forecast-button:active{
-  transform:translateY(0);
+.main-button{
+  min-height:58px;display:flex;align-items:center;justify-content:center;padding:14px 18px;
+  border:1px solid rgba(244,221,166,.88);border-radius:999px;color:#fffdf5;
+  font-size:clamp(15px,2vw,18px);letter-spacing:.04em;text-decoration:none;
+  background:linear-gradient(135deg,rgba(30,67,132,.93),rgba(69,105,171,.93));
+  box-shadow:0 12px 28px rgba(0,0,0,.22),inset 0 0 16px rgba(255,235,187,.10);
+  transition:transform .22s ease,box-shadow .22s ease;cursor:pointer;font-family:inherit
 }
-
-@media(max-width:620px){
-  .forecast-entry{
-    padding:28px 12px 38px;
-  }
-
-  .forecast-entry-inner{
-    padding:27px 20px;
-  }
-
-  .forecast-button{
-    width:100%;
-  }
+.main-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,0,0,.28),0 0 18px rgba(255,229,165,.16)}
+.main-button:active{transform:translateY(0)}
+.guide{padding:62px 20px 72px;background:linear-gradient(180deg,#f5ead8 0%,#ead9bf 100%)}
+.guide-inner{width:min(820px,100%);margin:0 auto}
+.guide h2{
+  margin:0 0 20px;color:#765a33;font-size:clamp(28px,5vw,40px);
+  font-weight:normal;text-align:center;letter-spacing:.08em
 }
-
-
-/* 心の天気予報：最初の画面で目立つ3つ目の入口 */
-.forecast-main-button{
-  position:absolute;
-  z-index:12;
-  left:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:54px;
-  padding:12px 28px;
-  border:1px solid rgba(244,218,156,.92);
-  border-radius:999px;
-  color:#fff8e7;
-  font-size:clamp(15px,2.2vw,18px);
-  letter-spacing:.05em;
-  text-decoration:none;
-  white-space:nowrap;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(37,74,139,.94),
-      rgba(77,108,167,.94)
-    );
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.24),
-    inset 0 0 18px rgba(255,228,160,.10);
-  transform:translateX(-50%);
-  transition:
-    transform .22s ease,
-    box-shadow .22s ease,
-    filter .22s ease;
-  -webkit-tap-highlight-color:transparent;
+.guide-lead{
+  margin:0 auto 42px;max-width:680px;font-size:19px;line-height:2;text-align:center
 }
-
-.forecast-main-button:hover{
-  transform:translateX(-50%) translateY(-2px);
-  box-shadow:
-    0 14px 34px rgba(0,0,0,.30),
-    0 0 18px rgba(255,223,151,.18);
+.steps{display:grid;gap:18px}
+.step{
+  padding:22px 24px;border:1px solid rgba(167,125,62,.28);border-radius:18px;
+  background:rgba(255,252,246,.74)
 }
-
-.forecast-main-button:active{
-  transform:translateX(-50%);
+.step-title{margin:0 0 8px;color:#74562e;font-size:20px;font-weight:normal}
+.step-text{margin:0;font-size:17px;line-height:1.9}
+.footer-message{margin:48px 0 0;color:#755a36;font-size:19px;line-height:1.9;text-align:center}
+@media(max-width:700px){
+  .hero{min-height:100svh;padding:30px 14px 42px;background-position:center center}
+  .site-copy{margin-bottom:24px}
+  .main-actions{grid-template-columns:1fr;gap:12px;width:min(390px,100%)}
+  .main-button{min-height:56px;font-size:17px}
+  .guide{padding:48px 18px 60px}
+  .guide-lead{font-size:18px;line-height:2.05;text-align:left}
+  .step{padding:21px 20px}
+  .step-title{font-size:21px}
+  .step-text{font-size:18px;line-height:2}
+  .footer-message{font-size:18px}
 }
-
-.desktop-home .forecast-main-button{
-  top:44.3%;
-  width:34%;
-}
-
-@media(max-width:620px){
-  .mobile-hero .forecast-main-button{
-    top:83.2%;
-    width:76%;
-    min-height:52px;
-    font-size:16px;
-  }
-}
-
 @media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-  }
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
-
 <body>
+<div class="intro" id="intro" aria-hidden="true"><p class="intro-title">光の詠唱</p></div>
 
-<div class="intro" id="intro" aria-hidden="true">
-  <h1 class="intro-title">光の詠唱</h1>
-</div>
+<header class="hero">
+  <div class="hero-content">
+    <img class="logo" src="logo.png" alt="光の詠唱のシンボル">
+    <h1 class="site-title">光の詠唱</h1>
+    <p class="site-copy">今日という日に必要な言葉を、<br>静かに受け取ってください。</p>
 
-<!-- PC・タブレット -->
-<main class="desktop-home">
+    <nav class="main-actions" aria-label="主なコンテンツ">
+      <button class="main-button" id="drawButton" type="button">🎴 今日の一枚</button>
+      <a class="main-button" href="forecast.html">🌤 心の天気予報</a>
+      <a class="main-button" href="purification.html">💧 心の浄化</a>
+    </nav>
+  </div>
+</header>
 
-  <img
-    src="home3.png"
-    alt="光の詠唱。今日の一枚、心の浄化、使い方の案内。">
+<main class="guide">
+  <div class="guide-inner">
+    <h2>光の詠唱へようこそ</h2>
 
-  <button
-    class="hotspot draw"
-    id="desktopDrawButton"
-    type="button"
-    aria-label="今日の一枚を引く">
-  </button>
+    <p class="guide-lead">
+      光の詠唱は、未来を当てるための占いではありません。
+      今日という日に必要な言葉を受け取り、
+      心を静かに整えるための小さな祈りの場所です。
+    </p>
 
-  <a
-    class="hotspot purify"
-    href="purification.html"
-    aria-label="心の浄化を開く">
-  </a>
+    <section class="steps" aria-label="はじめての方へ">
+      <article class="step">
+        <h3 class="step-title">① 今日の一枚</h3>
+        <p class="step-text">心を静かにして、一枚のカードを引いてください。必要な言葉と、天から届いた手紙を受け取れます。</p>
+      </article>
 
-  <a
-    class="forecast-main-button"
-    href="forecast.html">
-    🌤 心の天気予報を見る
-  </a>
+      <article class="step">
+        <h3 class="step-title">② 心の天気予報</h3>
+        <p class="step-text">今日の惑星配置から、世界共通の心の空模様をお届けします。一日の指針として、気軽に受け取ってください。</p>
+      </article>
 
+      <article class="step">
+        <h3 class="step-title">③ 心の浄化</h3>
+        <p class="step-text">心に抱えていることを書き出し、祈りとともに静かに天へ還します。</p>
+      </article>
+    </section>
+
+    <p class="footer-message">あなたの心が、<br>光に包まれますように。</p>
+  </div>
 </main>
-
-<!-- スマホ -->
-<main class="mobile-home">
-
-  <section class="mobile-hero">
-
-    <img
-      src="home3-top.png"
-      alt="光の詠唱。宇宙の地平線と、今日の一枚・心の浄化への入口。">
-
-    <button
-      class="hotspot draw"
-      id="mobileDrawButton"
-      type="button"
-      aria-label="今日の一枚を引く">
-    </button>
-
-    <a
-      class="hotspot purify"
-      href="purification.html"
-      aria-label="心の浄化を開く">
-    </a>
-
-    <a
-      class="forecast-main-button"
-      href="forecast.html">
-      🌤 心の天気予報を見る
-    </a>
-
-    <p class="scroll-guide">scroll</p>
-
-  </section>
-
-  <section class="mobile-information">
-    <img
-      src="home3.png"
-      alt="光の詠唱の説明とはじめての方への使い方。">
-  </section>
-
-</main>
-
-
-
 
 <script>
-const CARD_COUNT = 44;
-
-const intro =
-  document.getElementById("intro");
+const CARD_COUNT=44;
+const intro=document.getElementById("intro");
 
 window.addEventListener("load",function(){
-  setTimeout(function(){
-    intro.classList.add("hide");
-  },1200);
+  setTimeout(function(){intro.classList.add("hide")},1200);
 });
 
-function drawCard(){
-  const number =
-    Math.floor(Math.random()*CARD_COUNT)+1;
-
-  const card =
-    String(number).padStart(2,"0");
-
-  location.href =
-    "card.html?card="+card;
-}
-
-document
-  .getElementById("desktopDrawButton")
-  .addEventListener("click",drawCard);
-
-document
-  .getElementById("mobileDrawButton")
-  .addEventListener("click",drawCard);
+document.getElementById("drawButton").addEventListener("click",function(){
+  const number=Math.floor(Math.random()*CARD_COUNT)+1;
+  const card=String(number).padStart(2,"0");
+  location.href="card.html?card="+card;
+});
 </script>
-
 </body>
 </html>
