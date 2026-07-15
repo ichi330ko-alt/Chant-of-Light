@@ -53,6 +53,13 @@ body{
   font-size:14px;
 }
 
+.update-note{
+  margin:24px 0 0;
+  color:#8d795f;
+  font-size:13px;
+  line-height:1.8;
+}
+
 .weather{
   margin:0 0 14px;
   color:#806039;
@@ -479,14 +486,62 @@ function hashString(text){
   return Math.abs(hash);
 }
 
-function todayKey(){
-  const d = new Date();
+/*
+  心の天気予報の日付と基準時刻
+  ・日本時間の午前3時に日付を切り替える
+  ・午前0時〜2時59分は前日分を表示する
+  ・その日の午前3時（日本時間）のホロスコープを一日中使用する
+*/
+function getForecastBase(){
+  const now = new Date();
 
-  return [
-    d.getFullYear(),
-    d.getMonth() + 1,
-    d.getDate()
+  // 現在時刻を日本時間として扱うため、UTCに9時間を加える
+  const japanNow = new Date(
+    now.getTime() + 9 * 60 * 60 * 1000
+  );
+
+  // 午前3時より前なら、予報上は前日扱い
+  if(japanNow.getUTCHours() < 3){
+    japanNow.setUTCDate(
+      japanNow.getUTCDate() - 1
+    );
+  }
+
+  const year = japanNow.getUTCFullYear();
+  const month = japanNow.getUTCMonth();
+  const day = japanNow.getUTCDate();
+
+  /*
+    日本時間の午前3時はUTCでは前日の18時。
+    Date.UTCのdayを1日引いて18時にする。
+  */
+  const calculationDate = new Date(
+    Date.UTC(
+      year,
+      month,
+      day - 1,
+      18,
+      0,
+      0
+    )
+  );
+
+  const key = [
+    year,
+    month + 1,
+    day
   ].join("-");
+
+  return {
+    key,
+    calculationDate
+  };
+}
+
+const forecastBase = getForecastBase();
+
+function todayKey(){
+  return forecastBase.key;
 }
 
 function pickDaily(list,salt){
@@ -887,6 +942,8 @@ async function start(){
 
     automaticResult =
       await ChantForecastEngine.calculate({
+        date:
+          forecastBase.calculationDate,
         rulesUrl:
           "astrology-rules.json?v=5"
       });
