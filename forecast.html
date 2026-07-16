@@ -11,12 +11,137 @@ html,body{margin:0;min-height:100%}
 
 body{
   min-height:100vh;
-  padding:30px 14px 46px;
+  padding:0 0 46px;
   color:#514737;
   font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
   background:
     radial-gradient(circle at 50% 7%,rgba(95,139,210,.42),transparent 38%),
     linear-gradient(180deg,#07183f 0%,#173b78 39%,#f3e8d5 39%,#ead8bd 100%);
+}
+
+
+/* =========================
+   上部メニュー
+========================= */
+
+.site-header{
+  position:relative;
+  z-index:30;
+  width:100%;
+  border-bottom:1px solid rgba(255,235,199,.16);
+  background:rgba(5,22,58,.58);
+  backdrop-filter:blur(9px);
+}
+
+.topbar{
+  width:min(1180px,100%);
+  min-height:66px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.header-brand{
+  color:#fff5d9;
+  font-size:18px;
+  letter-spacing:.12em;
+  text-decoration:none;
+  white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.30);
+}
+
+.global-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:20px;
+}
+
+.global-nav a{
+  position:relative;
+  padding:8px 0;
+  color:#fff9e9;
+  font-size:14px;
+  text-decoration:none;
+  white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.30);
+}
+
+.global-nav a::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:2px;
+  left:0;
+  height:1px;
+  background:#f0cf83;
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .22s ease;
+}
+
+.global-nav a:hover::after,
+.global-nav a:focus-visible::after{
+  transform:scaleX(1);
+}
+
+.menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  padding:0;
+  border:1px solid rgba(255,238,204,.36);
+  border-radius:50%;
+  background:rgba(11,33,77,.35);
+  color:#fffaf1;
+  font-size:25px;
+  line-height:1;
+  cursor:pointer;
+}
+
+/* =========================
+   共通フッター
+========================= */
+
+.site-footer{
+  margin-top:34px;
+  padding:31px 20px 27px;
+  border-top:1px solid rgba(180,140,80,.28);
+  background:rgba(246,237,222,.96);
+  color:#6e604d;
+  text-align:center;
+}
+
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px 26px;
+  margin-bottom:18px;
+}
+
+.footer-links a,
+.footer-item{
+  color:#78664c;
+  font-size:14px;
+  text-decoration:none;
+}
+
+.footer-links a:hover{
+  text-decoration:underline;
+}
+
+.footer-item small{
+  color:#9a8971;
+}
+
+.copyright{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.07em;
 }
 
 .page{
@@ -202,8 +327,58 @@ body{
   line-height:1.7;
 }
 
+
+@media(max-width:850px){
+
+  .topbar{
+    min-height:62px;
+    padding:8px 14px;
+  }
+
+  .menu-button{
+    display:grid;
+    place-items:center;
+  }
+
+  .global-nav{
+    position:absolute;
+    top:60px;
+    right:12px;
+    z-index:40;
+    width:min(300px,calc(100vw - 24px));
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px;
+    border:1px solid rgba(255,237,202,.30);
+    border-radius:16px;
+    background:rgba(7,27,70,.97);
+    box-shadow:0 16px 36px rgba(0,0,0,.28);
+    backdrop-filter:blur(10px);
+  }
+
+  .global-nav.open{
+    display:flex;
+  }
+
+  .global-nav a{
+    padding:13px 14px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    text-align:left;
+  }
+
+  .global-nav a:last-child{
+    border-bottom:0;
+  }
+
+  .global-nav a::after{
+    display:none;
+  }
+}
+
 @media(max-width:520px){
-  body{padding:22px 8px 36px}
+  body{padding:0 0 36px}
   .forecast{padding:36px 24px}
 }
 </style>
@@ -211,7 +386,43 @@ body{
 
 <body>
 
-<main class="page">
+
+<header class="site-header">
+  <div class="topbar">
+
+    <a class="header-brand" href="index.html">
+      光の詠唱
+    </a>
+
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-label="メニューを開く"
+      aria-expanded="false"
+      aria-controls="globalNav">
+      ☰
+    </button>
+
+    <nav
+      class="global-nav"
+      id="globalNav"
+      aria-label="上部メニュー">
+
+      <a href="index.html">ホーム</a>
+      <a href="card.html">今日の一枚</a>
+      <a href="purification.html">心の浄化</a>
+      <a href="forecast.html">心の天気予報</a>
+      <a href="dream.html">夢の解き明かし</a>
+      <a href="guide.html">はじめての方へ</a>
+
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="page" style="padding:38px 14px 0;">
 
   <h1 class="title">宇宙の心の天気予報</h1>
 
@@ -282,8 +493,76 @@ body{
 
 </main>
 
+
+<footer class="site-footer">
+
+  <div class="footer-links">
+
+    <span class="footer-item">
+      お問い合わせ
+      <small>（準備中）</small>
+    </span>
+
+    <a href="terms.html">
+      利用規約
+    </a>
+
+    <a href="privacy.html">
+      プライバシーポリシー
+    </a>
+
+  </div>
+
+  <p class="copyright">
+    © Chant of Light
+  </p>
+
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 <script>
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const globalNav =
+  document.getElementById("globalNav");
+
+menuButton.addEventListener(
+  "click",
+  function(){
+
+    const isOpen =
+      globalNav.classList.toggle("open");
+
+    menuButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuButton.textContent =
+      isOpen ? "×" : "☰";
+  }
+);
+
+globalNav.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target.tagName === "A"){
+
+      globalNav.classList.remove("open");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      menuButton.textContent = "☰";
+    }
+  }
+);
+
 /*
   光の詠唱・心の天気予報 自動判定エンジン
   Astronomy Engineで、現在の地心黄経と主要アスペクトを計算します。
