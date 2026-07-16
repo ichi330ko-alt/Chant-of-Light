@@ -3,85 +3,894 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>はじめての方へ｜光の詠唱</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
-body{color:#4f4638;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;background:#efe2cd}
-.hero{padding:54px 20px 48px;text-align:center;color:#fffaf0;background:linear-gradient(rgba(4,18,55,.36),rgba(6,22,58,.46)),url("home4-bg.png") center center/cover no-repeat}
-.logo{display:block;width:110px;height:auto;margin:0 auto 16px}
-.hero h1{margin:0;color:#f2d28c;font-size:clamp(30px,6vw,46px);font-weight:normal;letter-spacing:.12em;text-shadow:0 3px 16px rgba(0,0,0,.28)}
-.hero p{margin:18px auto 0;max-width:650px;font-size:18px;line-height:1.9;text-shadow:0 2px 12px rgba(0,0,0,.32)}
-.guide{padding:54px 20px 72px;background:linear-gradient(180deg,#f7eddd 0%,#ead9bf 100%)}
-.guide-inner{width:min(820px,100%);margin:0 auto}
-.intro{margin:0 auto 42px;max-width:700px;font-size:18px;line-height:2;text-align:center}
-.steps{display:grid;gap:20px}
-.step{display:grid;grid-template-columns:78px 1fr;gap:20px;align-items:center;padding:22px 24px;border:1px solid rgba(157,112,47,.28);border-radius:20px;background:rgba(255,252,246,.78);box-shadow:0 8px 24px rgba(91,62,28,.07)}
-.icon{width:74px;height:74px;display:grid;place-items:center;border:1px solid rgba(163,119,54,.42);border-radius:50%;color:#a87933;background:rgba(255,250,239,.8);font-size:34px}
-.step-number{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:50%;color:#fff;background:#9b6d2c;font-size:15px}
-.step h2{margin:0 0 8px;color:#72532d;font-size:22px;font-weight:normal}
-.step p{margin:0;font-size:17px;line-height:1.9}
-.prayer{margin:42px auto 0;padding:26px 24px;max-width:680px;border-top:1px solid rgba(158,112,47,.35);border-bottom:1px solid rgba(158,112,47,.35);color:#72532d;font-size:20px;line-height:2;text-align:center}
-.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
-.button{min-width:210px;display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border:1px solid rgba(225,198,139,.92);border-radius:999px;color:#fffdf6;background:linear-gradient(135deg,#244f9a,#4e73b8);text-decoration:none;box-shadow:0 10px 24px rgba(0,0,0,.14)}
-.button.secondary{color:#72532d;background:rgba(255,250,241,.82);border-color:rgba(157,112,47,.38)}
-@media(max-width:650px){
-.hero{padding:42px 18px 38px}.logo{width:96px}.hero p,.intro{font-size:18px;line-height:2;text-align:left}.guide{padding:44px 16px 58px}.step{grid-template-columns:64px 1fr;gap:15px;padding:20px 17px}.icon{width:62px;height:62px;font-size:29px}.step h2{font-size:21px}.step p{font-size:18px;line-height:2}.prayer{font-size:19px}.button{width:100%}}
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  color:#4f4638;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+  background:
+    linear-gradient(
+      180deg,
+      #f8efe1 0%,
+      #ead9bf 100%
+    );
+}
+
+/* =========================
+   上部メニュー
+========================= */
+
+.site-header{
+  position:relative;
+  z-index:30;
+  width:100%;
+  border-bottom:1px solid rgba(176,132,66,.20);
+  background:rgba(255,250,241,.90);
+  backdrop-filter:blur(8px);
+}
+
+.topbar{
+  width:min(1180px,100%);
+  min-height:66px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.header-brand{
+  color:#826338;
+  font-size:18px;
+  letter-spacing:.12em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.global-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:20px;
+}
+
+.global-nav a{
+  position:relative;
+  padding:8px 0;
+  color:#715a39;
+  font-size:14px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.global-nav a::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:2px;
+  left:0;
+  height:1px;
+  background:#c99b4e;
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .22s ease;
+}
+
+.global-nav a:hover::after,
+.global-nav a:focus-visible::after{
+  transform:scaleX(1);
+}
+
+.menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  padding:0;
+  border:1px solid rgba(174,133,69,.34);
+  border-radius:50%;
+  background:rgba(255,255,255,.50);
+  color:#775d39;
+  font-size:25px;
+  line-height:1;
+  cursor:pointer;
+}
+
+/* =========================
+   ヒーロー
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:58px 20px 54px;
+  text-align:center;
+  background:
+    linear-gradient(
+      rgba(9,26,67,.26),
+      rgba(15,35,82,.36)
+    ),
+    url("home4-bg.png") center center/cover no-repeat;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      rgba(255,239,187,.16),
+      transparent 40%
+    );
+  pointer-events:none;
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(760px,100%);
+  margin:0 auto;
+}
+
+.logo{
+  display:block;
+  width:350px;
+  max-width:72vw;
+  height:auto;
+  margin:0 auto 4px;
+  filter:
+    drop-shadow(0 8px 24px rgba(0,0,0,.18));
+}
+
+.hero h1{
+  margin:0;
+  color:#f2d28c;
+  font-size:clamp(31px,6vw,47px);
+  font-weight:normal;
+  letter-spacing:.14em;
+  text-shadow:0 3px 18px rgba(0,0,0,.28);
+}
+
+.hero p{
+  margin:18px auto 0;
+  max-width:690px;
+  color:#fffaf0;
+  font-size:18px;
+  line-height:2;
+  text-shadow:0 2px 12px rgba(0,0,0,.34);
+}
+
+/* =========================
+   本文
+========================= */
+
+.guide{
+  padding:58px 18px 72px;
+}
+
+.guide-inner{
+  width:min(900px,100%);
+  margin:0 auto;
+}
+
+.introduction{
+  max-width:760px;
+  margin:0 auto 46px;
+  padding:28px 30px;
+  border:1px solid rgba(164,120,56,.24);
+  border-radius:20px;
+  background:rgba(255,253,247,.76);
+  text-align:center;
+}
+
+.introduction p{
+  margin:0;
+  font-size:18px;
+  line-height:2;
+}
+
+.section{
+  margin-top:24px;
+  padding:30px;
+  border:1px solid rgba(164,120,56,.25);
+  border-radius:22px;
+  background:rgba(255,253,247,.80);
+  box-shadow:0 10px 28px rgba(84,58,28,.06);
+}
+
+.section-title{
+  margin:0 0 18px;
+  color:#78582e;
+  font-size:26px;
+  font-weight:normal;
+  text-align:center;
+}
+
+.section p{
+  margin:0;
+  font-size:17px;
+  line-height:2;
+}
+
+.section p + p{
+  margin-top:16px;
+}
+
+.emphasis{
+  padding:16px 18px;
+  border-radius:14px;
+  background:#f5ead9;
+  color:#6f5633;
+  font-weight:bold;
+}
+
+.small-note{
+  color:#88735a;
+  font-size:14px !important;
+}
+
+/* 今日の一枚だけ画像付き */
+.card-guide{
+  display:grid;
+  grid-template-columns:minmax(210px,300px) minmax(0,1fr);
+  gap:28px;
+  align-items:center;
+}
+
+.card-image-wrap{
+  text-align:center;
+}
+
+.card-image{
+  display:block;
+  width:100%;
+  max-width:280px;
+  height:auto;
+  margin:0 auto;
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(68,47,24,.18);
+}
+
+.card-caption{
+  margin:12px 0 0 !important;
+  color:#8c7558;
+  font-size:13px !important;
+  text-align:center;
+}
+
+.steps{
+  margin:18px 0 0;
+  padding:0;
+  list-style:none;
+  counter-reset:step;
+}
+
+.steps li{
+  position:relative;
+  margin-top:12px;
+  padding:14px 16px 14px 52px;
+  border-radius:14px;
+  background:rgba(249,242,230,.78);
+  font-size:16px;
+  line-height:1.85;
+}
+
+.steps li::before{
+  counter-increment:step;
+  content:counter(step);
+  position:absolute;
+  top:14px;
+  left:15px;
+  width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#a47735;
+  color:#fff;
+  font-size:14px;
+}
+
+.weather-types{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+
+.weather-box{
+  padding:18px;
+  border:1px solid rgba(165,123,61,.20);
+  border-radius:15px;
+  background:rgba(250,244,233,.78);
+}
+
+.weather-box h3{
+  margin:0 0 8px;
+  color:#7c5c32;
+  font-size:19px;
+  font-weight:normal;
+}
+
+.weather-box p{
+  font-size:15px;
+  line-height:1.85;
+}
+
+/* 締め */
+.closing{
+  margin-top:42px;
+  padding:34px 28px;
+  border-top:1px solid rgba(165,122,59,.30);
+  border-bottom:1px solid rgba(165,122,59,.30);
+  color:#705735;
+  text-align:center;
+}
+
+.closing p{
+  margin:0;
+  font-size:18px;
+  line-height:2.05;
+}
+
+.closing p + p{
+  margin-top:18px;
+}
+
+.button-row{
+  margin-top:34px;
+  text-align:center;
+}
+
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:220px;
+  margin:6px;
+  padding:13px 24px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  background:linear-gradient(135deg,#244f9a,#4e73b8);
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 9px 22px rgba(45,71,119,.16);
+}
+
+/* =========================
+   フッター
+========================= */
+
+.site-footer{
+  padding:31px 20px 27px;
+  border-top:1px solid rgba(180,140,80,.28);
+  background:#f6edde;
+  color:#6e604d;
+  text-align:center;
+}
+
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px 26px;
+  margin-bottom:18px;
+}
+
+.footer-item{
+  color:#78664c;
+  font-size:14px;
+}
+
+.footer-item small{
+  color:#9a8971;
+}
+
+.copyright{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.07em;
+}
+
+/* =========================
+   スマホ
+========================= */
+
+@media(max-width:850px){
+
+  .topbar{
+    min-height:62px;
+    padding:8px 14px;
+  }
+
+  .menu-button{
+    display:grid;
+    place-items:center;
+  }
+
+  .global-nav{
+    position:absolute;
+    top:60px;
+    right:12px;
+    z-index:40;
+    width:min(300px,calc(100vw - 24px));
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px;
+    border:1px solid rgba(178,137,72,.28);
+    border-radius:16px;
+    background:rgba(255,251,242,.98);
+    box-shadow:0 16px 36px rgba(93,68,34,.18);
+    backdrop-filter:blur(10px);
+  }
+
+  .global-nav.open{
+    display:flex;
+  }
+
+  .global-nav a{
+    padding:13px 14px;
+    border-bottom:1px solid rgba(136,104,61,.09);
+    text-align:left;
+  }
+
+  .global-nav a:last-child{
+    border-bottom:0;
+  }
+
+  .global-nav a::after{
+    display:none;
+  }
+}
+
+@media(max-width:700px){
+
+  .hero{
+    padding:44px 16px 42px;
+  }
+
+  .logo{
+    width:350px;
+    max-width:78vw;
+  }
+
+  .hero p{
+    font-size:17px;
+    text-align:left;
+  }
+
+  .guide{
+    padding:44px 14px 58px;
+  }
+
+  .introduction{
+    padding:24px 20px;
+    text-align:left;
+  }
+
+  .introduction p{
+    font-size:18px;
+  }
+
+  .section{
+    padding:25px 20px;
+  }
+
+  .section-title{
+    font-size:24px;
+  }
+
+  .section p{
+    font-size:18px;
+  }
+
+  .card-guide{
+    grid-template-columns:1fr;
+  }
+
+  .card-image{
+    max-width:330px;
+  }
+
+  .weather-types{
+    grid-template-columns:1fr;
+  }
+
+  .weather-box p{
+    font-size:17px;
+  }
+
+  .closing{
+    padding:30px 18px;
+  }
+
+  .closing p{
+    font-size:18px;
+    text-align:left;
+  }
+
+  .button{
+    width:100%;
+    min-width:0;
+  }
+
+  .footer-links{
+    flex-direction:column;
+    gap:10px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<header class="hero">
-  <img class="logo" src="logo.png" alt="光の詠唱のシンボル">
-  <h1>はじめての方へ</h1>
-  <p>光の詠唱は、未来を当てるための占いではありません。<br>今日のあなたに必要な言葉を受け取り、心を静かに整えるための場所です。</p>
+
+<header class="site-header">
+
+  <div class="topbar">
+
+    <a
+      class="header-brand"
+      href="index.html">
+      光の詠唱
+    </a>
+
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-label="メニューを開く"
+      aria-expanded="false"
+      aria-controls="globalNav">
+      ☰
+    </button>
+
+    <nav
+      class="global-nav"
+      id="globalNav"
+      aria-label="上部メニュー">
+
+      <a href="index.html">ホーム</a>
+      <a href="card.html">今日の一枚</a>
+      <a href="purification.html">心の浄化</a>
+      <a href="forecast.html">心の天気予報</a>
+      <a href="dream.html">夢の解き明かし</a>
+      <a href="guide.html">はじめての方へ</a>
+
+    </nav>
+
+  </div>
+
 </header>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <img
+      class="logo"
+      src="logo.png"
+      alt="光の詠唱のシンボル">
+
+    <h1>
+      はじめての方へ
+    </h1>
+
+    <p>
+      光の詠唱は、正しい答えを探すための場所ではありません。<br>
+      少しだけ立ち止まり、自分の心の声に耳を傾けるための、
+      小さな祈りの場所です。
+    </p>
+
+  </div>
+
+</section>
+
 <main class="guide">
+
   <div class="guide-inner">
-    <p class="intro">正しい引き方や、決まった作法はありません。少しだけ呼吸を整え、今の自分の心に静かに意識を向けてみてください。</p>
-    <section class="steps">
-      <article class="step"><div class="icon">𓂃</div><div><h2><span class="step-number">1</span>心を静かにする</h2><p>ゆっくりと深呼吸をして、今ここにいる自分の心と静かに向き合います。</p></div></article>
-      <article class="step"><div class="icon">🙏</div><div><h2><span class="step-number">2</span>心の中で祈る</h2><p>「今日の私に必要な言葉をください」と、心の中でそっと願いを伝えてください。</p></div></article>
-      <article class="step"><div class="icon">🎴</div><div><h2><span class="step-number">3</span>今日の一枚を引く</h2><p>考えすぎず、直感に委ねて一枚を引きます。現れた言葉を、そのまま受け取ってみてください。</p></div></article>
-      <article class="step"><div class="icon">💌</div><div><h2><span class="step-number">4</span>天から届いた手紙を読む</h2><p>カードの詳しいメッセージを読み、今の自分に響く部分を心に留めます。</p></div></article>
-      <article class="step"><div class="icon">💧</div><div><h2><span class="step-number">5</span>必要であれば心を浄化する</h2><p>重たい気持ちや手放したい思いがあるときは、心の浄化に書き出して、静かに天へ還します。</p></div></article>
+
+    <section class="introduction">
+
+      <p>
+        「こうでなくてはならない」という決まりはありません。
+        どのコンテンツから始めても大丈夫です。
+        今日のあなたが惹かれる場所から、自由にお楽しみください。
+      </p>
+
     </section>
 
-    <section style="margin-top:42px;padding:28px 24px;border:1px solid rgba(157,112,47,.28);border-radius:20px;background:rgba(255,252,246,.78);">
-      <h2 style="margin:0 0 18px;color:#72532d;font-size:24px;font-weight:normal;text-align:center;">
-        心の天気予報には2種類あります
+    <section class="section">
+
+      <h2 class="section-title">
+        🎴 今日の一枚
       </h2>
 
-      <div style="display:grid;gap:22px;text-align:left;">
-        <div>
-          <h3 style="margin:0 0 8px;color:#806039;font-size:20px;font-weight:normal;">
-            🌍 宇宙の心の天気予報
-          </h3>
-          <p style="margin:0;font-size:17px;line-height:1.95;">
-            今日の宇宙全体の流れを、世界共通の心の空模様としてお届けします。
-            今日という一日を過ごすうえでの、全体の空気感を知るための予報です。
+      <div class="card-guide">
+
+        <div class="card-image-wrap">
+
+          <img
+            class="card-image"
+            src="card01.png"
+            alt="光の詠唱カードの一例">
+
+          <p class="card-caption">
+            表示されるカードは毎回変わります
           </p>
+
         </div>
 
         <div>
-          <h3 style="margin:0 0 8px;color:#806039;font-size:20px;font-weight:normal;">
-            👤 あなた個人の心の天気予報
-          </h3>
-          <p style="margin:0;font-size:17px;line-height:1.95;">
-            生まれた日の星と今日の宇宙を重ね合わせ、あなただけの心の空模様をお届けします。
-            同じ空の下でも、一人ひとり受ける影響は異なるため、宇宙の天気予報と違う結果になることがあります。
+
+          <p>
+            心を静かにして、「今日の一枚」を押してください。
+            今のあなたに必要なカードが一枚選ばれます。
           </p>
+
+          <ol class="steps">
+            <li>
+              「今日の一枚」を押します。
+            </li>
+            <li>
+              表示されたカードの詠唱を、ゆっくり受け取ります。
+            </li>
+            <li>
+              詳しいメッセージを開くと、
+              カードの意味や問いかけを読むことができます。
+            </li>
+          </ol>
+
+          <p class="small-note">
+            正しい受け取り方はありません。
+            最初に心へ浮かんだことを、大切にしてください。
+          </p>
+
         </div>
+
       </div>
 
-      <p style="margin:24px 0 0;color:#72532d;font-size:18px;line-height:1.9;text-align:center;">
-        宇宙の流れを知り、自分自身の流れを知ることで、<br>
-        今日という一日を心地よく過ごすためのヒントになります。
-      </p>
     </section>
 
-    <p class="prayer">すべてを理解しようとしなくても大丈夫です。<br>今のあなたに届いた言葉を、静かに受け取ってください。</p>
-    <div class="actions"><a class="button" href="index.html">ホームへ戻る</a><a class="button secondary" href="card.html">今日の一枚へ</a></div>
+    <section class="section">
+
+      <h2 class="section-title">
+        💧 心の浄化
+      </h2>
+
+      <p>
+        心に抱えていることを自由に書き出し、
+        書き終えたら「天へ還す」を押してください。
+        誰かに見せるためではなく、
+        自分の心を少し軽くするための場所です。
+      </p>
+
+      <p class="emphasis">
+        入力した内容は送信・保存されません。
+        この画面上だけで処理され、「天へ還す」を押したあとに消去されます。
+      </p>
+
+      <p class="small-note">
+        書いた内容を、サイトの作者やほかの人が読むことはありません。
+      </p>
+
+    </section>
+
+    <section class="section">
+
+      <h2 class="section-title">
+        🌤 心の天気予報
+      </h2>
+
+      <p>
+        心の天気予報には、二つの見方があります。
+        今日という一日を穏やかに過ごすための、
+        小さな指針としてお使いください。
+      </p>
+
+      <div class="weather-types">
+
+        <article class="weather-box">
+
+          <h3>
+            🌍 宇宙の心の天気予報
+          </h3>
+
+          <p>
+            今日の宇宙全体の流れを、
+            世界共通の心の空模様としてお届けします。
+          </p>
+
+        </article>
+
+        <article class="weather-box">
+
+          <h3>
+            👤 あなた個人の心の天気予報
+          </h3>
+
+          <p>
+            生まれた日の星と今日の宇宙を重ね、
+            あなた自身への響きを読み解きます。
+          </p>
+
+        </article>
+
+      </div>
+
+      <p class="small-note">
+        宇宙全体の天気と、あなた個人の天気は、
+        異なる結果になることがあります。
+      </p>
+
+    </section>
+
+    <section class="section">
+
+      <h2 class="section-title">
+        🌙 夢の解き明かし
+      </h2>
+
+      <p>
+        覚えている夢の場面や、そのとき感じた気持ちを入力すると、
+        夢に表れた心の動きを読み解きます。
+        夢と響き合う「光の詠唱」のカードと、
+        今日の問いかけをお届けします。
+      </p>
+
+      <p>
+        夢は未来を決めるものではなく、
+        今の心を映す小さな鏡です。
+        夢の答えを一つに決めるものではなく、
+        自分の心と向き合うためのきっかけとしてお楽しみください。
+      </p>
+
+      <p class="emphasis">
+        現在はシンプルなキーワード判定を採用しています。
+        今後は、夢全体の流れや感情まで、
+        より詳しく読み解ける機能を追加する予定です。
+      </p>
+
+    </section>
+
+    <section class="closing">
+
+      <p>
+        光の詠唱は、正しい答えを見つけるための場所ではありません。
+      </p>
+
+      <p>
+        忙しい毎日の中で少しだけ立ち止まり、
+        自分の心の声に耳を傾けるための、
+        小さな祈りの場所です。
+      </p>
+
+      <p>
+        どのコンテンツから始めても大丈夫です。<br>
+        今日のあなたが惹かれる場所から、
+        どうぞ自由にお楽しみください。
+      </p>
+
+      <p>
+        あなたの心が、光に包まれますように。
+      </p>
+
+    </section>
+
+    <div class="button-row">
+
+      <a
+        class="button"
+        href="index.html">
+        ホームへ戻る
+      </a>
+
+    </div>
+
   </div>
+
 </main>
+
+<footer class="site-footer">
+
+  <div class="footer-links">
+
+    <span class="footer-item">
+      お問い合わせ
+      <small>（準備中）</small>
+    </span>
+
+    <span class="footer-item">
+      利用規約
+      <small>（準備中）</small>
+    </span>
+
+    <span class="footer-item">
+      プライバシーポリシー
+      <small>（準備中）</small>
+    </span>
+
+  </div>
+
+  <p class="copyright">
+    © Chant of Light
+  </p>
+
+</footer>
+
+<script>
+"use strict";
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const globalNav =
+  document.getElementById("globalNav");
+
+menuButton.addEventListener(
+  "click",
+  function(){
+
+    const isOpen =
+      globalNav.classList.toggle("open");
+
+    menuButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    menuButton.textContent =
+      isOpen ? "×" : "☰";
+  }
+);
+
+globalNav.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target.tagName === "A"){
+
+      globalNav.classList.remove("open");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      menuButton.textContent = "☰";
+    }
+  }
+);
+</script>
+
 </body>
 </html>
