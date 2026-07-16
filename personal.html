@@ -313,10 +313,22 @@ input:focus{
     font-size:18px;
   }
 }
+
+.site-header{position:relative;z-index:30;width:100%;margin-bottom:28px}
+.topbar{position:relative;width:min(1180px,100%);min-height:66px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+.header-brand{color:#f3d592;font-size:18px;letter-spacing:.12em;text-decoration:none}
+.menu-button{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:25px;cursor:pointer}
+.global-nav{position:absolute;top:60px;right:12px;display:none;flex-direction:column;width:min(320px,calc(100vw - 24px));padding:10px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(7,24,63,.96);backdrop-filter:blur(10px);box-shadow:0 16px 36px rgba(0,0,0,.28)}
+.global-nav.open{display:flex}
+.global-nav a{padding:13px 14px;color:#fffaf2;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.global-nav a:last-child{border-bottom:0}
+
 </style>
 </head>
 
 <body>
+
+<header class="site-header"><div class="topbar"><a class="header-brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" aria-expanded="false">☰</button><nav class="global-nav" id="globalNav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="omamori.html">宇宙からのプレゼント</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></div></header>
 
 <main class="page">
 
@@ -463,6 +475,14 @@ input:focus{
 
 <script>
 "use strict";
+const menuButton=document.getElementById("menuButton");
+const globalNav=document.getElementById("globalNav");
+function closeMenu(){globalNav.classList.remove("open");menuButton.textContent="☰";menuButton.setAttribute("aria-expanded","false");}
+menuButton.addEventListener("click",e=>{e.stopPropagation();const o=globalNav.classList.toggle("open");menuButton.textContent=o?"×":"☰";menuButton.setAttribute("aria-expanded",String(o));});
+document.addEventListener("click",e=>{if(globalNav.classList.contains("open")&&!globalNav.contains(e.target)&&!menuButton.contains(e.target))closeMenu();});
+globalNav.addEventListener("click",e=>{if(e.target.tagName==="A")closeMenu();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu();});
+
 
 const BODIES = {
   Sun:"Sun",
