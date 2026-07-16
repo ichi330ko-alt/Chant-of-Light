@@ -54,10 +54,25 @@ body{
 }
 
 .global-nav{
+  position:absolute;
+  top:68px;
+  right:18px;
+  z-index:40;
+  width:min(340px,calc(100vw - 36px));
+  display:grid;
+  flex-direction:column;
+  align-items:stretch;
+  gap:0;
+  padding:10px;
+  border:1px solid rgba(255,237,202,.30);
+  border-radius:18px;
+  background:rgba(7,27,70,.97);
+  box-shadow:0 18px 42px rgba(0,0,0,.30);
+  backdrop-filter:blur(12px);
+}
+
+.global-nav.open{
   display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:20px;
 }
 
 .global-nav a{
@@ -329,52 +344,8 @@ body{
 
 
 @media(max-width:850px){
-
-  .topbar{
-    min-height:62px;
-    padding:8px 14px;
-  }
-
-  .menu-button{
-    display:grid;
-    place-items:center;
-  }
-
-  .global-nav{
-    position:absolute;
-    top:60px;
-    right:12px;
-    z-index:40;
-    width:min(300px,calc(100vw - 24px));
-    display:none;
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    padding:10px;
-    border:1px solid rgba(255,237,202,.30);
-    border-radius:16px;
-    background:rgba(7,27,70,.97);
-    box-shadow:0 16px 36px rgba(0,0,0,.28);
-    backdrop-filter:blur(10px);
-  }
-
-  .global-nav.open{
-    display:flex;
-  }
-
-  .global-nav a{
-    padding:13px 14px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    text-align:left;
-  }
-
-  .global-nav a:last-child{
-    border-bottom:0;
-  }
-
-  .global-nav a::after{
-    display:none;
-  }
+  .topbar{min-height:62px;padding:8px 14px;}
+  .global-nav{top:60px;right:12px;width:min(300px,calc(100vw - 24px));border-radius:16px;}
 }
 
 @media(max-width:520px){
@@ -411,6 +382,7 @@ body{
 
       <a href="index.html">ホーム</a>
       <a href="card.html">今日の一枚</a>
+      <a href="omamori.html">宇宙からのプレゼント</a>
       <a href="purification.html">心の浄化</a>
       <a href="forecast.html">心の天気予報</a>
       <a href="dream.html">夢の解き明かし</a>
