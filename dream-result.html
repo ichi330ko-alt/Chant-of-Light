@@ -6,12 +6,197 @@
 <title>夢の解き明かしの結果｜光の詠唱</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{min-height:100vh;padding:24px 14px 60px;color:#514737;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;background:linear-gradient(rgba(255,255,255,.18),rgba(255,250,244,.35)),url("dream-result.png") center top/cover fixed no-repeat}.page{width:min(1020px,100%);margin:0 auto}.header{text-align:center;margin-bottom:28px}.logo{display:block;width:clamp(100px,14vw,155px);height:auto;margin:0 auto 12px}.title{margin:0;color:#65518b;font-size:clamp(29px,6vw,44px);font-weight:normal;letter-spacing:.10em}.subtitle{margin:12px 0 0;color:#756685;line-height:1.8}.result-grid{display:grid;grid-template-columns:minmax(260px,360px) minmax(0,1fr);gap:24px;align-items:start}.panel{border:1px solid rgba(180,147,106,.30);border-radius:22px;background:rgba(255,253,248,.88);box-shadow:0 15px 40px rgba(76,63,95,.13);backdrop-filter:blur(7px)}.card-panel{padding:24px;text-align:center}.card-label{margin:0 0 15px;color:#775d91;font-size:16px}.dream-card{display:block;width:100%;height:auto;max-height:620px;object-fit:contain;margin:0 auto;border-radius:13px;box-shadow:0 10px 28px rgba(73,56,91,.18)}.card-title{margin:18px 0 0;color:#6d512b;font-size:27px;font-weight:normal}.content{display:grid;gap:18px}.message-panel,.question-panel{padding:30px clamp(22px,4vw,38px)}.section-title{margin:0 0 18px;color:#665080;font-size:23px;font-weight:normal;text-align:center}.message{margin:0;color:#594f61;font-size:17px;line-height:2.1;white-space:pre-line}.question{margin:0;color:#594f61;font-size:18px;line-height:2;text-align:center}.button-row{margin-top:22px;text-align:center}.button{display:inline-flex;align-items:center;justify-content:center;min-width:230px;padding:13px 23px;border:1px solid rgba(186,142,64,.62);border-radius:999px;background:linear-gradient(135deg,#59469b,#7559b1);color:#fff;text-decoration:none;font-size:15px;box-shadow:0 9px 22px rgba(66,48,116,.19)}.secondary{margin-top:24px;color:#6e5b7c;background:rgba(255,255,255,.72)}.original-dream{margin-top:22px;padding:20px 22px;border-radius:18px;background:rgba(255,253,248,.72);color:#74677d;line-height:1.9}.original-dream summary{cursor:pointer;color:#665080}.original-dream p{margin:16px 0 0;white-space:pre-wrap}.empty{padding:42px 25px;text-align:center}@media(max-width:760px){body{background-attachment:scroll;padding:18px 10px 46px}.result-grid{grid-template-columns:1fr}.card-panel{order:1}.content{order:2}.dream-card{max-width:430px}.message{font-size:18px}.button{width:100%}}
+
+.site-header{
+  position:relative;
+  z-index:30;
+  width:100%;
+  margin-bottom:24px;
+  border-bottom:1px solid rgba(130,105,160,.18);
+  background:rgba(255,252,247,.70);
+  backdrop-filter:blur(8px);
+}
+.topbar{
+  width:min(1180px,100%);
+  min-height:66px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.header-brand{
+  color:#6c5684;
+  font-size:18px;
+  letter-spacing:.12em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.global-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:20px;
+}
+.global-nav a{
+  position:relative;
+  padding:8px 0;
+  color:#665478;
+  font-size:14px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.global-nav a::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:2px;
+  left:0;
+  height:1px;
+  background:#b99256;
+  transform:scaleX(0);
+  transition:transform .22s ease;
+}
+.global-nav a:hover::after,
+.global-nav a:focus-visible::after{
+  transform:scaleX(1);
+}
+.menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  padding:0;
+  border:1px solid rgba(111,86,134,.26);
+  border-radius:50%;
+  background:rgba(255,255,255,.42);
+  color:#665478;
+  font-size:25px;
+  cursor:pointer;
+}
+.site-footer{
+  margin-top:42px;
+  padding:30px 20px 26px;
+  border-top:1px solid rgba(180,140,80,.24);
+  background:rgba(246,237,222,.92);
+  color:#6e604d;
+  text-align:center;
+  backdrop-filter:blur(8px);
+}
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px 26px;
+  margin-bottom:18px;
+}
+.footer-links a,
+.footer-item{
+  color:#78664c;
+  font-size:14px;
+  text-decoration:none;
+}
+.footer-links a:hover{
+  text-decoration:underline;
+}
+.footer-item small{
+  color:#9a8971;
+}
+.copyright{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.07em;
+}
+@media(max-width:850px){
+  .topbar{min-height:62px;padding:8px 14px}
+  .menu-button{display:grid;place-items:center}
+  .global-nav{
+    position:absolute;
+    top:60px;
+    right:12px;
+    z-index:40;
+    width:min(300px,calc(100vw - 24px));
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px;
+    border:1px solid rgba(111,86,134,.22);
+    border-radius:16px;
+    background:rgba(255,252,247,.98);
+    box-shadow:0 16px 36px rgba(70,52,90,.18);
+  }
+  .global-nav.open{display:flex}
+  .global-nav a{
+    padding:13px 14px;
+    border-bottom:1px solid rgba(100,80,120,.08);
+    text-align:left;
+  }
+  .global-nav a:last-child{border-bottom:0}
+  .global-nav a::after{display:none}
+}
+
 </style>
 </head>
 <body>
+
+<header class="site-header">
+  <div class="topbar">
+    <a class="header-brand" href="index.html">光の詠唱</a>
+
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-label="メニューを開く"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="global-nav" id="globalNav">
+      <a href="index.html">ホーム</a>
+      <a href="card.html">今日の一枚</a>
+      <a href="purification.html">心の浄化</a>
+      <a href="forecast.html">心の天気予報</a>
+      <a href="dream.html">夢の解き明かし</a>
+      <a href="guide.html">はじめての方へ</a>
+    </nav>
+  </div>
+</header>
+
 <main class="page"><header class="header"><img class="logo" src="logo.png" alt="光の詠唱のシンボル"><h1 class="title">夢の解き明かしの結果</h1><p class="subtitle">あなたの夢から、心へのメッセージをお届けします。</p></header><section id="resultArea" hidden><div class="result-grid"><aside class="panel card-panel"><p class="card-label">あなたの夢と響き合ったカード</p><img class="dream-card" id="dreamCard" src="" alt="夢から導かれた光の詠唱カード"><h2 class="card-title" id="cardTitle"></h2><div class="button-row"><a class="button" id="detailLink" href="#">カードの詳しいメッセージを見る</a></div></aside><div class="content"><article class="panel message-panel"><h2 class="section-title">夢からのメッセージ</h2><p class="message" id="message"></p></article><article class="panel question-panel"><h2 class="section-title">今日の問いかけ</h2><p class="question" id="question"></p></article></div></div><details class="original-dream"><summary>入力した夢を振り返る</summary><p id="originalDream"></p></details><div class="button-row"><a class="button secondary" href="dream.html">もう一度、夢を入力する</a><br><a class="button secondary" href="index.html">Home</a></div></section><section class="panel empty" id="emptyArea" hidden><p>夢の内容が見つかりませんでした。<br>入力画面から、もう一度お試しください。</p><a class="button" href="dream.html">夢を入力する</a></section></main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <span class="footer-item">
+      お問い合わせ <small>（準備中）</small>
+    </span>
+    <a href="terms.html">利用規約</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <p class="copyright">© Chant of Light</p>
+</footer>
+
 <script>
 "use strict";
+
+const menuButton=document.getElementById("menuButton");
+const globalNav=document.getElementById("globalNav");
+
+menuButton.addEventListener("click",function(){
+  const isOpen=globalNav.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded",String(isOpen));
+  menuButton.textContent=isOpen ? "×" : "☰";
+});
+
+globalNav.addEventListener("click",function(event){
+  if(event.target.tagName==="A"){
+    globalNav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded","false");
+    menuButton.textContent="☰";
+  }
+});
+
 const RULES=[
 {words:["虹","希望","光","朝日","晴れ","未来","叶う","願い"],cardId:2,title:"希望",message:"夢の中に現れた光や虹は、心の奥で希望が育っていることを表しているのかもしれません。\n\n今はまだ、答えや形がはっきりしていなくても大丈夫です。信じる気持ちを選ぶことで、疑いの雲は少しずつ晴れていきます。",question:"今日、あなたが信じることを選びたいものは何ですか？"},
 {words:["海","川","水","雨","涙","湖","波","泳ぐ"],cardId:16,title:"癒し",message:"水の夢は、心の中を流れる感情と深く結びついています。\n\n抑えていた思いや疲れが、静かに外へ流れようとしているのかもしれません。無理に元気になろうとせず、今の気持ちをそのまま認めてあげてください。",question:"今のあなたが、やさしく受け止めてあげたい感情は何ですか？"},
