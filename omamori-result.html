@@ -1,1 +1,29 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宇宙から届いた御守り｜光の詠唱</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{min-height:100vh;color:#514737;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;background:linear-gradient(rgba(255,255,255,.22),rgba(255,250,244,.38)),url("home4-bg.png") center top/cover fixed no-repeat}
+.site-header{border-bottom:1px solid rgba(130,105,160,.18);background:rgba(255,252,247,.74);backdrop-filter:blur(8px)}.topbar{width:min(1180px,100%);min-height:66px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}.header-brand,.global-nav a{color:#665478;text-decoration:none}.header-brand{font-size:18px;letter-spacing:.12em}.global-nav{display:flex;gap:20px}.global-nav a{font-size:14px}.menu-button{display:none}
+.page{width:min(760px,100%);margin:auto;padding:44px 16px 66px;text-align:center}.logo{display:block;width:350px;max-width:72vw;height:auto;margin:0 auto 2px}.title{margin:0;color:#66518a;font-size:clamp(31px,6vw,46px);font-weight:normal;letter-spacing:.10em}.subtitle{margin:15px 0 27px;color:#71627d;font-size:17px;line-height:1.9}
+.result-panel{padding:30px 24px;border:1px solid rgba(180,147,106,.30);border-radius:24px;background:rgba(255,253,248,.88);box-shadow:0 15px 40px rgba(76,63,95,.13);backdrop-filter:blur(7px)}.omamori-image{display:block;width:min(390px,100%);height:auto;margin:0 auto;border-radius:16px;box-shadow:0 13px 34px rgba(73,56,91,.18);opacity:0;transform:translateY(14px);transition:1s}.omamori-image.show{opacity:1;transform:none}.gift-text{margin:23px 0 0;color:#675478;font-size:17px;line-height:1.95}.button-row{margin-top:26px}.button{display:inline-flex;align-items:center;justify-content:center;min-width:230px;margin:6px;padding:13px 23px;border:1px solid rgba(186,142,64,.62);border-radius:999px;background:linear-gradient(135deg,#59469b,#7559b1);color:#fff;text-decoration:none;font:inherit;cursor:pointer}.secondary{color:#6e5b7c;background:rgba(255,255,255,.76)}
+.site-footer{padding:30px 20px 26px;border-top:1px solid rgba(180,140,80,.24);background:rgba(246,237,222,.94);text-align:center}.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin-bottom:18px}.footer-links a,.footer-item{color:#78664c;text-decoration:none;font-size:14px}.copyright{margin:0;font-size:13px}
+@media(max-width:850px){body{background-attachment:scroll}.menu-button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(111,86,134,.26);background:rgba(255,255,255,.42);color:#665478;font-size:25px}.global-nav{position:absolute;top:60px;right:12px;width:min(300px,calc(100vw - 24px));display:none;flex-direction:column;padding:10px;border-radius:16px;background:rgba(255,252,247,.98)}.global-nav.open{display:flex}.global-nav a{padding:13px 14px}.page{padding:36px 12px 54px}.button{width:100%;min-width:0}.footer-links{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="topbar"><a class="header-brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" type="button">☰</button><nav class="global-nav" id="globalNav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></div></header>
+<main class="page"><img class="logo" src="logo.png" alt="光の詠唱のシンボル"><h1 class="title">宇宙から、今日のあなたへ。</h1><p class="subtitle">小さな祈りの御守りが届きました。</p><section class="result-panel"><div id="resultArea" hidden><img class="omamori-image" id="omamoriImage" src="" alt="宇宙から届いた御守り"><p class="gift-text">この御守りは、今日のあなたへ贈られたものです。<br>保存したり、印刷して本や手帳に挟んだり、自由な形でお受け取りください。</p><div class="button-row"><button class="button" id="againButton" type="button">もう一度受け取る</button><a class="button secondary" href="index.html">ホームへ戻る</a></div></div><div id="errorArea" hidden>御守りのデータを読み込めませんでした。</div></section></main>
+<footer class="site-footer"><div class="footer-links"><span class="footer-item">お問い合わせ（準備中）</span><a href="terms.html">利用規約</a><a href="privacy.html">プライバシーポリシー</a></div><p class="copyright">© Chant of Light</p></footer>
+<script>
+const menuButton=document.getElementById("menuButton"),globalNav=document.getElementById("globalNav"),resultArea=document.getElementById("resultArea"),errorArea=document.getElementById("errorArea"),omamoriImage=document.getElementById("omamoriImage"),againButton=document.getElementById("againButton");let list=[],current=-1;
+menuButton.addEventListener("click",()=>{const o=globalNav.classList.toggle("open");menuButton.textContent=o?"×":"☰"});
+function draw(){if(!list.length)return;let n=Math.floor(Math.random()*list.length);if(list.length>1&&n===current)n=(n+1)%list.length;current=n;omamoriImage.classList.remove("show");setTimeout(()=>{omamoriImage.src=list[n].image;requestAnimationFrame(()=>omamoriImage.classList.add("show"))},150)}
+fetch("omamori.json",{cache:"no-store"}).then(r=>r.json()).then(data=>{list=data;resultArea.hidden=false;draw()}).catch(()=>errorArea.hidden=false);
+againButton.addEventListener("click",draw);
+</script>
+</body>
+</html>
