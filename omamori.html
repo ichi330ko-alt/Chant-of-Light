@@ -9,7 +9,8 @@
 body{min-height:100vh;color:#fffaf0;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;background:linear-gradient(rgba(8,20,55,.27),rgba(28,30,79,.34)),url("home4-bg.png") center/cover fixed no-repeat}
 .site-header{border-bottom:1px solid rgba(255,239,205,.16);background:rgba(7,24,62,.56);backdrop-filter:blur(9px)}
 .topbar{width:min(1180px,100%);min-height:66px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
-.header-brand,.global-nav a{color:#fff9e9;text-decoration:none}.header-brand{font-size:18px;letter-spacing:.12em}.global-nav{display:flex;gap:20px}.global-nav a{font-size:14px}.menu-button{display:none}
+.header-brand,.global-nav a{color:#fff9e9;text-decoration:none}.header-brand{font-size:18px;letter-spacing:.12em}.global-nav{position:absolute;top:60px;right:12px;z-index:40;width:min(320px,calc(100vw - 24px));display:none;flex-direction:column;padding:10px;border-radius:16px;background:rgba(7,27,70,.97);box-shadow:0 16px 36px rgba(0,0,0,.28)}
+.global-nav.open{display:flex}.global-nav a{font-size:14px}.menu-button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,238,204,.36);background:rgba(11,33,77,.35);color:#fff;font-size:25px;cursor:pointer}
 .page{width:min(760px,100%);margin:auto;padding:52px 18px 70px;text-align:center}
 .logo{display:block;width:350px;max-width:72vw;height:auto;margin:0 auto 2px}
 .title{margin:0;color:#f4d791;font-size:clamp(34px,7vw,52px);font-weight:normal;letter-spacing:.10em}
@@ -19,17 +20,17 @@ body{min-height:100vh;color:#fffaf0;font-family:"Yu Mincho","Hiragino Mincho Pro
 .button{min-width:260px;max-width:100%;margin-top:26px;padding:14px 28px;border:1px solid rgba(255,220,154,.76);border-radius:999px;background:linear-gradient(135deg,#58459b,#7555b3);color:#fff;font:inherit;font-size:17px;cursor:pointer}
 .note{margin:26px auto 0;max-width:570px;font-size:14px;line-height:1.9}
 .loading{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:rgba(13,19,65,.84);opacity:0;visibility:hidden;transition:.35s}.loading.show{opacity:1;visibility:visible}.loading-inner{text-align:center}.loading-light{font-size:62px;color:#ffe7a7}.loading p{font-size:20px}.site-footer{padding:30px 20px 26px;border-top:1px solid rgba(255,255,255,.13);background:rgba(9,22,57,.72);text-align:center}.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin-bottom:18px}.footer-links a,.footer-item{color:#fff4df;text-decoration:none;font-size:14px}.copyright{margin:0;font-size:13px}
-@media(max-width:850px){body{background-attachment:scroll}.menu-button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,238,204,.36);background:rgba(11,33,77,.35);color:#fff;font-size:25px}.global-nav{position:absolute;top:60px;right:12px;width:min(300px,calc(100vw - 24px));display:none;flex-direction:column;padding:10px;border-radius:16px;background:rgba(7,27,70,.97)}.global-nav.open{display:flex}.global-nav a{padding:13px 14px}.page{padding:38px 14px 56px}.button{width:100%;min-width:0}.footer-links{flex-direction:column}}
+@media(max-width:850px){body{background-attachment:scroll}.global-nav{width:min(300px,calc(100vw - 24px))}.global-nav a{padding:13px 14px}.page{padding:38px 14px 56px}.button{width:100%;min-width:0}.footer-links{flex-direction:column}}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="topbar"><a class="header-brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" type="button">☰</button><nav class="global-nav" id="globalNav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></div></header>
+<header class="site-header"><div class="topbar"><a class="header-brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" type="button">☰</button><nav class="global-nav" id="globalNav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="omamori.html">宇宙からのプレゼント</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></div></header>
 <main class="page"><img class="logo" src="logo.png" alt="光の詠唱のシンボル"><h1 class="title">宇宙からのプレゼント</h1><p class="subtitle">宇宙から、今日のあなたへ。<br>小さな祈りの御守りをお贈りします。</p><section class="panel"><div class="gift-mark">✦</div><h2>今日の祈りをお受け取りください</h2><p>心を静かにして、下のボタンを押してください。<br>九つの御守りの中から、今日のあなたへ一つをお届けします。</p><button class="button" id="receiveButton" type="button">宇宙から受け取る</button></section><p class="note">この紋章は、その祈りを象徴する印です。<br>保存したり、印刷して本や手帳に挟んだり、あなたの好きな形でお受け取りください。</p></main>
 <footer class="site-footer"><div class="footer-links"><span class="footer-item">お問い合わせ（準備中）</span><a href="terms.html">利用規約</a><a href="privacy.html">プライバシーポリシー</a></div><p class="copyright">© Chant of Light</p></footer>
 <div class="loading" id="loading"><div class="loading-inner"><div class="loading-light">✦</div><p>宇宙が贈り物を選んでいます…</p></div></div>
 <script>
 const menuButton=document.getElementById("menuButton"),globalNav=document.getElementById("globalNav"),receiveButton=document.getElementById("receiveButton"),loading=document.getElementById("loading");
-menuButton.addEventListener("click",()=>{const o=globalNav.classList.toggle("open");menuButton.textContent=o?"×":"☰"});
+function closeMenu(){globalNav.classList.remove("open");menuButton.textContent="☰";}menuButton.addEventListener("click",e=>{e.stopPropagation();const o=globalNav.classList.toggle("open");menuButton.textContent=o?"×":"☰";});document.addEventListener("click",e=>{if(globalNav.classList.contains("open")&&!globalNav.contains(e.target)&&!menuButton.contains(e.target))closeMenu();});globalNav.addEventListener("click",e=>{if(e.target.tagName==="A")closeMenu();});
 receiveButton.addEventListener("click",()=>{loading.classList.add("show");setTimeout(()=>location.href="omamori-result.html",2200)});
 </script>
 </body>
