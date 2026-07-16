@@ -34,11 +34,21 @@
   white-space:nowrap;
 }
 .global-nav{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:20px;
+  position:absolute;
+  top:68px;
+  right:18px;
+  z-index:40;
+  width:min(320px,calc(100vw - 36px));
+  display:grid;place-items:center;
+  flex-direction:column;
+  gap:0;
+  padding:10px;
+  border:1px solid rgba(111,86,134,.22);
+  border-radius:16px;
+  background:rgba(255,252,247,.98);
+  box-shadow:0 16px 36px rgba(70,52,90,.18);
 }
+.global-nav.open{display:flex}
 .global-nav a{
   position:relative;
   padding:8px 0;
@@ -109,24 +119,11 @@
 }
 @media(max-width:850px){
   .topbar{min-height:62px;padding:8px 14px}
-  .menu-button{display:grid;place-items:center}
   .global-nav{
-    position:absolute;
     top:60px;
     right:12px;
-    z-index:40;
     width:min(300px,calc(100vw - 24px));
-    display:none;
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    padding:10px;
-    border:1px solid rgba(111,86,134,.22);
-    border-radius:16px;
-    background:rgba(255,252,247,.98);
-    box-shadow:0 16px 36px rgba(70,52,90,.18);
   }
-  .global-nav.open{display:flex}
   .global-nav a{
     padding:13px 14px;
     border-bottom:1px solid rgba(100,80,120,.08);
@@ -156,6 +153,7 @@
     <nav class="global-nav" id="globalNav">
       <a href="index.html">ホーム</a>
       <a href="card.html">今日の一枚</a>
+      <a href="omamori.html">宇宙からのプレゼント</a>
       <a href="purification.html">心の浄化</a>
       <a href="forecast.html">心の天気予報</a>
       <a href="dream.html">夢の解き明かし</a>
