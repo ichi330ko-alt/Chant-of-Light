@@ -59,7 +59,7 @@ body{
   right:18px;
   z-index:40;
   width:min(340px,calc(100vw - 36px));
-  display:grid;
+  display:none;
   flex-direction:column;
   align-items:stretch;
   gap:0;
@@ -104,7 +104,8 @@ body{
 }
 
 .menu-button{
-  display:none;
+  display:grid;
+  place-items:center;
   width:44px;
   height:44px;
   padding:0;
@@ -500,9 +501,28 @@ const menuButton =
 const globalNav =
   document.getElementById("globalNav");
 
+function closeMenu(){
+
+  globalNav.classList.remove("open");
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  menuButton.setAttribute(
+    "aria-label",
+    "メニューを開く"
+  );
+
+  menuButton.textContent = "☰";
+}
+
 menuButton.addEventListener(
   "click",
-  function(){
+  function(event){
+
+    event.stopPropagation();
 
     const isOpen =
       globalNav.classList.toggle("open");
@@ -510,6 +530,13 @@ menuButton.addEventListener(
     menuButton.setAttribute(
       "aria-expanded",
       String(isOpen)
+    );
+
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen
+        ? "メニューを閉じる"
+        : "メニューを開く"
     );
 
     menuButton.textContent =
@@ -522,15 +549,31 @@ globalNav.addEventListener(
   function(event){
 
     if(event.target.tagName === "A"){
+      closeMenu();
+    }
+  }
+);
 
-      globalNav.classList.remove("open");
+document.addEventListener(
+  "click",
+  function(event){
 
-      menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-      );
+    if(
+      globalNav.classList.contains("open") &&
+      !globalNav.contains(event.target) &&
+      !menuButton.contains(event.target)
+    ){
+      closeMenu();
+    }
+  }
+);
 
-      menuButton.textContent = "☰";
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+      closeMenu();
     }
   }
 );
