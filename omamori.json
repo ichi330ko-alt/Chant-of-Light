@@ -1,1 +1,38 @@
-
+[
+  {
+    "id": 1,
+    "image": "omamori01.png"
+  },
+  {
+    "id": 2,
+    "image": "omamori02.png"
+  },
+  {
+    "id": 3,
+    "image": "omamori03.png"
+  },
+  {
+    "id": 4,
+    "image": "omamori04.png"
+  },
+  {
+    "id": 5,
+    "image": "omamori05.png"
+  },
+  {
+    "id": 6,
+    "image": "omamori06.png"
+  },
+  {
+    "id": 7,
+    "image": "omamori07.png"
+  },
+  {
+    "id": 8,
+    "image": "omamori08.png"
+  },
+  {
+    "id": 9,
+    "image": "omamori09.png"
+  }
+]
