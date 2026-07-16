@@ -342,9 +342,15 @@ body{
   margin-bottom:18px;
 }
 
+.footer-links a,
 .footer-item{
   color:#78664c;
   font-size:14px;
+  text-decoration:none;
+}
+
+.footer-links a:hover{
+  text-decoration:underline;
 }
 
 .footer-item small{
@@ -460,10 +466,7 @@ body{
     <section class="section">
       <h2 class="section-title">🎴 今日の一枚</h2>
 
-      <div>
-
-        </div>
-          <p>
+      <p>
             心を静かにして、「今日の一枚」を押してください。
             今のあなたに必要なカードが一枚選ばれます。
           </p>
@@ -478,8 +481,6 @@ body{
             正しい受け取り方はありません。
             最初に心へ浮かんだことを、大切にしてください。
           </p>
-        </div>
-      
     </section>
 
     <section class="section">
@@ -589,8 +590,8 @@ body{
 <footer class="site-footer">
   <div class="footer-links">
     <span class="footer-item">お問い合わせ <small>（準備中）</small></span>
-    <span class="footer-item">利用規約 <small>（準備中）</small></span>
-    <span class="footer-item">プライバシーポリシー <small>（準備中）</small></span>
+    <a href="terms.html" class="footer-item">利用規約</a>
+    <a href="privacy.html" class="footer-item">プライバシーポリシー</a>
   </div>
 
   <p class="copyright">© Chant of Light</p>
