@@ -1,1 +1,578 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利用規約｜光の詠唱</title>
 
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+
+body{
+  color:#4f4638;
+  font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  background:linear-gradient(180deg,#f8efe1 0%,#ead9bf 100%);
+}
+
+.site-header{
+  position:relative;
+  z-index:30;
+  width:100%;
+  border-bottom:1px solid rgba(176,132,66,.20);
+  background:rgba(255,250,241,.92);
+  backdrop-filter:blur(8px);
+}
+
+.topbar{
+  width:min(1180px,100%);
+  min-height:66px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.header-brand{
+  color:#826338;
+  font-size:18px;
+  letter-spacing:.12em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.global-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:20px;
+}
+
+.global-nav a{
+  position:relative;
+  padding:8px 0;
+  color:#715a39;
+  font-size:14px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.global-nav a::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:2px;
+  left:0;
+  height:1px;
+  background:#c99b4e;
+  transform:scaleX(0);
+  transition:transform .22s ease;
+}
+
+.global-nav a:hover::after,
+.global-nav a:focus-visible::after{
+  transform:scaleX(1);
+}
+
+.menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  padding:0;
+  border:1px solid rgba(174,133,69,.34);
+  border-radius:50%;
+  background:rgba(255,255,255,.50);
+  color:#775d39;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:54px 20px 50px;
+  text-align:center;
+  background:
+    linear-gradient(rgba(9,26,67,.26),rgba(15,35,82,.36)),
+    url("home4-bg.png") center center/cover no-repeat;
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(760px,100%);
+  margin:0 auto;
+}
+
+.logo{
+  display:block;
+  width:350px;
+  max-width:72vw;
+  height:auto;
+  margin:0 auto 4px;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.18));
+}
+
+.hero h1{
+  margin:0;
+  color:#f2d28c;
+  font-size:clamp(31px,6vw,47px);
+  font-weight:normal;
+  letter-spacing:.12em;
+  text-shadow:0 3px 18px rgba(0,0,0,.28);
+}
+
+.hero p{
+  margin:17px auto 0;
+  max-width:680px;
+  color:#fffaf0;
+  font-size:17px;
+  line-height:2;
+  text-shadow:0 2px 12px rgba(0,0,0,.34);
+}
+
+.content{
+  padding:56px 18px 72px;
+}
+
+.content-inner{
+  width:min(860px,100%);
+  margin:0 auto;
+}
+
+.intro,
+.terms-section{
+  border:1px solid rgba(164,120,56,.24);
+  border-radius:20px;
+  background:rgba(255,253,247,.82);
+}
+
+.intro{
+  margin:0 0 28px;
+  padding:25px 27px;
+  font-size:17px;
+  line-height:2;
+}
+
+.terms-section{
+  margin-top:20px;
+  padding:27px 29px;
+  box-shadow:0 8px 24px rgba(84,58,28,.05);
+}
+
+.terms-section h2{
+  margin:0 0 15px;
+  color:#78582e;
+  font-size:22px;
+  font-weight:normal;
+}
+
+.terms-section p{
+  margin:0;
+  font-size:16px;
+  line-height:2;
+}
+
+.terms-section p+p{
+  margin-top:14px;
+}
+
+.terms-section ul{
+  margin:12px 0 0;
+  padding-left:22px;
+}
+
+.terms-section li{
+  margin-top:8px;
+  font-size:16px;
+  line-height:1.9;
+}
+
+.notice{
+  padding:16px 18px;
+  border-radius:14px;
+  background:#f5ead9;
+  color:#6f5633;
+  font-weight:bold;
+}
+
+.closing{
+  margin-top:36px;
+  padding:31px 27px;
+  border-top:1px solid rgba(165,122,59,.30);
+  border-bottom:1px solid rgba(165,122,59,.30);
+  color:#705735;
+  text-align:center;
+}
+
+.closing p{
+  margin:0;
+  font-size:18px;
+  line-height:2.05;
+}
+
+.closing p+p{
+  margin-top:17px;
+}
+
+.date{
+  margin-top:30px;
+  color:#806d54;
+  font-size:14px;
+  text-align:right;
+}
+
+.button-row{
+  margin-top:34px;
+  text-align:center;
+}
+
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:220px;
+  padding:13px 24px;
+  border:1px solid #b68b48;
+  border-radius:999px;
+  background:linear-gradient(135deg,#244f9a,#4e73b8);
+  color:#fff;
+  text-decoration:none;
+}
+
+.site-footer{
+  padding:31px 20px 27px;
+  border-top:1px solid rgba(180,140,80,.28);
+  background:#f6edde;
+  color:#6e604d;
+  text-align:center;
+}
+
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px 26px;
+  margin-bottom:18px;
+}
+
+.footer-links a,
+.footer-item{
+  color:#78664c;
+  font-size:14px;
+  text-decoration:none;
+}
+
+.footer-links a:hover{
+  text-decoration:underline;
+}
+
+.footer-item small{
+  color:#9a8971;
+}
+
+.copyright{
+  margin:0;
+  font-size:13px;
+  letter-spacing:.07em;
+}
+
+@media(max-width:850px){
+  .topbar{min-height:62px;padding:8px 14px}
+  .menu-button{display:grid;place-items:center}
+
+  .global-nav{
+    position:absolute;
+    top:60px;
+    right:12px;
+    z-index:40;
+    width:min(300px,calc(100vw - 24px));
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px;
+    border:1px solid rgba(178,137,72,.28);
+    border-radius:16px;
+    background:rgba(255,251,242,.98);
+    box-shadow:0 16px 36px rgba(93,68,34,.18);
+  }
+
+  .global-nav.open{display:flex}
+
+  .global-nav a{
+    padding:13px 14px;
+    border-bottom:1px solid rgba(136,104,61,.09);
+    text-align:left;
+  }
+
+  .global-nav a:last-child{border-bottom:0}
+  .global-nav a::after{display:none}
+}
+
+@media(max-width:700px){
+  .hero{padding:42px 16px 40px}
+  .logo{width:350px;max-width:78vw}
+  .hero p{font-size:16px;text-align:left}
+  .content{padding:42px 13px 58px}
+  .intro{padding:22px 19px;font-size:17px}
+  .terms-section{padding:23px 19px}
+  .terms-section h2{font-size:21px}
+  .terms-section p,
+  .terms-section li{font-size:17px}
+  .closing{padding:28px 18px;text-align:left}
+  .closing p{font-size:18px}
+  .button{width:100%;min-width:0}
+  .footer-links{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="topbar">
+    <a class="header-brand" href="index.html">光の詠唱</a>
+
+    <button
+      class="menu-button"
+      id="menuButton"
+      type="button"
+      aria-label="メニューを開く"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav class="global-nav" id="globalNav">
+      <a href="index.html">ホーム</a>
+      <a href="card.html">今日の一枚</a>
+      <a href="purification.html">心の浄化</a>
+      <a href="forecast.html">心の天気予報</a>
+      <a href="dream.html">夢の解き明かし</a>
+      <a href="guide.html">はじめての方へ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <img class="logo" src="logo.png" alt="光の詠唱のシンボル">
+    <h1>利用規約</h1>
+    <p>
+      光の詠唱を安心してお楽しみいただくための、
+      基本的なお約束をまとめています。
+    </p>
+  </div>
+</section>
+
+<main class="content">
+  <div class="content-inner">
+
+    <div class="intro">
+      光の詠唱をご利用いただき、ありがとうございます。
+      本利用規約は、本サイトをご利用いただく際の基本的なルールを定めたものです。
+      内容をご確認のうえ、ご自身のペースでお楽しみください。
+    </div>
+
+    <section class="terms-section">
+      <h2>第1条　サービスについて</h2>
+      <p>
+        光の詠唱は、カード、心の浄化、心の天気予報、
+        夢の解き明かしなどを通して、
+        自分自身の心と静かに向き合うためのセルフケアコンテンツです。
+      </p>
+      <p>
+        本サイトは、医療、心理療法、法律、投資、宗教上の指導、
+        その他の専門的な判断を提供するものではありません。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第2条　ご利用について</h2>
+      <p>
+        本サイトは、原則として無料でご利用いただけます。
+        「こうでなくてはならない」という決まりはありません。
+        ご自身の気持ちに合うコンテンツを、無理のない範囲でお楽しみください。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第3条　結果およびメッセージについて</h2>
+      <p>
+        カード、心の天気予報、夢の解き明かし等で表示される内容は、
+        未来や出来事を保証するものではありません。
+      </p>
+      <p>
+        日々の気づきや、自分の心と向き合うための一つのきっかけとして
+        お受け取りください。
+        重要な決断は、必要に応じて専門家へ相談したうえで、
+        ご自身の責任において行ってください。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第4条　禁止事項</h2>
+      <p>
+        本サイトを安心して利用できる場所として保つため、
+        次の行為はご遠慮ください。
+      </p>
+
+      <ul>
+        <li>本サイトの運営や表示を妨げる行為</li>
+        <li>不正アクセス、改ざん、解析を目的とした行為</li>
+        <li>第三者または運営者の権利や信用を侵害する行為</li>
+        <li>法令または公序良俗に反する行為</li>
+        <li>本サイトのコンテンツを無断で転載、複製、配布、販売する行為</li>
+        <li>営利目的またはAI学習目的で、文章・画像等を無断利用する行為</li>
+        <li>その他、運営者が不適切と判断する行為</li>
+      </ul>
+    </section>
+
+    <section class="terms-section">
+      <h2>第5条　著作権および知的財産権について</h2>
+
+      <p class="notice">
+        本サイトの文章、画像、オラクルカード、詠唱、ロゴ、
+        デザイン等を、許可なく転載・複製・配布・販売・加工・公開することはできません。
+      </p>
+
+      <p>
+        本サイトに掲載されている文章、画像、オラクルカード、詠唱、
+        ロゴ、デザインその他の著作物に関する権利は、
+        運営者または正当な権利を有する者に帰属します。
+      </p>
+
+      <p>
+        AIの学習データ、画像生成モデルの学習・追加学習、
+        データセット作成、類似作品の自動生成等を目的とした利用も、
+        事前の許可なく行わないでください。
+      </p>
+
+      <p>
+        個人的にサイトを紹介していただくことは歓迎しています。
+        引用が認められる範囲でご紹介いただく場合は、
+        「光の詠唱」からの引用であることが分かるよう、
+        出典をご記載ください。
+      </p>
+
+      <p>
+        大切に育ててきた作品です。
+        一人でも多くの方へ届くことを願っていますので、
+        作品を大切に扱っていただけましたら幸いです。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第6条　免責事項</h2>
+      <p>
+        本サイトでは、掲載内容や各機能について、
+        できる限り丁寧で正確な運営に努めますが、
+        完全性、正確性、継続性、特定の目的への適合性を保証するものではありません。
+      </p>
+      <p>
+        本サイトの利用または利用できなかったことによって生じた損害については、
+        運営者に故意または重大な過失がある場合その他法令上責任を負う場合を除き、
+        責任を負いかねます。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第7条　外部サイトおよび外部サービスについて</h2>
+      <p>
+        本サイトから外部サイトへ移動するリンクが設置される場合があります。
+        外部サイトの内容やサービスについては、
+        各運営者の利用規約およびプライバシーポリシーをご確認ください。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第8条　サービス内容の変更・停止について</h2>
+      <p>
+        本サイトは、より良い内容へ育てていくため、
+        予告なく機能や文章、デザインを追加・変更する場合があります。
+      </p>
+      <p>
+        保守、障害、その他やむを得ない事情により、
+        一時的に公開を停止する場合があります。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第9条　利用規約の変更について</h2>
+      <p>
+        本サイトの機能追加や運営方法の変更、法令等の変更に応じて、
+        本規約を改定する場合があります。
+      </p>
+      <p>
+        改定後の規約は、本ページへ掲載した時点から適用されます。
+      </p>
+    </section>
+
+    <section class="terms-section">
+      <h2>第10条　準拠法および協議について</h2>
+      <p>
+        本規約は、日本法に準拠します。
+      </p>
+      <p>
+        本サイトの利用に関して問題が生じた場合は、
+        互いに誠意をもって話し合い、解決を目指すものとします。
+      </p>
+    </section>
+
+    <section class="closing">
+      <p>
+        光の詠唱は、正しい答えを押しつける場所ではなく、
+        心に寄り添う、小さな祈りの場所でありたいと考えています。
+      </p>
+
+      <p>
+        この場所が、訪れてくださる皆さまにとって、
+        安心して過ごせる場所であり続けられるよう、
+        ご理解とご協力をお願いいたします。
+      </p>
+    </section>
+
+    <p class="date">制定日：2026年7月16日</p>
+
+    <div class="button-row">
+      <a class="button" href="index.html">ホームへ戻る</a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <span class="footer-item">お問い合わせ <small>（準備中）</small></span>
+    <a href="terms.html">利用規約</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+
+  <p class="copyright">© Chant of Light</p>
+</footer>
+
+<script>
+"use strict";
+
+const menuButton=document.getElementById("menuButton");
+const globalNav=document.getElementById("globalNav");
+
+menuButton.addEventListener("click",function(){
+  const isOpen=globalNav.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded",String(isOpen));
+  menuButton.textContent=isOpen ? "×" : "☰";
+});
+
+globalNav.addEventListener("click",function(event){
+  if(event.target.tagName==="A"){
+    globalNav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded","false");
+    menuButton.textContent="☰";
+  }
+});
+</script>
+
+</body>
+</html>
