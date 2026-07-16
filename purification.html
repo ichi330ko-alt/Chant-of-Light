@@ -63,6 +63,12 @@ body.released{
     );
 }
 
+
+/* =========================
+   上部メニュー
+========================= */
+.site-header{position:relative;z-index:30;width:100%;margin-bottom:10px}.topbar{width:min(1180px,100%);min-height:64px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:24px}.header-brand{color:#8c6a36;font-size:18px;letter-spacing:.12em;text-decoration:none;white-space:nowrap}.global-nav{display:flex;align-items:center;justify-content:flex-end;gap:20px}.global-nav a{position:relative;padding:8px 0;color:#755d3b;font-size:14px;text-decoration:none;white-space:nowrap}.global-nav a::after{content:"";position:absolute;right:0;bottom:2px;left:0;height:1px;background:#c99b4e;transform:scaleX(0);transform-origin:center;transition:transform .22s ease}.global-nav a:hover::after,.global-nav a:focus-visible::after{transform:scaleX(1)}.menu-button{display:none;width:44px;height:44px;padding:0;border:1px solid rgba(174,133,69,.34);border-radius:50%;background:rgba(255,255,255,.45);color:#775d39;font-size:25px;line-height:1;cursor:pointer}.logo{display:block;width:350px;max-width:72vw;height:auto;margin:0 auto 6px;filter:drop-shadow(0 8px 22px rgba(113,82,39,.14))}.droplet-decoration{margin:0 auto 12px;color:#c89c52;font-size:34px;line-height:1;opacity:.88;text-shadow:0 0 15px rgba(218,176,91,.28)}.site-footer{position:relative;z-index:3;margin-top:28px;padding:30px 20px 26px;border-top:1px solid rgba(180,140,80,.28);color:#6e604d;text-align:center}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-bottom:18px}.footer-item{color:#78664c;font-size:14px}.footer-item small{color:#9a8971}.copyright{margin:0;font-size:13px;letter-spacing:.07em}
+
 .page{
   position:relative;
   z-index:2;
@@ -518,8 +524,13 @@ textarea::placeholder{
   letter-spacing:.10em;
 }
 
+
+@media(max-width:850px){.topbar{min-height:62px;padding:8px 12px}.menu-button{display:grid;place-items:center}.global-nav{position:absolute;top:58px;right:12px;z-index:40;width:min(300px,calc(100vw - 24px));display:none;flex-direction:column;align-items:stretch;gap:0;padding:10px;border:1px solid rgba(178,137,72,.28);border-radius:16px;background:rgba(255,251,242,.97);box-shadow:0 16px 36px rgba(93,68,34,.18);backdrop-filter:blur(10px)}.global-nav.open{display:flex}.global-nav a{padding:13px 14px;border-bottom:1px solid rgba(136,104,61,.09);text-align:left}.global-nav a:last-child{border-bottom:0}.global-nav a::after{display:none}}
 /* スマホ */
 @media(max-width:520px){
+
+  .logo{width:350px;max-width:78vw}
+  .footer-links{flex-direction:column;gap:10px}
 
   body{
     padding:22px 8px 34px;
@@ -574,9 +585,15 @@ textarea::placeholder{
 
 <body>
 
+<header class="site-header"><div class="topbar"><a class="header-brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="globalNav">☰</button><nav class="global-nav" id="globalNav" aria-label="上部メニュー"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></div></header>
+
+
 <div class="heavenly-light"></div>
 
 <main class="page">
+
+  <img class="logo" src="logo.png" alt="光の詠唱のシンボル">
+  <div class="droplet-decoration" aria-hidden="true">◌</div>
 
   <h1 class="page-title">
     心の浄化
@@ -609,11 +626,8 @@ textarea::placeholder{
           天へ還す
         </button>
 
-        <a
-          class="button secondary"
-          href="index.html">
-          Home
-        </a>
+        <a class="button secondary" href="card.html">今日の一枚へ</a>
+        <a class="button secondary" href="index.html">Home</a>
 
       </div>
 
@@ -663,7 +677,14 @@ textarea::placeholder{
 
 </main>
 
+<footer class="site-footer"><div class="footer-links"><span class="footer-item">お問い合わせ <small>（準備中）</small></span><span class="footer-item">利用規約 <small>（準備中）</small></span><span class="footer-item">プライバシーポリシー <small>（準備中）</small></span></div><p class="copyright">© Chant of Light</p></footer>
+
 <script>
+const menuButton=document.getElementById("menuButton");
+const globalNav=document.getElementById("globalNav");
+menuButton.addEventListener("click",function(){const isOpen=globalNav.classList.toggle("open");menuButton.setAttribute("aria-expanded",String(isOpen));menuButton.textContent=isOpen?"×":"☰";});
+globalNav.addEventListener("click",function(event){if(event.target.tagName==="A"){globalNav.classList.remove("open");menuButton.setAttribute("aria-expanded","false");menuButton.textContent="☰";}});
+
 const thoughts =
   document.getElementById("thoughts");
 
