@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>はじめての方へ｜光の詠唱</title>
 
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#071b48">
+
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
@@ -301,6 +306,67 @@ body{
   line-height:1.85;
 }
 
+/* ホーム画面への追加案内 */
+.home-add-guide{
+  margin-top:24px;
+  padding:30px;
+  border:1px solid rgba(164,120,56,.25);
+  border-radius:22px;
+  background:rgba(255,253,247,.84);
+  box-shadow:0 10px 28px rgba(84,58,28,.06);
+}
+
+.home-add-icon{
+  display:block;
+  width:132px;
+  max-width:42vw;
+  height:auto;
+  margin:0 auto 20px;
+  border-radius:28px;
+  box-shadow:0 12px 28px rgba(35,47,91,.18);
+}
+
+.device-guides{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin-top:22px;
+}
+
+.device-guide{
+  padding:20px;
+  border:1px solid rgba(165,123,61,.20);
+  border-radius:15px;
+  background:rgba(250,244,233,.78);
+}
+
+.device-guide h3{
+  margin:0 0 12px;
+  color:#7c5c32;
+  font-size:19px;
+  font-weight:normal;
+}
+
+.device-guide ol{
+  margin:0;
+  padding-left:1.4em;
+}
+
+.device-guide li{
+  margin-top:8px;
+  font-size:16px;
+  line-height:1.8;
+}
+
+.home-add-note{
+  margin-top:20px!important;
+  padding:16px 18px;
+  border-radius:14px;
+  background:#f5ead9;
+  color:#6f5633;
+  text-align:center;
+}
+
 /* 締め */
 .closing{
   margin-top:42px;
@@ -406,6 +472,10 @@ body{
   .card-image{max-width:330px}
   .weather-types{grid-template-columns:1fr}
   .weather-box p{font-size:17px}
+  .home-add-guide{padding:25px 20px}
+  .device-guides{grid-template-columns:1fr}
+  .device-guide li{font-size:17px}
+  .home-add-note{text-align:left}
   .closing{padding:30px 18px}
   .closing p{font-size:18px;text-align:left}
   .button{width:100%;min-width:0}
@@ -558,6 +628,45 @@ body{
         現在はシンプルなキーワード判定を採用しています。
         今後は、夢全体の流れや感情まで、
         より詳しく読み解ける機能を追加する予定です。
+      </p>
+    </section>
+
+    <section class="home-add-guide">
+      <h2 class="section-title">📱 光の詠唱を、いつもそばに。</h2>
+
+      <img
+        class="home-add-icon"
+        src="icon.png"
+        alt="ホーム画面に表示される光の詠唱のアイコン">
+
+      <p>
+        「光の詠唱」は、スマートフォンのホーム画面に追加すると、
+        アプリのようにいつでもすぐ開くことができます。
+      </p>
+
+      <div class="device-guides">
+        <article class="device-guide">
+          <h3>Androidの場合</h3>
+          <ol>
+            <li>ブラウザのメニュー（︙または≡）を開きます。</li>
+            <li>「ホーム画面に追加」または「ページを追加」を選びます。</li>
+            <li>「追加」を押します。</li>
+          </ol>
+        </article>
+
+        <article class="device-guide">
+          <h3>iPhoneの場合</h3>
+          <ol>
+            <li>Safariで「光の詠唱」を開きます。</li>
+            <li>共有ボタン（□から上向きの矢印）を押します。</li>
+            <li>「ホーム画面に追加」を選び、「追加」を押します。</li>
+          </ol>
+        </article>
+      </div>
+
+      <p class="home-add-note">
+        ホーム画面に「光の詠唱」のアイコンが表示され、
+        いつでも祈りの時間へ戻ることができます。
       </p>
     </section>
 
