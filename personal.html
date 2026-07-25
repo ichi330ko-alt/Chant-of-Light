@@ -346,8 +346,8 @@ input:focus{
   <section class="panel">
 
     <p class="intro">
-      生年月日と出生時間を入力してください。
-      入力内容は保存されず、このページを閉じると消去されます。
+      「宇宙の心の天気予報」で保存した生年月日は、自動で入力されます。
+      出生時間と「出生時間がわからない」の設定も、このブラウザに保存されます。
     </p>
 
     <form id="personalForm">
@@ -394,7 +394,8 @@ input:focus{
       <p class="notice">
         簡易版は日本国内で生まれた方を対象に、日本時間で計算します。
         出生時間がわからない場合は正午で計算するため、月の位置などに多少の幅が生じます。
-        出生地は将来の詳細版に備えた入力項目で、現在はハウスやアセンダントの計算には使用していません。
+        出生地は将来の詳細版に備えた入力項目で、現在はハウスやアセンダントの計算には使用していません。<br><br>
+        ※ 保存内容はこのブラウザの中だけに記録され、サイト管理者へ送信されることはありません。
       </p>
 
       <div class="actions">
@@ -760,12 +761,149 @@ const cardLinkEl =
 const detailsListEl =
   document.getElementById("detailsList");
 
+const BIRTH_STORAGE_KEY =
+  "chantOfLightBirthDate";
+
+const PERSONAL_STORAGE_KEY =
+  "chantOfLightPersonalSettings";
+
+function isValidDateParts(year,month,day){
+  const date = new Date(year,month - 1,day);
+
+  return (
+    Number.isInteger(year) &&
+    Number.isInteger(month) &&
+    Number.isInteger(day) &&
+    year >= 1900 &&
+    year <= 2100 &&
+    month >= 1 &&
+    month <= 12 &&
+    day >= 1 &&
+    day <= 31 &&
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}
+
+function formatDateInput(year,month,day){
+  return [
+    String(year).padStart(4,"0"),
+    String(month).padStart(2,"0"),
+    String(day).padStart(2,"0")
+  ].join("-");
+}
+
+function loadSavedBirthDate(){
+  try{
+    const raw =
+      localStorage.getItem(BIRTH_STORAGE_KEY);
+
+    if(!raw){
+      return null;
+    }
+
+    const data = JSON.parse(raw);
+    const year = Number(data.year);
+    const month = Number(data.month);
+    const day = Number(data.day);
+
+    if(!isValidDateParts(year,month,day)){
+      return null;
+    }
+
+    return {year,month,day};
+  }catch(error){
+    return null;
+  }
+}
+
+function loadPersonalSettings(){
+  try{
+    const raw =
+      localStorage.getItem(PERSONAL_STORAGE_KEY);
+
+    if(!raw){
+      return null;
+    }
+
+    const data = JSON.parse(raw);
+
+    return {
+      birthTime:
+        typeof data.birthTime === "string"
+          ? data.birthTime
+          : "12:00",
+
+      unknownTime:
+        Boolean(data.unknownTime)
+    };
+  }catch(error){
+    return null;
+  }
+}
+
+function savePersonalSettings(){
+  try{
+    localStorage.setItem(
+      PERSONAL_STORAGE_KEY,
+      JSON.stringify({
+        birthTime:
+          birthTimeEl.value || "12:00",
+
+        unknownTime:
+          unknownTimeEl.checked
+      })
+    );
+  }catch(error){
+    /* 保存できないブラウザでも予報自体は利用できます。 */
+  }
+}
+
+function initializeSavedInputs(){
+  const birthData =
+    loadSavedBirthDate();
+
+  if(birthData){
+    birthDateEl.value =
+      formatDateInput(
+        birthData.year,
+        birthData.month,
+        birthData.day
+      );
+  }
+
+  const personalSettings =
+    loadPersonalSettings();
+
+  if(personalSettings){
+    unknownTimeEl.checked =
+      personalSettings.unknownTime;
+
+    birthTimeEl.value =
+      personalSettings.birthTime || "12:00";
+
+    birthTimeEl.disabled =
+      personalSettings.unknownTime;
+
+    if(personalSettings.unknownTime){
+      birthTimeEl.value = "12:00";
+    }
+  }
+}
+
 unknownTimeEl.addEventListener("change",function(){
   birthTimeEl.disabled = this.checked;
 
   if(this.checked){
     birthTimeEl.value = "12:00";
   }
+
+  savePersonalSettings();
+});
+
+birthTimeEl.addEventListener("change",function(){
+  savePersonalSettings();
 });
 
 function normalizeAngle(value){
@@ -1187,6 +1325,8 @@ function calculatePersonalForecast(
   };
 }
 
+initializeSavedInputs();
+
 form.addEventListener("submit",function(event){
   event.preventDefault();
 
@@ -1231,6 +1371,8 @@ form.addEventListener("submit",function(event){
         birthDateEl.value,
         timeText
       );
+
+    savePersonalSettings();
 
     const forecastBase =
       getForecastBase();
