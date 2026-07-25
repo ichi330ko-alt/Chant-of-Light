@@ -53,7 +53,7 @@ body{
   line-height:1.9;
 }
 
-.panel{
+.forecast-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:min(520px,100%);margin:0 auto 24px;padding:7px;border:1px solid rgba(255,235,199,.28);border-radius:999px;background:rgba(8,27,68,.42);backdrop-filter:blur(8px)}.forecast-tab{display:flex;justify-content:center;align-items:center;min-height:46px;padding:10px 16px;border-radius:999px;text-decoration:none;color:#f8eedc;font-size:14px}.forecast-tab.active{background:#f4e7cc;color:#6c512f;box-shadow:0 8px 22px rgba(0,0,0,.16);pointer-events:none}.panel{
   padding:38px clamp(20px,5vw,48px);
   border:1px solid rgba(189,147,76,.45);
   border-radius:22px;
@@ -338,6 +338,10 @@ input:focus{
     生まれた日の星と今日の宇宙を重ねて、<br>
     あなただけの心の空模様をお届けします。
   </p>
+  <nav class="forecast-switch" aria-label="心の天気予報の切り替え">
+    <a class="forecast-tab" href="forecast.html">🌎 宇宙全体</a>
+    <a class="forecast-tab active" href="personal.html" aria-current="page">👤 あなた個人</a>
+  </nav>
 
   <p style="margin:-12px auto 24px;max-width:650px;color:#f4ecdd;font-size:14px;line-height:1.8;">
     世界共通の「宇宙の心の天気予報」とは異なる結果になることがあります。
