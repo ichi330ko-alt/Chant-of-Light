@@ -350,8 +350,8 @@ input:focus{
   <section class="panel">
 
     <p class="intro">
-      「宇宙の心の天気予報」で保存した生年月日は、自動で入力されます。
-      出生時間と「出生時間がわからない」の設定も、このブラウザに保存されます。
+      一度入力した生年月日・出生時間・出生地は、このブラウザに保存されます。
+      次回からは保存された情報が自動で入力されます。
     </p>
 
     <form id="personalForm">
@@ -407,7 +407,7 @@ input:focus{
           class="button"
           id="submitButton"
           type="submit">
-          今日の予報を見る
+          今日の個人予報を見る
         </button>
       </div>
 
@@ -732,6 +732,9 @@ const birthTimeEl =
 const unknownTimeEl =
   document.getElementById("unknownTime");
 
+const birthPlaceEl =
+  document.getElementById("birthPlace");
+
 const submitButton =
   document.getElementById("submitButton");
 
@@ -834,13 +837,23 @@ function loadPersonalSettings(){
     const data = JSON.parse(raw);
 
     return {
+      birthDate:
+        typeof data.birthDate === "string"
+          ? data.birthDate
+          : "",
+
       birthTime:
         typeof data.birthTime === "string"
           ? data.birthTime
           : "12:00",
 
       unknownTime:
-        Boolean(data.unknownTime)
+        Boolean(data.unknownTime),
+
+      birthPlace:
+        typeof data.birthPlace === "string"
+          ? data.birthPlace
+          : ""
     };
   }catch(error){
     return null;
@@ -849,14 +862,36 @@ function loadPersonalSettings(){
 
 function savePersonalSettings(){
   try{
+    const dateParts =
+      birthDateEl.value
+        ? birthDateEl.value.split("-").map(Number)
+        : [];
+
+    if(dateParts.length === 3){
+      localStorage.setItem(
+        BIRTH_STORAGE_KEY,
+        JSON.stringify({
+          year:dateParts[0],
+          month:dateParts[1],
+          day:dateParts[2]
+        })
+      );
+    }
+
     localStorage.setItem(
       PERSONAL_STORAGE_KEY,
       JSON.stringify({
+        birthDate:
+          birthDateEl.value || "",
+
         birthTime:
           birthTimeEl.value || "12:00",
 
         unknownTime:
-          unknownTimeEl.checked
+          unknownTimeEl.checked,
+
+        birthPlace:
+          birthPlaceEl.value.trim()
       })
     );
   }catch(error){
@@ -865,6 +900,34 @@ function savePersonalSettings(){
 }
 
 function initializeSavedInputs(){
+  const personalSettings =
+    loadPersonalSettings();
+
+  if(personalSettings){
+    if(personalSettings.birthDate){
+      birthDateEl.value =
+        personalSettings.birthDate;
+    }
+
+    unknownTimeEl.checked =
+      personalSettings.unknownTime;
+
+    birthTimeEl.value =
+      personalSettings.birthTime || "12:00";
+
+    birthPlaceEl.value =
+      personalSettings.birthPlace || "";
+
+    birthTimeEl.disabled =
+      personalSettings.unknownTime;
+
+    if(personalSettings.unknownTime){
+      birthTimeEl.value = "12:00";
+    }
+
+    return;
+  }
+
   const birthData =
     loadSavedBirthDate();
 
@@ -875,24 +938,6 @@ function initializeSavedInputs(){
         birthData.month,
         birthData.day
       );
-  }
-
-  const personalSettings =
-    loadPersonalSettings();
-
-  if(personalSettings){
-    unknownTimeEl.checked =
-      personalSettings.unknownTime;
-
-    birthTimeEl.value =
-      personalSettings.birthTime || "12:00";
-
-    birthTimeEl.disabled =
-      personalSettings.unknownTime;
-
-    if(personalSettings.unknownTime){
-      birthTimeEl.value = "12:00";
-    }
   }
 }
 
@@ -907,6 +952,14 @@ unknownTimeEl.addEventListener("change",function(){
 });
 
 birthTimeEl.addEventListener("change",function(){
+  savePersonalSettings();
+});
+
+birthDateEl.addEventListener("change",function(){
+  savePersonalSettings();
+});
+
+birthPlaceEl.addEventListener("change",function(){
   savePersonalSettings();
 });
 
@@ -1466,7 +1519,7 @@ form.addEventListener("submit",function(event){
   }finally{
     submitButton.disabled = false;
     submitButton.textContent =
-      "今日の予報を見る";
+      "今日の個人予報を見る";
   }
 });
 </script>
