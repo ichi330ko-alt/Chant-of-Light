@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>宇宙の心の天気予報｜光の詠唱</title>
+<title>宇宙全体の心の天気予報｜光の詠唱</title>
 
 <style>
 *{
@@ -220,6 +220,48 @@ body{
   margin:0 0 28px;
   color:#f4ecdd;
   line-height:1.8;
+}
+
+.forecast-switch{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  width:min(520px,100%);
+  margin:0 auto 24px;
+  padding:7px;
+  border:1px solid rgba(255,235,199,.28);
+  border-radius:999px;
+  background:rgba(8,27,68,.42);
+  backdrop-filter:blur(8px);
+}
+
+.forecast-tab{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:10px 16px;
+  border-radius:999px;
+  color:#f8eedc;
+  font-size:14px;
+  text-decoration:none;
+  letter-spacing:.04em;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+.forecast-tab:hover,
+.forecast-tab:focus-visible{
+  transform:translateY(-1px);
+}
+
+.forecast-tab.active{
+  background:#f4e7cc;
+  color:#6c512f;
+  box-shadow:0 8px 22px rgba(0,0,0,.16);
+  pointer-events:none;
 }
 
 .forecast{
@@ -548,6 +590,17 @@ body{
     padding:0 0 36px;
   }
 
+  .forecast-switch{
+    gap:6px;
+    padding:6px;
+  }
+
+  .forecast-tab{
+    min-height:44px;
+    padding:9px 10px;
+    font-size:13px;
+  }
+
   .forecast{
     padding:36px 24px;
   }
@@ -639,13 +692,32 @@ body{
   style="padding:38px 14px 0;">
 
   <h1 class="title">
-    宇宙の心の天気予報
+    宇宙全体の心の天気予報
   </h1>
 
   <p class="subtitle">
     今日の宇宙全体の流れを、<br>
     世界共通の心の天気としてお届けします。
   </p>
+
+  <nav
+    class="forecast-switch"
+    aria-label="心の天気予報の切り替え">
+
+    <a
+      class="forecast-tab active"
+      href="forecast.html"
+      aria-current="page">
+      🌎 宇宙全体
+    </a>
+
+    <a
+      class="forecast-tab"
+      href="personal.html">
+      👤 あなた個人
+    </a>
+
+  </nav>
 
   <section class="forecast">
 
