@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>夢の解き明かし｜光の詠唱</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}body{min-height:100vh;color:#fffaf2;font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;background:linear-gradient(rgba(8,18,62,.22),rgba(44,35,93,.28)),url("dream.png") center center/cover fixed no-repeat}.topbar{width:min(1180px,100%);margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between}.brand{color:#fff6dc;font-size:18px;letter-spacing:.12em;text-decoration:none;text-shadow:0 2px 10px rgba(0,0,0,.28)}.menu-button{display:grid;place-items:center;border:0;background:transparent;color:#fff;font-size:27px;cursor:pointer}.nav{position:absolute;top:68px;right:20px;z-index:20;width:min(320px,calc(100vw - 40px));display:none;flex-direction:column;gap:0;padding:10px;border:1px solid rgba(255,235,203,.40);border-radius:16px;background:rgba(24,27,77,.96);box-shadow:0 16px 36px rgba(0,0,0,.28);backdrop-filter:blur(10px)}
@@ -45,23 +46,41 @@
 </style>
 </head>
 <body>
-<header class="topbar"><a class="brand" href="index.html">光の詠唱</a><button class="menu-button" id="menuButton" type="button" aria-label="メニューを開く">☰</button><nav class="nav" id="nav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="omamori.html">宇宙からのプレゼント</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></header>
-<main class="page"><div class="moon" aria-hidden="true">☾</div><h1 class="title">夢の解き明かし</h1><p class="subtitle">夢に現れた象徴や感情を、分析心理学を参考に読み解き、<br>「光の詠唱」からの導きと一枚のカードをお届けします。</p><section class="panel"><h2>どんな夢でしたか？</h2><p class="help">断片的でも大丈夫です。登場した人、場所、色、特に残っている気持ちなどを書いてください。</p><form id="dreamForm"><div class="textarea-wrap"><textarea id="dreamText" maxlength="1000" placeholder="例：海辺を歩いていたら大きな虹が現れました。なぜか懐かしく、安心した気持ちになりました。" required></textarea><span class="counter" id="counter">0 / 1000</span></div><button class="button" type="submit">✦ 夢を読み解く</button><p class="error" id="error" hidden></p></form></section><p class="note">本解析は分析心理学（C.G.ユングの理論）を参考に、<br>「光の詠唱」の世界観をもとに構成しています。<br>夢は未来を決めるものではなく、心の状態を映すひとつの手がかりです。</p></main>
-
+<header class="topbar"><a class="brand" href="index.html">光の詠唱</a><button aria-label="メニューを開く" class="menu-button" id="menuButton" type="button">☰</button><nav class="nav" id="nav"><a href="index.html">ホーム</a><a href="card.html">今日の一枚</a><a href="omamori.html">宇宙からのプレゼント</a><a href="purification.html">心の浄化</a><a href="forecast.html">心の天気予報</a><a href="dream.html">夢の解き明かし</a><a href="guide.html">はじめての方へ</a></nav></header>
+<main class="page">
+<div aria-hidden="true" class="moon">☾</div>
+<h1 class="title">夢の解き明かし</h1>
+<p class="subtitle">
+現在、より丁寧に夢を読み解けるようリニューアル制作中です。
+</p>
+<section class="panel">
+<h2>現在リニューアル制作中です</h2>
+<p class="help" style="font-size:16px;line-height:2;">
+夢は、一つの言葉だけでは読み解けない、とても奥深い心からのメッセージです。<br/><br/>
+現在「光の詠唱」では、分析心理学（C.G.ユング）の考え方を参考にしながら、
+夢に現れる象徴を、より丁寧に読み解けるよう内容を全面的に見直しています。<br/><br/>
+完成まで、もうしばらくお待ちください。<br/>
+どうぞ楽しみにお待ちいただけたら嬉しいです。
+</p>
+<div style="text-align:center;margin-top:28px;">
+<div style="font-size:30px;color:#6d5aa8;letter-spacing:.15em;">Coming Soon...</div>
+</div>
+</section>
+<p class="note">
+本コンテンツは、より精度の高い夢の象徴解析を目指して制作を進めています。
+</p>
+</main>
 <footer class="site-footer">
-  <div class="footer-links">
-    <span class="footer-item">
+<div class="footer-links">
+<span class="footer-item">
       お問い合わせ <small>（準備中）</small>
-    </span>
-    <a href="terms.html">利用規約</a>
-    <a href="privacy.html">プライバシーポリシー</a>
-  </div>
-  <p class="copyright">© Chant of Light</p>
+</span>
+<a href="terms.html">利用規約</a>
+<a href="privacy.html">プライバシーポリシー</a>
+</div>
+<p class="copyright">© Chant of Light</p>
 </footer>
 
-<div class="loading" id="loading" aria-live="polite"><div class="loading-inner"><div class="loading-moon">☾</div><p>夢を読み解いています<span class="dots"></span></p></div></div>
-<script>
-"use strict";const form=document.getElementById("dreamForm"),dreamText=document.getElementById("dreamText"),counter=document.getElementById("counter"),error=document.getElementById("error"),loading=document.getElementById("loading"),menuButton=document.getElementById("menuButton"),nav=document.getElementById("nav");dreamText.addEventListener("input",function(){counter.textContent=this.value.length+" / 1000"});menuButton.addEventListener("click",function(){nav.classList.toggle("open")});form.addEventListener("submit",function(event){event.preventDefault();const text=dreamText.value.trim();if(text.length<5){error.textContent="覚えていることを、もう少しだけ書いてみてください。";error.hidden=false;return}error.hidden=true;sessionStorage.setItem("chantDreamText",text);loading.classList.add("show");setTimeout(function(){location.href="dream-result.html"},2400)});
-</script>
+<script>"use strict";const menuButton=document.getElementById("menuButton"),nav=document.getElementById("nav");menuButton.addEventListener("click",()=>nav.classList.toggle("open"));</script>
 </body>
 </html>
