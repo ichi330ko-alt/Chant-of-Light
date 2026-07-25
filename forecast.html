@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>宇宙全体の心の天気予報｜光の詠唱</title>
-
 <style>
 *{
   box-sizing:border-box;
@@ -432,139 +432,6 @@ body{
 }
 
 
-/* =========================
-   生年月日保存エリア
-========================= */
-
-.personal-area{
-  margin-top:34px;
-  padding-top:30px;
-  border-top:
-    1px solid rgba(184,139,71,.35);
-}
-
-.personal-title{
-  margin:0 0 10px;
-  color:#806039;
-  font-size:
-    clamp(20px,5vw,26px);
-  font-weight:normal;
-  letter-spacing:.06em;
-}
-
-.personal-description{
-  margin:0 0 22px;
-  color:#75644f;
-  font-size:14px;
-  line-height:1.9;
-}
-
-.birth-form{
-  margin:0 auto;
-}
-
-.birth-fields{
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-.birth-field{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:6px;
-}
-
-.birth-field label{
-  padding-left:5px;
-  color:#796341;
-  font-size:13px;
-}
-
-.birth-input-row{
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-
-.birth-input{
-  width:90px;
-  padding:11px 10px;
-  border:1px solid #c8a463;
-  border-radius:10px;
-  background:#fffaf0;
-  color:#594a37;
-  font:inherit;
-  text-align:center;
-}
-
-.birth-input.short{
-  width:70px;
-}
-
-.birth-input:focus{
-  outline:
-    2px solid rgba(196,153,78,.26);
-  outline-offset:2px;
-}
-
-.birth-unit{
-  color:#715f46;
-  font-size:15px;
-}
-
-.birth-actions{
-  margin-top:18px;
-}
-
-.birth-error{
-  min-height:1.7em;
-  margin:12px 0 0;
-  color:#a35353;
-  font-size:13px;
-  line-height:1.7;
-}
-
-.saved-birth{
-  padding:19px 16px;
-  border:
-    1px solid rgba(184,139,71,.30);
-  border-radius:16px;
-  background:
-    rgba(255,250,238,.72);
-}
-
-.saved-label{
-  margin:0 0 7px;
-  color:#8d795f;
-  font-size:13px;
-}
-
-.saved-date{
-  margin:0 0 13px;
-  color:#6d512b;
-  font-size:20px;
-  letter-spacing:.04em;
-}
-
-.personal-link{
-  margin-top:18px;
-}
-
-.privacy-note{
-  margin:17px 0 0;
-  color:#96846c;
-  font-size:12px;
-  line-height:1.8;
-}
-
-.hidden{
-  display:none !important;
-}
-
 
 @media(max-width:850px){
 
@@ -609,434 +476,126 @@ body{
     grid-template-columns:1fr;
   }
 
-  .birth-fields{
-    gap:10px 6px;
-  }
-
-  .birth-input{
-    width:82px;
-  }
-
-  .birth-input.short{
-    width:62px;
-  }
 }
 </style>
 </head>
-
 <body>
-
-
 <header class="site-header">
-
-  <div class="topbar">
-
-    <a
-      class="header-brand"
-      href="index.html">
+<div class="topbar">
+<a class="header-brand" href="index.html">
       光の詠唱
     </a>
-
-    <button
-      class="menu-button"
-      id="menuButton"
-      type="button"
-      aria-label="メニューを開く"
-      aria-expanded="false"
-      aria-controls="globalNav">
+<button aria-controls="globalNav" aria-expanded="false" aria-label="メニューを開く" class="menu-button" id="menuButton" type="button">
       ☰
     </button>
-
-    <nav
-      class="global-nav"
-      id="globalNav"
-      aria-label="上部メニュー">
-
-      <a href="index.html">
+<nav aria-label="上部メニュー" class="global-nav" id="globalNav">
+<a href="index.html">
         ホーム
       </a>
-
-      <a href="card.html">
+<a href="card.html">
         今日の一枚
       </a>
-
-      <a href="omamori.html">
+<a href="omamori.html">
         宇宙からのプレゼント
       </a>
-
-      <a href="purification.html">
+<a href="purification.html">
         心の浄化
       </a>
-
-      <a href="forecast.html">
+<a href="forecast.html">
         心の天気予報
       </a>
-
-      <a href="dream.html">
+<a href="dream.html">
         夢の解き明かし
       </a>
-
-      <a href="guide.html">
+<a href="guide.html">
         はじめての方へ
       </a>
-
-    </nav>
-
-  </div>
-
+</nav>
+</div>
 </header>
-
-
-<main
-  class="page"
-  style="padding:38px 14px 0;">
-
-  <h1 class="title">
+<main class="page" style="padding:38px 14px 0;">
+<h1 class="title">
     宇宙全体の心の天気予報
   </h1>
-
-  <p class="subtitle">
-    今日の宇宙全体の流れを、<br>
+<p class="subtitle">
+    今日の宇宙全体の流れを、<br/>
     世界共通の心の天気としてお届けします。
   </p>
-
-  <nav
-    class="forecast-switch"
-    aria-label="心の天気予報の切り替え">
-
-    <a
-      class="forecast-tab active"
-      href="forecast.html"
-      aria-current="page">
+<nav aria-label="心の天気予報の切り替え" class="forecast-switch">
+<a aria-current="page" class="forecast-tab active" href="forecast.html">
       🌎 宇宙全体
     </a>
-
-    <a
-      class="forecast-tab"
-      href="personal.html">
+<a class="forecast-tab" href="personal.html">
       👤 あなた個人
     </a>
-
-  </nav>
-
-  <section class="forecast">
-
-    <p
-      class="status"
-      id="status">
+</nav>
+<section class="forecast">
+<p class="status" id="status">
       今日の星回りを読み取っています……
     </p>
-
-    <h2
-      class="weather"
-      id="weather">
+<h2 class="weather" id="weather">
       読み込み中……
     </h2>
-
-    <p
-      class="meta"
-      id="meta">
-    </p>
-
-    <p
-      class="comment"
-      id="comment">
-    </p>
-
-    <div
-      class="card-box"
-      id="cardBox"
-      hidden>
-
-      <p class="card-label">
+<p class="meta" id="meta">
+</p>
+<p class="comment" id="comment">
+</p>
+<div class="card-box" hidden="" id="cardBox">
+<p class="card-label">
         今日のカード
       </p>
-
-      <h3
-        class="card-name"
-        id="cardName">
-      </h3>
-
-      <a
-        class="button"
-        id="cardLink"
-        href="#">
+<h3 class="card-name" id="cardName">
+</h3>
+<a class="button" href="#" id="cardLink">
         カードを見る
       </a>
-
-    </div>
-
-
-    <details
-      class="details"
-      id="details"
-      hidden>
-
-      <summary>
+</div>
+<details class="details" hidden="" id="details">
+<summary>
         今日の判定内容を見る
       </summary>
-
-      <h3 class="chart-title">
+<h3 class="chart-title">
         今日の宇宙ホロスコープ
       </h3>
-
-      <div
-        class="chart-wrap"
-        id="chartWrap">
-      </div>
-
-      <ul
-        class="planet-list"
-        id="planetList">
-      </ul>
-
-      <h3 class="chart-title">
+<div class="chart-wrap" id="chartWrap">
+</div>
+<ul class="planet-list" id="planetList">
+</ul>
+<h3 class="chart-title">
         主な判定理由
       </h3>
+<ul class="details-list" id="detailsList">
+</ul>
+</details>
 
-      <ul
-        class="details-list"
-        id="detailsList">
-      </ul>
-
-    </details>
-
-
-    <section
-      class="personal-area"
-      aria-labelledby="personalTitle">
-
-      <h2
-        class="personal-title"
-        id="personalTitle">
-        あなた個人の心の天気予報
-      </h2>
-
-      <p class="personal-description">
-        生年月日を登録すると、次回から同じブラウザで
-        自動的に呼び出せます。
-      </p>
-
-
-      <!-- 初回・変更時の入力欄 -->
-
-      <form
-        class="birth-form"
-        id="birthForm"
-        novalidate>
-
-        <div class="birth-fields">
-
-          <div class="birth-field">
-
-            <label for="birthYear">
-              生まれた年
-            </label>
-
-            <div class="birth-input-row">
-
-              <input
-                class="birth-input"
-                id="birthYear"
-                name="birthYear"
-                type="number"
-                inputmode="numeric"
-                min="1900"
-                max="2100"
-                step="1"
-                placeholder="1985"
-                autocomplete="bday-year"
-                required>
-
-              <span class="birth-unit">
-                年
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <div class="birth-field">
-
-            <label for="birthMonth">
-              月
-            </label>
-
-            <div class="birth-input-row">
-
-              <input
-                class="birth-input short"
-                id="birthMonth"
-                name="birthMonth"
-                type="number"
-                inputmode="numeric"
-                min="1"
-                max="12"
-                step="1"
-                placeholder="10"
-                autocomplete="bday-month"
-                required>
-
-              <span class="birth-unit">
-                月
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <div class="birth-field">
-
-            <label for="birthDay">
-              日
-            </label>
-
-            <div class="birth-input-row">
-
-              <input
-                class="birth-input short"
-                id="birthDay"
-                name="birthDay"
-                type="number"
-                inputmode="numeric"
-                min="1"
-                max="31"
-                step="1"
-                placeholder="31"
-                autocomplete="bday-day"
-                required>
-
-              <span class="birth-unit">
-                日
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="birth-actions">
-
-          <button
-            class="button"
-            type="submit">
-            生年月日を保存する
-          </button>
-
-          <button
-            class="button secondary small-button hidden"
-            id="cancelChangeButton"
-            type="button">
-            変更をやめる
-          </button>
-
-        </div>
-
-        <p
-          class="birth-error"
-          id="birthError"
-          role="alert">
-        </p>
-
-      </form>
-
-
-      <!-- 保存後の表示 -->
-
-      <div
-        class="saved-birth hidden"
-        id="savedBirth">
-
-        <p class="saved-label">
-          保存されている生年月日
-        </p>
-
-        <p
-          class="saved-date"
-          id="savedBirthDate">
-        </p>
-
-        <button
-          class="button secondary small-button"
-          id="changeBirthButton"
-          type="button">
-          生年月日を変更する
-        </button>
-
-      </div>
-
-
-      <div
-        class="personal-link hidden"
-        id="personalLink">
-
-        <a
-          class="button"
-          href="personal.html">
-          👤 あなた個人の心の天気予報を見る
-        </a>
-
-      </div>
-
-      <p class="privacy-note">
-        ※ 生年月日は、このブラウザの中だけに保存されます。<br>
-        サイトの管理者へ送信されることはありません。
-      </p>
-
-    </section>
-
-
-    <p class="update-note">
+<p class="update-note">
       ※ 心の天気予報は、日本時間の午前3時時点の
       ホロスコープをもとに、その日の指針として
       お届けしています。
     </p>
-
-  </section>
-
-
-  <a
-    class="button secondary"
-    href="index.html">
+</section>
+<a class="button secondary" href="index.html">
     Home
   </a>
-
 </main>
-
-
 <footer class="site-footer">
-
-  <div class="footer-links">
-
-    <span class="footer-item">
+<div class="footer-links">
+<span class="footer-item">
       お問い合わせ
       <small>（準備中）</small>
-    </span>
-
-    <a href="terms.html">
+</span>
+<a href="terms.html">
       利用規約
     </a>
-
-    <a href="privacy.html">
+<a href="privacy.html">
       プライバシーポリシー
     </a>
-
-  </div>
-
-  <p class="copyright">
+</div>
+<p class="copyright">
     © Chant of Light
   </p>
-
 </footer>
-
-
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-
-
 <script>
 /* =========================
    ハンバーガーメニュー
@@ -1130,390 +689,6 @@ document.addEventListener(
   }
 );
 </script>
-
-
-<script>
-/* =========================
-   生年月日の保存機能
-========================= */
-
-const BIRTH_STORAGE_KEY =
-  "chantOfLightBirthDate";
-
-const birthForm =
-  document.getElementById("birthForm");
-
-const birthYear =
-  document.getElementById("birthYear");
-
-const birthMonth =
-  document.getElementById("birthMonth");
-
-const birthDay =
-  document.getElementById("birthDay");
-
-const birthError =
-  document.getElementById("birthError");
-
-const savedBirth =
-  document.getElementById("savedBirth");
-
-const savedBirthDate =
-  document.getElementById("savedBirthDate");
-
-const changeBirthButton =
-  document.getElementById("changeBirthButton");
-
-const cancelChangeButton =
-  document.getElementById("cancelChangeButton");
-
-const personalLink =
-  document.getElementById("personalLink");
-
-
-let savedBirthData = null;
-
-
-/*
-  入力された年月日が実在する日付か確認します。
-  例：2月30日などは保存しません。
-*/
-function isValidBirthDate(
-  year,
-  month,
-  day
-){
-
-  if(
-    !Number.isInteger(year) ||
-    !Number.isInteger(month) ||
-    !Number.isInteger(day)
-  ){
-    return false;
-  }
-
-  if(
-    year < 1900 ||
-    year > 2100 ||
-    month < 1 ||
-    month > 12 ||
-    day < 1 ||
-    day > 31
-  ){
-    return false;
-  }
-
-  const date =
-    new Date(
-      year,
-      month - 1,
-      day
-    );
-
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month - 1 &&
-    date.getDate() === day
-  );
-}
-
-
-/*
-  localStorageから生年月日を読み込みます。
-*/
-function loadBirthDate(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        BIRTH_STORAGE_KEY
-      );
-
-    if(!saved){
-      return null;
-    }
-
-    const data =
-      JSON.parse(saved);
-
-    const year =
-      Number(data.year);
-
-    const month =
-      Number(data.month);
-
-    const day =
-      Number(data.day);
-
-    if(
-      !isValidBirthDate(
-        year,
-        month,
-        day
-      )
-    ){
-      localStorage.removeItem(
-        BIRTH_STORAGE_KEY
-      );
-
-      return null;
-    }
-
-    return {
-      year,
-      month,
-      day
-    };
-  }
-  catch(error){
-
-    return null;
-  }
-}
-
-
-/*
-  生年月日をブラウザへ保存します。
-*/
-function saveBirthDate(data){
-
-  localStorage.setItem(
-    BIRTH_STORAGE_KEY,
-    JSON.stringify(data)
-  );
-}
-
-
-/*
-  入力欄へ保存済みの生年月日を入れます。
-*/
-function fillBirthForm(data){
-
-  birthYear.value =
-    data ? data.year : "";
-
-  birthMonth.value =
-    data ? data.month : "";
-
-  birthDay.value =
-    data ? data.day : "";
-}
-
-
-/*
-  保存済み表示へ切り替えます。
-*/
-function showSavedBirth(data){
-
-  savedBirthData = data;
-
-  savedBirthDate.textContent =
-    data.year +
-    "年" +
-    data.month +
-    "月" +
-    data.day +
-    "日";
-
-  birthForm.classList.add(
-    "hidden"
-  );
-
-  savedBirth.classList.remove(
-    "hidden"
-  );
-
-  personalLink.classList.remove(
-    "hidden"
-  );
-
-  cancelChangeButton.classList.add(
-    "hidden"
-  );
-
-  birthError.textContent = "";
-}
-
-
-/*
-  入力欄を表示します。
-*/
-function showBirthForm(
-  data,
-  isChanging
-){
-
-  fillBirthForm(data);
-
-  birthForm.classList.remove(
-    "hidden"
-  );
-
-  savedBirth.classList.add(
-    "hidden"
-  );
-
-  if(isChanging){
-
-    cancelChangeButton.classList.remove(
-      "hidden"
-    );
-  }
-  else{
-
-    cancelChangeButton.classList.add(
-      "hidden"
-    );
-  }
-
-  birthError.textContent = "";
-
-  window.setTimeout(
-    function(){
-
-      birthYear.focus();
-    },
-    50
-  );
-}
-
-
-/*
-  保存ボタン
-*/
-birthForm.addEventListener(
-  "submit",
-  function(event){
-
-    event.preventDefault();
-
-    const year =
-      Number(birthYear.value);
-
-    const month =
-      Number(birthMonth.value);
-
-    const day =
-      Number(birthDay.value);
-
-    if(
-      !birthYear.value ||
-      !birthMonth.value ||
-      !birthDay.value
-    ){
-
-      birthError.textContent =
-        "生年月日をすべて入力してください。";
-
-      return;
-    }
-
-    if(
-      !isValidBirthDate(
-        year,
-        month,
-        day
-      )
-    ){
-
-      birthError.textContent =
-        "正しい生年月日を入力してください。";
-
-      return;
-    }
-
-    const data = {
-      year,
-      month,
-      day
-    };
-
-    try{
-
-      saveBirthDate(data);
-
-      showSavedBirth(data);
-    }
-    catch(error){
-
-      birthError.textContent =
-        "このブラウザでは保存できませんでした。";
-    }
-  }
-);
-
-
-/*
-  変更するボタン
-*/
-changeBirthButton.addEventListener(
-  "click",
-  function(){
-
-    showBirthForm(
-      savedBirthData,
-      true
-    );
-  }
-);
-
-
-/*
-  変更をやめるボタン
-*/
-cancelChangeButton.addEventListener(
-  "click",
-  function(){
-
-    if(savedBirthData){
-
-      showSavedBirth(
-        savedBirthData
-      );
-    }
-  }
-);
-
-
-/*
-  ページを開いた時の表示
-*/
-function initializeBirthDate(){
-
-  const data =
-    loadBirthDate();
-
-  if(data){
-
-    showSavedBirth(data);
-  }
-  else{
-
-    savedBirthData = null;
-
-    birthForm.classList.remove(
-      "hidden"
-    );
-
-    savedBirth.classList.add(
-      "hidden"
-    );
-
-    personalLink.classList.add(
-      "hidden"
-    );
-
-    cancelChangeButton.classList.add(
-      "hidden"
-    );
-  }
-}
-
-
-initializeBirthDate();
-</script>
-
 
 <script>
 /* =========================
@@ -1862,8 +1037,6 @@ initializeBirthDate();
 
 })(window);
 </script>
-
-
 <script>
 /* =========================
    天気予報の表示
@@ -2638,6 +1811,5 @@ async function start(){
 
 start();
 </script>
-
 </body>
 </html>
