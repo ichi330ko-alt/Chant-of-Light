@@ -516,6 +516,73 @@ body{
     transition-duration:.01ms !important;
   }
 }
+
+
+/* =========================
+   あなたに合ったコンテンツ
+========================= */
+
+.related-section{
+  padding:70px 20px 76px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,246,220,.56),transparent 42%),
+    linear-gradient(180deg,#ead9bf 0%,#f4eadb 100%);
+}
+
+.related-inner{
+  width:min(720px,100%);
+  margin:0 auto;
+  padding:40px 28px;
+  border:1px solid rgba(167,125,62,.28);
+  border-radius:22px;
+  background:rgba(255,252,246,.72);
+  box-shadow:0 18px 42px rgba(102,75,42,.10);
+}
+
+.related-kicker{
+  margin:0 0 9px;
+  color:#9a7440;
+  font-size:12px;
+  letter-spacing:.24em;
+}
+
+.related-title{
+  margin:0 0 18px;
+  color:#765a33;
+  font-size:clamp(26px,5vw,38px);
+  font-weight:normal;
+  letter-spacing:.08em;
+}
+
+.related-text{
+  margin:0;
+  color:#665744;
+  font-size:17px;
+  line-height:2;
+}
+
+.related-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:230px;
+  margin-top:28px;
+  padding:13px 26px;
+  border:1px solid rgba(154,116,64,.52);
+  border-radius:999px;
+  color:#fffdf5;
+  background:linear-gradient(135deg,#876538,#b18b51);
+  box-shadow:0 10px 24px rgba(91,64,31,.18);
+  text-decoration:none;
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+
+.related-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(91,64,31,.24);
+}
+
 </style>
 </head>
 
@@ -728,6 +795,21 @@ body{
   </div>
 
 </main>
+
+
+<section class="related-section">
+  <div class="related-inner">
+    <p class="related-kicker">YOUR NEXT STEP</p>
+    <h2 class="related-title">あなたに合ったコンテンツ</h2>
+    <p class="related-text">
+      生まれ持った性質、今の流れ、心を整える言葉。<br>
+      今のあなたに合う入り口をお選びください。
+    </p>
+    <a class="related-button" href="contents.html">
+      コンテンツを見る
+    </a>
+  </div>
+</section>
 
 <footer class="site-footer">
 
