@@ -12,6 +12,8 @@
 
       name: "生成",
 
+      keywords: ["始まり", "新しいもの", "生まれようとしているもの", "まだ形になっていないもの"],
+
       focus: "まだ形になっていないもの、新しく生まれようとしているもの",
 
       questionBase: "この相談の中で、これから生まれようとしているものは何でしょう。"
@@ -23,6 +25,8 @@
       id: 2,
 
       name: "結び",
+
+      keywords: ["つながり", "縁", "関係", "結びつき", "組み合わせ"],
 
       focus: "人・物・出来事・考えなど、何かと何かが結びつくこと",
 
@@ -36,6 +40,8 @@
 
       name: "境界",
 
+      keywords: ["境目", "距離", "範囲", "区切り", "守る領域"],
+
       focus: "自分と外側、ここまでとここから、守る範囲や距離",
 
       questionBase: "この相談で、どこまでを自分の領域として扱う必要があるでしょう。"
@@ -47,6 +53,8 @@
       id: 4,
 
       name: "循環",
+
+      keywords: ["巡り", "流れ", "受け渡し", "繰り返し", "戻ってくるもの"],
 
       focus: "繰り返し、流れ、受け渡し、戻ってくるもの",
 
@@ -60,6 +68,8 @@
 
       name: "時空",
 
+      keywords: ["時期", "位置", "順序", "タイミング", "今ここでの配置"],
+
       focus: "時期、位置、順序、タイミング、今ここでの配置",
 
       questionBase: "この相談では、いつ・どこで・どの順番で扱うのがよいでしょう。"
@@ -72,6 +82,8 @@
 
       name: "意識",
 
+      keywords: ["認識", "感じ方", "意味づけ", "思い込み", "捉え方"],
+
       focus: "自分の認識、感じ方、意味づけ、思い込み",
 
       questionBase: "私はこの相談を、どのように見ているでしょう。"
@@ -83,6 +95,8 @@
       id: 7,
 
       name: "不可知",
+
+      keywords: ["まだ分からないこと", "未確定", "決められないこと", "分からないまま残す部分"],
 
       focus: "今はまだ確定できないこと、分からないまま残す部分",
 
@@ -101,6 +115,8 @@
       code: "A",
 
       name: "知る",
+
+      keywords: ["知る", "調べる", "確認する", "明らかにする", "理解する"],
 
       meaning: "未知を既知にする。情報を得る・明らかにする。",
 
@@ -126,6 +142,8 @@
 
       name: "疑う",
 
+      keywords: ["疑う", "見直す", "確かめ直す", "前提を外す", "再評価"],
+
       meaning: "「そうだ」と思っている前提を、いったん未確定へ戻す。",
 
       verb: "前提を見直す",
@@ -149,6 +167,8 @@
       code: "C",
 
       name: "変える",
+
+      keywords: ["変える", "変更", "転換", "切り替える", "別の状態へ移す"],
 
       meaning: "今ある状態を、別の状態へ変更する。",
 
@@ -174,6 +194,8 @@
 
       name: "保つ",
 
+      keywords: ["保つ", "守る", "維持する", "続ける", "損なわない"],
+
       meaning: "今ある状態を損なわず維持する。",
 
       verb: "守り保つ",
@@ -195,6 +217,8 @@
       code: "E",
 
       name: "渡す",
+
+      keywords: ["渡す", "伝える", "託す", "差し出す", "外へ移す"],
 
       meaning: "自分側から相手・外側へ、価値や情報などを移す。",
 
@@ -222,6 +246,8 @@
 
       name: "受け取る",
 
+      keywords: ["受け取る", "迎え入れる", "受容する", "取り入れる"],
+
       meaning: "相手・外側から自分側へ迎え入れる。",
 
       verb: "受け取る",
@@ -243,6 +269,8 @@
       code: "G",
 
       name: "構成する",
+
+      keywords: ["構成する", "組み立てる", "形にする", "仕組みにする", "整える"],
 
       meaning: "要素を組み、形・仕組みとして成立させる。",
 
@@ -270,6 +298,8 @@
 
       name: "解体する",
 
+      keywords: ["解体する", "分ける", "ほどく", "分解する", "構造を外す"],
+
       meaning: "成立している構造を分け、ほどく。",
 
       verb: "分けてほどく",
@@ -291,6 +321,8 @@
       code: "I",
 
       name: "選ぶ",
+
+      keywords: ["選ぶ", "決める", "絞る", "残す", "方向を定める"],
 
       meaning: "複数の候補から、残すもの・進む方向を定める。",
 
@@ -316,6 +348,8 @@
 
       name: "除く",
 
+      keywords: ["除く", "外す", "取り除く", "手放す", "減らす"],
+
       meaning: "不要な対象・候補・要素を外す。",
 
       verb: "不要なものを外す",
@@ -339,6 +373,8 @@
       code: "K",
 
       name: "育てる",
+
+      keywords: ["育てる", "成長させる", "成熟させる", "発展させる", "実らせる"],
 
       meaning: "すでにあるものを発達・成熟させる。",
 
@@ -554,6 +590,82 @@
 
  
 
+ 
+
+  function prepareResultLayout() {
+
+    const handles = byId("result-handles");
+
+    if (!handles || byId("result-overview")) return;
+
+ 
+
+    const keywordBlock = handles.parentElement;
+
+    const keywordHeading = keywordBlock?.querySelector("h2, h3, h4, h5");
+
+    if (keywordHeading) keywordHeading.textContent = "当てはまるキーワード";
+
+ 
+
+    if (keywordBlock) {
+
+      const overviewBlock = keywordBlock.cloneNode(true);
+
+      const overviewHeading = overviewBlock.querySelector("h2, h3, h4, h5");
+
+      if (overviewHeading) overviewHeading.textContent = "概要";
+
+ 
+
+      const overviewText =
+
+        overviewBlock.querySelector("#result-handles") ||
+
+        overviewBlock.querySelector("p");
+
+ 
+
+      if (overviewText) {
+
+        overviewText.id = "result-overview";
+
+        overviewText.textContent = "";
+
+      }
+
+ 
+
+      keywordBlock.insertAdjacentElement("afterend", overviewBlock);
+
+    }
+
+ 
+
+    const question = byId("result-question");
+
+    const questionHeading = question?.parentElement?.querySelector("h2, h3, h4, h5");
+
+    if (questionHeading) questionHeading.textContent = "いまの自分への問い";
+
+ 
+
+    const staff = byId("result-staff");
+
+    const staffHeading = staff?.parentElement?.querySelector("h2, h3, h4, h5");
+
+    if (staffHeading) staffHeading.textContent = "担当窓口";
+
+ 
+
+    const action = byId("result-action");
+
+    if (action?.parentElement) action.parentElement.hidden = true;
+
+  }
+
+ 
+
   function renderResult() {
 
     const principle = PRINCIPLES.find((item) => item.id === selectedBlue);
@@ -578,11 +690,29 @@
 
  
 
-    byId("result-handles").textContent =
+    prepareResultLayout();
 
-      `この内線は、「${principle.focus}」に対して、${action.meaning}という働きを重ねて読みます。` +
+ 
 
-      `つまり今回は、${principle.name}の領域にあるものを、いま「${action.verb}」ことがテーマです。`;
+    const keywords = [...principle.keywords, ...action.keywords];
+
+    byId("result-handles").textContent = keywords.join(" ／ ");
+
+ 
+
+    const overview = byId("result-overview");
+
+    if (overview) {
+
+      overview.textContent =
+
+        `この内線は、${principle.name}に関わる「${principle.focus}」について、` +
+
+        `「${action.name}」の働きで見ていきます。` +
+
+        `今は、その中で「${action.verb}」ことに目を向ける内線です。`;
+
+    }
 
  
 
@@ -592,7 +722,7 @@
 
  
 
-    byId("result-action").textContent = action.today;
+    byId("result-action").textContent = "";
 
  
 
@@ -820,6 +950,8 @@
 
     buildCards();
 
+    prepareResultLayout();
+
     byId("finish-call-button").addEventListener("click", finishCall);
 
     byId("restart-button").addEventListener("click", restart);
@@ -831,4 +963,3 @@
   document.addEventListener("DOMContentLoaded", init);
 
 })();
-
