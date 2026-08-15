@@ -378,6 +378,28 @@
 
  
 
+  function shuffle(items) {
+
+    const array = [...items];
+
+ 
+
+    for (let index = array.length - 1; index > 0; index -= 1) {
+
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+
+      [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
+
+    }
+
+ 
+
+    return array;
+
+  }
+
+ 
+
   function createCard(value, type) {
 
     const button = document.createElement("button");
@@ -434,7 +456,13 @@
 
  
 
-    PRINCIPLES.forEach((item) => {
+    blueGrid.innerHTML = "";
+
+    redGrid.innerHTML = "";
+
+ 
+
+    shuffle(PRINCIPLES).forEach((item) => {
 
       blueGrid.appendChild(createCard(String(item.id), "blue"));
 
@@ -442,7 +470,7 @@
 
  
 
-    ACTIONS.forEach((item) => {
+    shuffle(ACTIONS).forEach((item) => {
 
       redGrid.appendChild(createCard(item.code, "red"));
 
@@ -650,19 +678,15 @@
 
  
 
-    document.querySelectorAll(".call-card").forEach((card) => {
-
-      card.classList.remove("is-selected");
-
-    });
-
- 
-
     document.querySelectorAll(".call-card-grid").forEach((grid) => {
 
       grid.classList.remove("has-selection");
 
     });
+
+ 
+
+    buildCards();
 
  
 
