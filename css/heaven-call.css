@@ -22,10 +22,14 @@
 
 body.heaven-call-page {
   margin: 0;
-  background:
-    radial-gradient(circle at 18% 8%, rgba(148, 191, 223, 0.18), transparent 28%),
-    radial-gradient(circle at 85% 20%, rgba(232, 159, 165, 0.16), transparent 30%),
-    linear-gradient(180deg, #fffdf8 0%, #fffaf3 48%, #faf5ec 100%);
+  background-color: #fffaf2;
+  background-image:
+    linear-gradient(rgba(255, 252, 245, 0.08), rgba(255, 252, 245, 0.08)),
+    url("../images/heaven-call-bg.png");
+  background-repeat: no-repeat, repeat-y;
+  background-position: center top, center top;
+  background-size: 100% 100%, 100% auto;
+  background-attachment: scroll;
   color: var(--call-ink);
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
     "Yu Gothic", "Noto Sans JP", sans-serif;
@@ -107,7 +111,7 @@ body.heaven-call-page {
   padding: 28px 32px;
   border: 1px solid var(--call-line);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.70);
   box-shadow: 0 20px 50px rgba(82, 67, 43, 0.07);
   text-align: left;
 }
@@ -156,7 +160,7 @@ body.heaven-call-page {
   padding: 28px;
   border: 1px dashed rgba(154, 126, 74, 0.45);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.68);
   text-align: center;
 }
 
@@ -240,7 +244,7 @@ body.heaven-call-page {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.74);
   box-shadow:
     18px -20px rgba(255, 255, 255, 0.33),
     -20px 17px rgba(255, 255, 255, 0.28),
@@ -322,7 +326,7 @@ body.heaven-call-page {
   padding: 42px 28px;
   border: 1px solid rgba(133, 111, 71, 0.24);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 25px 65px rgba(67, 54, 35, 0.1);
   text-align: center;
 }
@@ -408,7 +412,7 @@ body.heaven-call-page {
   padding: 26px 28px;
   border: 1px solid var(--call-line);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.76);
   box-shadow: 0 14px 35px rgba(71, 57, 37, 0.06);
 }
 
@@ -432,7 +436,7 @@ body.heaven-call-page {
 
 .call-result-question-card {
   border-left: 4px solid #b8995b;
-  background: rgba(255, 252, 244, 0.92);
+  background: rgba(255, 252, 244, 0.82);
 }
 
 .call-result-question {
@@ -467,6 +471,49 @@ body.heaven-call-page {
   line-height: 1.7;
 }
 
+
+
+.call-staff-guide {
+  margin: 0 0 4px;
+  color: #746b60;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.call-staff-select {
+  width: 100%;
+  border: 1px solid rgba(151, 126, 78, 0.2);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.call-staff-select:hover,
+.call-staff-select:focus-visible {
+  border-color: rgba(145, 111, 53, 0.46);
+  background: #fffaf0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(72, 56, 34, 0.08);
+}
+
+.call-staff-item.is-selected {
+  border: 1px solid rgba(145, 111, 53, 0.48);
+  background: #fff7e7;
+  box-shadow: inset 0 0 0 2px rgba(185, 154, 87, 0.09);
+}
+
+.call-staff-item.is-selected strong::before {
+  margin-right: 0.45em;
+  color: #a08045;
+  content: "✓";
+}
+
+
 .call-prayer-section {
   margin-top: 58px;
   padding: 42px 28px;
@@ -492,7 +539,7 @@ body.heaven-call-page {
   padding: 26px;
   border: 1px solid rgba(151, 126, 78, 0.22);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.74);
   text-align: left;
 }
 
@@ -587,6 +634,36 @@ body.heaven-call-page {
 
   .call-prayer-section {
     padding-inline: 10px;
+  }
+}
+
+
+@media (max-width: 760px) {
+  html {
+    background: #fffaf2;
+  }
+
+  body.heaven-call-page {
+    background-color: #fffaf2;
+    background-image:
+      linear-gradient(rgba(255, 252, 245, 0.28), rgba(255, 252, 245, 0.28)),
+      url("../images/heaven-call-bg.png");
+    background-repeat: repeat-y, repeat-y;
+    background-position: center top, center top;
+    background-size: 100% auto, 760px auto;
+    background-attachment: scroll, scroll;
+  }
+}
+
+@media (max-width: 480px) {
+  body.heaven-call-page {
+    background-image:
+      linear-gradient(rgba(255, 252, 245, 0.30), rgba(255, 252, 245, 0.30)),
+      url("../images/heaven-call-bg.png");
+    background-repeat: repeat-y, repeat-y;
+    background-position: center top, center top;
+    background-size: 100% auto, 620px auto;
+    background-attachment: scroll, scroll;
   }
 }
 
