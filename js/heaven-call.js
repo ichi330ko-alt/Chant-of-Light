@@ -374,6 +374,8 @@
 
   let selectedRed = null;
 
+  let selectedStaff = null;
+
   let connectionTimer = null;
 
  
@@ -594,15 +596,23 @@
 
  
 
+    selectedStaff = null;
+
     renderStaff(action.staff);
+
+  }
 
  
 
-    const firstStaff = action.staff[0]?.[0] || "担当の存在";
+  function setPrayerForStaff(name) {
+
+    selectedStaff = name;
+
+ 
 
     byId("prayer-template").textContent =
 
-      `${firstStaff}様、\n` +
+      `${name}様、\n` +
 
       `この問いに向き合うためのお力添えをありがとうございます。\n` +
 
@@ -611,6 +621,12 @@
       `お力添えありがとうございました。\n` +
 
       `このお願いはここで終わります。`;
+
+ 
+
+    byId("prayer-template").closest(".call-prayer-box").hidden = false;
+
+    byId("finish-call-button").hidden = false;
 
   }
 
@@ -624,11 +640,73 @@
 
  
 
-    staffList.forEach(([name, description]) => {
+    const prayerBox = byId("prayer-template").closest(".call-prayer-box");
+
+ 
+
+    if (staffList.length === 1) {
+
+      const [name, description] = staffList[0];
+
+ 
 
       const item = document.createElement("div");
 
-      item.className = "call-staff-item";
+      item.className = "call-staff-item is-selected";
+
+ 
+
+      const title = document.createElement("strong");
+
+      title.textContent = `今回の担当：${name}`;
+
+ 
+
+      const text = document.createElement("p");
+
+      text.textContent = description;
+
+ 
+
+      item.append(title, text);
+
+      container.appendChild(item);
+
+ 
+
+      setPrayerForStaff(name);
+
+      return;
+
+    }
+
+ 
+
+    prayerBox.hidden = true;
+
+    byId("finish-call-button").hidden = true;
+
+ 
+
+    const guide = document.createElement("p");
+
+    guide.className = "call-staff-guide";
+
+    guide.textContent =
+
+      "担当候補が複数います。あなたの相談内容にいちばん近い担当者を選んでください。";
+
+    container.appendChild(guide);
+
+ 
+
+    staffList.forEach(([name, description]) => {
+
+      const button = document.createElement("button");
+
+      button.type = "button";
+
+      button.className = "call-staff-item call-staff-select";
 
  
 
@@ -644,9 +722,33 @@
 
  
 
-      item.append(title, text);
+      button.append(title, text);
 
-      container.appendChild(item);
+ 
+
+      button.addEventListener("click", () => {
+
+        container.querySelectorAll(".call-staff-select").forEach((item) => {
+
+          item.classList.remove("is-selected");
+
+        });
+
+ 
+
+        button.classList.add("is-selected");
+
+        setPrayerForStaff(name);
+
+ 
+
+        prayerBox.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      });
+
+ 
+
+      container.appendChild(button);
 
     });
 
@@ -675,6 +777,8 @@
     selectedBlue = null;
 
     selectedRed = null;
+
+    selectedStaff = null;
 
  
 
@@ -727,3 +831,4 @@
   document.addEventListener("DOMContentLoaded", init);
 
 })();
+
