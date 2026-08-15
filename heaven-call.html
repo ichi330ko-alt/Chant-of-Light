@@ -1,1 +1,192 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="天界コールセンターの簡易セルフリーディング体験ページです。青い番号カードと赤い英字カードを1枚ずつ選び、内線番号から問いの構造と担当窓口を確認します。"
+  >
+  <title>天界コールセンター | 光の詠唱</title>
+
+  <link rel="stylesheet" href="css/heaven-call.css?v=1">
+</head>
+
+<body class="heaven-call-page">
+
+  <header class="heaven-call-header">
+    <div class="heaven-call-header-inner">
+      <a class="heaven-call-logo" href="index.html">光の詠唱</a>
+      <nav aria-label="メインナビゲーション">
+        <a href="index.html">ホーム</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="call-hero">
+      <div class="call-shell call-hero-inner">
+        <p class="call-kicker">HEAVENLY CALL CENTER</p>
+        <h1>天界コールセンター</h1>
+        <p class="call-hero-copy">
+          その質問、どの窓口につなぎますか？
+        </p>
+
+        <div class="call-intro-card">
+          <p>
+            天界コールセンターは、未来を当てるための場所ではありません。
+            あなたが今抱えている問いを、<strong>「何を扱う相談なのか」</strong>という形に整理し、
+            その内容に近い担当窓口へつなぐためのセルフリーディングです。
+          </p>
+          <p>
+            青いカードと赤いカードを1枚ずつ選ぶと、2枚の組み合わせから
+            <strong>77の内線番号</strong>のうち1つが決まります。
+            結果が出るまでは、カードの意味は分かりません。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="call-section">
+      <div class="call-shell">
+        <div class="call-step-heading">
+          <span class="call-step-number">STEP 1</span>
+          <h2>質問をひとつ思い浮かべる</h2>
+        </div>
+
+        <div class="call-question-box">
+          <div class="call-question-icon" aria-hidden="true">☎</div>
+          <p>
+            いま聞いてみたいことを、ひとつ心の中で思い浮かべてください。
+            文章にしなくても大丈夫です。
+          </p>
+          <p class="call-question-note">
+            YES / NOを決めるのではなく、「この相談をどう扱えばいい？」くらいの気持ちで引いてみてください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="call-section call-card-section">
+      <div class="call-shell">
+        <div class="call-step-heading">
+          <span class="call-step-number">STEP 2</span>
+          <h2>青いカードから1枚</h2>
+        </div>
+        <p class="call-section-copy">
+          7枚の中から、気になる1枚を選んでください。
+        </p>
+
+        <div id="blue-card-grid" class="call-card-grid call-card-grid-blue" aria-label="青いカード7枚"></div>
+
+        <div id="blue-selection" class="call-selection call-selection-blue" hidden>
+          <span>青のカード</span>
+          <strong id="blue-selection-value"></strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="call-section call-card-section">
+      <div class="call-shell">
+        <div class="call-step-heading">
+          <span class="call-step-number">STEP 3</span>
+          <h2>赤いカードから1枚</h2>
+        </div>
+        <p class="call-section-copy">
+          続いて、11枚の中から気になる1枚を選んでください。
+        </p>
+
+        <div id="red-card-grid" class="call-card-grid call-card-grid-red" aria-label="赤いカード11枚"></div>
+
+        <div id="red-selection" class="call-selection call-selection-red" hidden>
+          <span>赤のカード</span>
+          <strong id="red-selection-value"></strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="connection-section" class="call-section call-connection-section" hidden>
+      <div class="call-shell">
+        <div class="call-connection-panel" aria-live="polite">
+          <div class="call-phone-mark" aria-hidden="true">☎</div>
+          <p class="call-connection-small">内線番号を確認しました</p>
+          <p id="extension-number" class="call-extension-number"></p>
+          <p class="call-connect-copy">こちらの内線へお繋ぎします。</p>
+          <div class="call-connecting" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="result-section" class="call-section call-result-section" hidden>
+      <div class="call-shell">
+
+        <div class="call-result-head">
+          <p class="call-kicker">CONNECTED</p>
+          <h2><span id="result-extension"></span> に接続しました</h2>
+          <p id="result-combination" class="call-result-combination"></p>
+        </div>
+
+        <div class="call-result-grid">
+
+          <article class="call-result-card">
+            <p class="call-result-label">この内線が扱うこと</p>
+            <h3 id="result-title"></h3>
+            <p id="result-handles"></p>
+          </article>
+
+          <article class="call-result-card call-result-question-card">
+            <p class="call-result-label">この内線からの問い</p>
+            <p id="result-question" class="call-result-question"></p>
+          </article>
+
+          <article class="call-result-card">
+            <p class="call-result-label">担当窓口</p>
+            <div id="result-staff" class="call-staff-list"></div>
+          </article>
+
+          <article class="call-result-card">
+            <p class="call-result-label">今日できること</p>
+            <p id="result-action"></p>
+          </article>
+
+        </div>
+
+        <div class="call-prayer-section">
+          <p class="call-kicker">CLOSING</p>
+          <h2>接続を終える前に</h2>
+          <p class="call-prayer-lead">
+            最後に、つながった担当へ感謝を伝えて、問いを自分の現実へ戻します。
+          </p>
+
+          <div class="call-prayer-box">
+            <p id="prayer-template"></p>
+          </div>
+
+          <button id="finish-call-button" class="call-finish-button" type="button">
+            ☎ 接続を終了する
+          </button>
+
+          <p id="call-finished-message" class="call-finished-message" hidden>
+            本日のご利用ありがとうございました。<br>
+            必要な答えは、ここからあなたの日常の中で確かめてみてください。
+          </p>
+
+          <button id="restart-button" class="call-restart-button" type="button" hidden>
+            もう一度つなぐ
+          </button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="heaven-call-footer">
+    © 2026 光の詠唱
+  </footer>
+
+  <script src="js/heaven-call.js?v=1"></script>
+</body>
+</html>
